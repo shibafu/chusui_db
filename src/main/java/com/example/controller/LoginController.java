@@ -30,11 +30,13 @@ public class LoginController {
 
 	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
 	public String user_login(Model model,
-			@RequestParam("username") String username,
-			@RequestParam("password")String password){
+			@RequestParam("loginName")String loginName,
+			@RequestParam("loginPassword")String loginPassword){
 
+		model.addAttribute("loginName",loginName);
+		model.addAttribute("loginPassword",loginPassword);
 
-	    return "index";
+	    return "login";
 	}
 
 }

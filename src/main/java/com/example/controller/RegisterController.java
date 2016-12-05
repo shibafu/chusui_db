@@ -15,6 +15,6 @@ public class RegisterController {
         model.addAttribute("msg","サンプルメッセージ！");
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
-	    return "index";
+	    return "login";
 	}
 }

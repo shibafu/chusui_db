@@ -10,7 +10,7 @@
 
 <body>
 	<div th:with="welcome='Welcom to our Thymeleaf!'">
-		<p th:text="${welcome}"></p>
+		<p th:text="'ようこそ! ' + ${loginName} + ' さん'"></p>
 	</div>
 	<br/>
     <p th:text="${today}"></p>
