@@ -26,4 +26,12 @@ public class LoginController {
         model.addAttribute("today",cal.getTime().toString());
 	    return "index";
 	}
+
+	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
+	public String user_login(Model model){
+
+
+	    return "index";
+	}
+
 }
