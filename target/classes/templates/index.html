@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>中水野澤のページへようこそ</title>
+<style type="text/css">
+.auto-style1 {
+	text-align: center;
+}
+
+.auto-style2 {
+	text-align: left;
+	margin-left: 80px;
+}
+
+.auto-style3 {
+	text-align: left;
+	margin-left: 40px;
+}
+
+.auto-style5 {
+	margin-left: 40px;
+}
+
+.auto-style6 {
+	text-align: right;
+	margin-left: 40px;
+}
+
+.auto-style7 {
+	text-align: left;
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+	<p class="auto-style1">中水野澤のページへようこそ</p>
+	<p class="auto-style2">
+		ここは中水青森中央市場 冷凍部 <br /> 野澤のwebページです。
+	</p>
+	<p class="auto-style2">ここから私の担当している商品の問い合わせや注文ができます。</p>
+		<p class="auto-style2" th:text="${today}">Weekly Month dateの表示</p>
+	<p class="auto-style3" style="height: 24px">
+		使用するにはユーザーネームを入力してログインをしてください <br /> <br /> ユーザーネーム
+
+	</p>
+	<br />
+	<form action="/user_top" method="post">
+		<p class="auto-style5">
+			<input name="login_name" type="text" />
+		</p>
+		<p class="auto-style5">パスワード</p>
+		<p class="auto-style5">
+			<input name="password" type="password" />
+			<p class="auto-style6">
+				<div class="auto-style7">
+					<input name="Button_login" type="submit" value="ログイン" />
+				</div>
+			</p>
+		</p>
+	</form>
+	<p class="auto-style6">新規ユーザーの方はこちらから</p>
+
+	<form action="/register" method="post">
+		<p class="auto-style6">
+			<input name="toRegister" type="submit" value="新規ユーザー登録" />
+		</p>
+	</form>
+
+	<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf71tXbUpsuPFdJmezGkC0eWq_AFHMjySrSsAR6Op_PLdpuiQ/viewform?embedded=true" width="760" height="900" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます...</iframe>
+</body>
+
+</html>

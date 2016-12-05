@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+<title>Good Thymes Virtual Grocery</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+
+<body>
+	<div th:with="welcome='Welcome to our Thymeleaf!'">
+		<p th:text="'ようこそ！ ' + ${login_name} +  'さん'"></p>
+		<p th:text="${password}"></p>
+	</div>
+	<br/>
+</body>
+
+</html>
