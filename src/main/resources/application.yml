@@ -10,6 +10,7 @@ spring:
     driverClassName: org.postgresql.Driver
   mvc:
     view:
+      prefix: /WEB-INF/views/
       suffix: .jsp
 server:
   port: 7777
