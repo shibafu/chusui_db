@@ -4,9 +4,11 @@ import java.util.Calendar;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.form.LoginForm;
 
 @Controller
 public class LoginController {
@@ -30,11 +32,10 @@ public class LoginController {
 
 	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
 	public String user_login(Model model,
-			@RequestParam("loginName")String loginName,
-			@RequestParam("loginPassword")String loginPassword){
+			@ModelAttribute("LoginForm")LoginForm loginForm){
 
-		model.addAttribute("loginName",loginName);
-		model.addAttribute("loginPassword",loginPassword);
+		model.addAttribute("loginName",loginForm.getLoginName());
+		model.addAttribute("loginPassword",loginForm.getLoginPassword());
 
 	    return "login";
 	}
