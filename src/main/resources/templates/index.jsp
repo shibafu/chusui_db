@@ -1,6 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<html>
 <head>
 <meta content="ja" http-equiv="Content-Language" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -48,7 +48,8 @@
 
 	</p>
 	<br />
-	<form action="/user_top" method="post">
+	<form:form commandName="LoginForm_com"></form:form>
+	<form action="/" method="post">
 		<p class="auto-style5">
 			<input name="loginName" type="text" />
 		</p>
