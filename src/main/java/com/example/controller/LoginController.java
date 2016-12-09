@@ -21,7 +21,7 @@ public class LoginController {
 		Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-		return "index2";
+		return "index";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
