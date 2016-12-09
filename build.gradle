@@ -36,6 +36,10 @@ dependencies {
 	//JSP動かしてぇ・・・
 	compile 'javax.servlet:jstl:1.2'
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    //jSPエンジン
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.8'
+
 
 	runtime('org.postgresql:postgresql')
 	compileOnly('org.projectlombok:lombok')

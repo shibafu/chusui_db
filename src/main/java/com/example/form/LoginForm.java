@@ -1,5 +1,6 @@
 package com.example.form;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -14,6 +15,7 @@ public class LoginForm {
 	//index.htmlのloginFormと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "パスワードを入力してください")
 	@Size(min = 6,max= 18 ,groups={GroupOrder2.class}, message = "パスワードは6文字以上18文字以下で入力してください")
+	@Pattern(regexp="[a-zA-Z0-9]*",groups={GroupOrder2.class},message="パスワードは英数である必要があります。")
 	private String loginPassword;
 
 	public void setLoginName(String x_loginname){

@@ -36,7 +36,7 @@
 </style>
 </head>
 
-<body>
+<body th:object="${form}">
 	<p class="auto-style1">中水野澤のページへようこそ</p>
 	<p class="auto-style2">
 		ここは中水青森中央市場 冷凍部 <br /> 野澤のwebページです。
@@ -48,14 +48,19 @@
 
 	</p>
 	<br />
-	<form:form commandName="LoginForm_com"></form:form>
 	<form action="/user_top" method="post">
 		<p class="auto-style5">
 			<input name="loginName" type="text" />
+        <li th:each="error : ${#fields.detailedErrors()}">
+            <span th:text="${error.message}">Error message</span>
+        </li>
 		</p>
 		<p class="auto-style5">パスワード</p>
 		<p class="auto-style5">
 			<input name="loginPassword" type="password" />
+		<li th:each="error : ${#fields.detailedErrors()}">
+            <span th:text="${error.message}">Error message</span>
+        </li>
 			<p class="auto-style6">
 				<div class="auto-style7">
 					<input name="Button_login" type="submit" value="ログイン" />
