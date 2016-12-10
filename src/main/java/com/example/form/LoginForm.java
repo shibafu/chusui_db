@@ -9,10 +9,10 @@ import com.example.orders.GroupOrder1;
 import com.example.orders.GroupOrder2;
 
 public class LoginForm {
-	//index.htmlのloginNameと同じ名前
+	//index.htmlのインプットタグloginNameと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※ユーザー名を入力してください")
 	private String loginName;
-	//index.htmlのloginFormと同じ名前
+	//index.htmlのインプットタグloginFormと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※パスワードを入力してください")
 	@Size(min = 6,max= 18 ,groups={GroupOrder2.class}, message = "※パスワードは6文字以上18文字以下で入力してください")
 	@Pattern(regexp="[a-zA-Z0-9]*",groups={GroupOrder2.class},message="※パスワードは英数である必要があります。")

@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.entity.ChusuiUserMaster;
 import com.example.form.LoginForm;
 import com.example.orders.GroupOrders;
+import com.example.repository.ChusuiUserMasterRepository;
 
 @Controller
 public class LoginController {
+
+	 ChusuiUserMasterRepository userRepos;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String default_g(Model model,
 			@ModelAttribute("LoginForm")LoginForm loginForm,
@@ -63,6 +69,8 @@ public class LoginController {
 		if(result.hasErrors()){
 			return "index";
 		}
+
+		List<ChusuiUserMaster> loginUserList = userRepos.findAll();
 
 		model.addAttribute("loginName",loginForm.getLoginName());
 		model.addAttribute("loginPassword",loginForm.getLoginPassword());

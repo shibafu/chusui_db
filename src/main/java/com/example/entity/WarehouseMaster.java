@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="\"Warehouse_master\"")
 @NamedQuery(name="Warehouse_master.findAll", query="SELECT w FROM Warehouse_master w")
-public class Warehouse_master implements Serializable {
+public class WarehouseMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -21,7 +21,7 @@ public class Warehouse_master implements Serializable {
 	@Column(name="warehouse_name")
 	private String warehouseName;
 
-	public Warehouse_master() {
+	public WarehouseMaster() {
 	}
 
 	public Integer getWarehouseId() {
