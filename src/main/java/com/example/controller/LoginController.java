@@ -16,7 +16,13 @@ import com.example.orders.GroupOrders;
 @Controller
 public class LoginController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String default_g(Model model){
+	public String default_g(Model model,
+			@ModelAttribute("LoginForm")LoginForm loginForm,
+			BindingResult result){
+
+		if(result.hasErrors()){
+			return "index";
+		}
 
 		Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
