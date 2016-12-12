@@ -1,16 +1,19 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
  * The persistent class for the "Warehouse_master" database table.
- * 
+ *
  */
 @Entity
 @Table(name="\"Warehouse_master\"")
-@NamedQuery(name="Warehouse_master.findAll", query="SELECT w FROM Warehouse_master w")
 public class WarehouseMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
