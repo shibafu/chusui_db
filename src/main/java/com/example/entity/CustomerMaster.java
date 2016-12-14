@@ -1,12 +1,17 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
  * The persistent class for the customer_master database table.
- * 
+ *
  */
 @Entity
 @Table(name="customer_master")
@@ -23,8 +28,11 @@ public class CustomerMaster implements Serializable {
 	@Column(name="company_block")
 	private String companyBlock;
 
-	@Column(name="customer_name")
-	private String customerName;
+	@Column(name="customer_lastname")
+	private String customerLastName;
+
+	@Column(name="customer_firstname")
+	private String customerFirstName;
 
 	@Column(name="customer_password")
 	private String customerPassword;
@@ -61,12 +69,20 @@ public class CustomerMaster implements Serializable {
 		this.companyBlock = companyBlock;
 	}
 
-	public String getCustomerName() {
-		return this.customerName;
+	public String getCustomerLastName() {
+		return this. customerLastName;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setCustomerLastName(String customerLastName) {
+		this. customerLastName = customerLastName;
+	}
+
+	public String getCustomerFirstName() {
+		return this. customerFirstName;
+	}
+
+	public void setCustomerFirstName(String  customerFirstName) {
+		this. customerFirstName =  customerFirstName;
 	}
 
 	public String getCustomerPassword() {

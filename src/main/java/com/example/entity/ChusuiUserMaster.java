@@ -1,12 +1,17 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
  * The persistent class for the chusui_user_master database table.
- * 
+ *
  */
 @Entity
 @Table(name="chusui_user_master")
@@ -18,11 +23,17 @@ public class ChusuiUserMaster implements Serializable {
 	@Column(name="user_id")
 	private Integer userId;
 
-	@Column(name="user_name")
-	private String userName;
+	@Column(name="user_lastname")
+	private String userLastName;
+
+	@Column(name="user_firstname")
+	private String userFirstName;
 
 	@Column(name="user_password")
 	private String userPassword;
+
+	@Column(name="user_email")
+	private String userEmail;
 
 	public ChusuiUserMaster() {
 	}
@@ -35,12 +46,20 @@ public class ChusuiUserMaster implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getUserLastName() {
+		return this.userLastName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+
+	public String getUserFirstName() {
+		return this.userFirstName;
+	}
+
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
 	}
 
 	public String getUserPassword() {
@@ -49,6 +68,14 @@ public class ChusuiUserMaster implements Serializable {
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+
+	public String getUserEmail() {
+		return this.userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 }
