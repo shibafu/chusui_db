@@ -33,6 +33,12 @@ public class RegisterController {
 
 	}
 
+	@RequestMapping(value = "/register_complete", method = RequestMethod.GET)
+	public String rehgister_complete(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
+			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
+		return "register_complete";
+	}
+
 	// ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	/*
 	 * ログインページのエラーチェック

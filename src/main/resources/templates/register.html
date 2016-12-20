@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta content="ja" http-equiv="Content-Language" />
@@ -53,14 +54,14 @@
 </style>
 </head>
 
-<body>
+<body th:object="${RegisterForm}">
 
 	<p class="auto-style6">ユーザー登録フォーム</p>
 	<p class="auto-style2">アクセスありがとうございます！</p>
 	<p class="auto-style3" style="width: 762px; height: 21px">
 		下記の情報を入力してユーザー登録をお願いします。</p>
 	<p class="auto-style1">ユーザー名</p>
-		<form class="auto-style7" action="reigster_confirm" method="post">
+		<form class="auto-style7" action="/reigster_confirm"  th:object="${RegisterForm}" method="post">
 	<div id="レイヤー5"
 		style="position: absolute; width: 138px; height: 19px; z-index: 1; left: 11px; top: 144px">
 		姓<br />
@@ -85,7 +86,7 @@
 		<input name="EMail" style="width: 320px" type="text" />
 	<p class="auto-style11">パスワード</p>
 		<input name="CustomerPassword" style="width: 315px" type="password" /><br />
-		<br /> <input name="Button1" type="button" value="登録" />
+		<br /> <input name="Button1" type="submit" value="登録" />
 	<div id="レイヤー1"
 		style="position: absolute; width: 138px; height: 19px; z-index: 1; left: 140px; top: 143px">
 		名<br />
