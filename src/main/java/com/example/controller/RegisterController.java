@@ -23,10 +23,14 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/reigster_confirm", method = RequestMethod.POST)
-	public String rehgister_confim(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
-			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
+	public String rehgister_confim(Model model,
+			@Validated(GroupOrders.class)
+			@ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
+			 BindingResult x_BindingResult) {
 		String toRegister_page;
 
+
+		//遷移先ページチェック
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
 
 		return toRegister_page;
