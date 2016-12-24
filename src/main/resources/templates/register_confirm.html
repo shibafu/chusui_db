@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta content="ja" http-equiv="Content-Language" />
@@ -63,7 +64,7 @@
 	<p>よろしければ登録ボタンを押して下さい</p>
 	<p>
 		<form action="/register_complete" method="post">
-			<input name="register_confirm" type="button" value="登録" />
+			<input name="register_complete" type="submit" value="登録" />
 		</form>
 	</p>
 

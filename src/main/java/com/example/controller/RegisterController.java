@@ -22,7 +22,7 @@ public class RegisterController {
 		return "register";
 	}
 
-	@RequestMapping(value = "/register_confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/reigster_confirm", method = RequestMethod.POST)
 	public String rehgister_confim(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
 		String toRegister_page;
@@ -33,7 +33,7 @@ public class RegisterController {
 
 	}
 
-	@RequestMapping(value = "/register_complete", method = RequestMethod.GET)
+	@RequestMapping(value = "/register_complete", method = RequestMethod.POST)
 	public String rehgister_complete(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
 		return "register_complete";
