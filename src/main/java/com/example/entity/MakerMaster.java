@@ -1,7 +1,13 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -16,6 +22,7 @@ public class MakerMaster implements Serializable {
 
 	@Id
 	@Column(name="maker_id")
+	@GeneratedValue
 	private Integer makerId;
 
 	@Column(name="maker_name")
