@@ -40,15 +40,6 @@ public class LoginController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String default_p(Model model,
-			@Validated(GroupOrders.class) @ModelAttribute("LoginForm")LoginForm loginForm,
-			BindingResult result){
-
-		return "index";
-	}
-
-
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model){
 

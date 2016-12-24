@@ -17,8 +17,10 @@ public class RegisterController {
 	public final static String VALIDATION_ERROR = "妥当性エラー";
 	public final static String REGISTER_SUCCESSED = "登録成功";
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(Model model) {
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(Model model,
+			@ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
+			 BindingResult x_BindingResult) {
 		return "register";
 	}
 

@@ -68,6 +68,15 @@
 	<br />
 
 	<p class="auto-style7">
+
+			<!--▼▼ エラーメッセージ表示 ▼▼-->
+		<div class="auto-style７">
+			<p th:if="${#fields.hasErrors('*{FamilyName}')}"
+				th:errors="*{FamilyName}" style="color: red" />
+			<p th:text="${ErrorMessage}"
+				 style="color: red" />
+		</div>
+		<!--▲▲ エラーメッセージ表示 ▲▲-->
 		<input name="FamilyName" style="width: 128px" type="text" />
 		<input name="LastName" type="text" />
 	</p>
@@ -81,7 +90,7 @@
 	<p class="auto-style9" style="height: 15px; width: 480px">
 		<input name="CompanyAddress" type="text" style="width: 319px" />
 	</p>
-	<p class="auto-style11">メールアドレス</p>
+	<p class="auto-style11">メールアドレス(ログイン時に使用するIDはメールアドレスになります)</p>
 		<input name="EMail" style="width: 320px" type="text" />
 	<p class="auto-style11">パスワード</p>
 		<input name="CustomerPassword" style="width: 315px" type="password" /><br />
