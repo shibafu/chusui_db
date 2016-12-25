@@ -10,23 +10,23 @@ import com.example.orders.GroupOrder2;
 
 public class RegisterForm {
 	//register.htmlのインプットタグFamilyNameと同じ名前
-	@NotEmpty(groups = {GroupOrder1.class},message = "※姓名を入力してください")
-	private String FamilyName;
+	@NotEmpty(groups = {GroupOrder1.class},message = "※名前を入力してください")
+	private String FirstName;
 
 	//register.htmlのインプットタグLastNameと同じ名前
-	@NotEmpty(groups = {GroupOrder1.class},message = "※姓名を入力してください")
+	@NotEmpty(groups = {GroupOrder1.class},message = "※姓を入力してください")
 	private String LastName;
 
 	//register.htmlのインプットタグCompanyNameと同じ名前
-	@NotEmpty(groups = {GroupOrder1.class},message = "※姓名を入力してください")
+	@NotEmpty(groups = {GroupOrder1.class},message = "※会社名を入力してください 入力しない場合「ゲスト」でOKです")
 	private String CompanyName;
 
 	//register.htmlのインプットタグCompanyBlockと同じ名前
-	@NotEmpty(groups = {GroupOrder1.class},message = "※部署名を入力してください")
+	@NotEmpty(groups = {GroupOrder1.class},message = "※部署名を入力してください 入力しない場合「ゲスト」でOKです")
 	private String CompanyBlock;
 
 	//register.htmlのインプットタグCompanyAddressと同じ名前
-	@NotEmpty(groups = {GroupOrder1.class},message = "※会社住所を入力してください")
+	@NotEmpty(groups = {GroupOrder1.class},message = "※会社住所を入力してください 入力しない場合「ゲスト住所」でOKです")
 	private String CompanyAddress;
 
 	//register.htmlのインプットタグEMailと同じ名前
@@ -40,11 +40,11 @@ public class RegisterForm {
 	@Pattern(regexp="[a-zA-Z0-9]*",groups={GroupOrder2.class},message="※パスワードは英数である必要があります。")
 	private String CustomerPassword;
 
-	public void setFamilyName(String x_FamilyName){
-		this.FamilyName = x_FamilyName;
+	public void setFirstName(String x_FirstName){
+		this.FirstName = x_FirstName;
 	}
-	public String getFamilyName(){
-		return this.FamilyName;
+	public String getFirstName(){
+		return this.FirstName;
 	}
 
 	public void setLastName(String x_LastName){

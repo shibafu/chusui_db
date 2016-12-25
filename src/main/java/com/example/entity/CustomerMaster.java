@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,9 +23,10 @@ public class CustomerMaster implements Serializable {
 
 	@Id
 	@Column(name="customer_id")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="serial_number")
 	private Integer customerId;
 
+	@Column(name="addres")
 	private String addres;
 
 	@Column(name="company_block")
@@ -39,10 +41,14 @@ public class CustomerMaster implements Serializable {
 	@Column(name="customer_password")
 	private String customerPassword;
 
+	@Column(name="email")
 	private String email;
 
 	@Column(name="system_num")
 	private String systemNum;
+
+	@Column(name="company_name")
+	private String companyName;
 
 	public CustomerMaster() {
 	}
@@ -109,6 +115,13 @@ public class CustomerMaster implements Serializable {
 
 	public void setSystemNum(String systemNum) {
 		this.systemNum = systemNum;
+	}
+	public String getCompanyName() {
+		return this.companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }

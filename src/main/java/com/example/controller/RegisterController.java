@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.entity.CustomerMaster;
 import com.example.form.RegisterForm;
 import com.example.orders.GroupOrders;
 import com.example.repository.CustomerMasterRepository;
@@ -38,14 +39,9 @@ public class RegisterController {
 		String toRegister_page;
 
 		//インサートのやり方が分からないでござる
-//		CustomerMaster chusui = this.cusRepos.save(x_RegisterForm.getFamilyName()
-//						,x_RegisterForm.getLastName())
-//						,x_RegisterForm.getCompanyName()
-//						,x_RegisterForm.getCompanyAddress()
-//						,x_RegisterForm.getCustomerPassword()
-//						,x_RegisterForm.getEMail());
+		CustomerMaster x_cm = CustomerMaster_set(x_RegisterForm);
 //
-//		cusRepos.save(entity)
+		cusRepos.save(x_cm);
 
 		//遷移先ページチェック
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
@@ -81,5 +77,26 @@ public class RegisterController {
 			return "register";
 		}
 		return "register_confirm";
+	}
+
+	/**
+	 * レジスターフォームから、実体のエンティティを作成し、
+	 * セッターに入力する。
+	 * で、エンティティを返す
+	 * @param レジスターフォーム rf
+	 */
+	private CustomerMaster CustomerMaster_set(RegisterForm rf){
+		CustomerMaster cm = new CustomerMaster();
+
+		cm.setCustomerLastName(rf.getLastName());
+		cm.setCustomerFirstName(rf.getFirstName());
+		cm.setCompanyName(rf.getCompanyName());
+		cm.setAddres(rf.getCompanyAddress());
+		cm.setCompanyBlock(rf.getCompanyBlock());
+		cm.setEmail(cm.getEmail());
+		cm.setCustomerPassword(rf.getCustomerPassword());
+
+		return cm;
+
 	}
 }
