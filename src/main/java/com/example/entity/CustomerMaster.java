@@ -23,7 +23,7 @@ public class CustomerMaster implements Serializable {
 
 	@Id
 	@Column(name="customer_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="serial_number")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer customerId;
 
 	@Column(name="addres")

@@ -41,12 +41,12 @@
 </style>
 </head>
 
-<body>
+<body th:object="${RegisterForm}">
 
 	<p>以下の内容で登録します。</p>
 	<p>&nbsp;</p>
 	<p class="auto-style7">名前</p>
-	<p class="auto-style6" style="width: 272px; height: 18px">田中 太朗</p>
+	<p class="auto-style6" style="width: 272px; height: 18px" th:text="${RegisterForm.getFirstName()}">田中 太朗</p>
 	<p class="auto-style1">会社名</p>
 	<p class="auto-style2" style="width: 131px; height: 17px">田中商事</p>
 	<p class="auto-style3">部署</p>

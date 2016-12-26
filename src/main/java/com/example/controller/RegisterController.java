@@ -20,6 +20,8 @@ public class RegisterController {
 	public final static String VALIDATION_ERROR = "妥当性エラー";
 	public final static String REGISTER_SUCCESSED = "登録成功";
 
+	private RegisterForm rf_inclass = null;
+
 	//データアクセスリポジトリ
 	@Autowired
 	CustomerMasterRepository cusRepos;
@@ -38,13 +40,12 @@ public class RegisterController {
 			 BindingResult x_BindingResult) {
 		String toRegister_page;
 
-		//インサートのやり方が分からないでござる
-		CustomerMaster x_cm = CustomerMaster_set(x_RegisterForm);
-//
-		cusRepos.save(x_cm);
-
 		//遷移先ページチェック
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
+
+		if(toRegister_page.equals(REGISTER_SUCCESSED)){
+			rf_inclass = x_RegisterForm;
+		}
 
 		return toRegister_page;
 
@@ -53,6 +54,11 @@ public class RegisterController {
 	@RequestMapping(value = "/register_complete", method = RequestMethod.POST)
 	public String rehgister_complete(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
+
+		//インサートのやり方が分からないでござる
+		CustomerMaster x_cm = CustomerMaster_set(x_RegisterForm);
+//
+		cusRepos.save(x_cm);
 		return "register_complete";
 	}
 
