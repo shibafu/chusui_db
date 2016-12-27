@@ -31,7 +31,7 @@ public class RegisterForm {
 
 	//register.htmlのインプットタグEMailと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※メールアドレスを入力してください")
-	@Pattern(regexp="([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-])",groups={GroupOrder2.class},message="※正しいメールアドレスの形式を入力してください")
+	@Pattern(regexp="(^[a-zA-Z0-9!$&*.=^`|~#%'+\\/?_{}-]+@([a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,4}$)",groups={GroupOrder2.class},message="※正しいメールアドレスの形式を入力してください")
 	private String EMail;
 
 	//register.htmlのインプットタグCustomerPasswordと同じ名前

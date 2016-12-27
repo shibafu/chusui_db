@@ -44,29 +44,25 @@
 <body th:object="${RegisterForm}">
 
 	<p>以下の内容で登録します。</p>
-	<p>&nbsp;</p>
 	<p class="auto-style7">名前</p>
-	<p class="auto-style6" style="width: 272px; height: 18px" th:text="${RegisterForm.getFirstName()}">田中 太朗</p>
+	<p class="auto-style6" style="width: 272px; height: 18px"
+		th:text="${RegisterForm.getFirstName()}">名前エラー！</p>
 	<p class="auto-style1">会社名</p>
-	<p class="auto-style2" style="width: 131px; height: 17px">田中商事</p>
+	<p class="auto-style2" style="width: 131px; height: 17px"
+		th:text="${RegisterForm.getCompanyName()}">社名エラー！</p>
 	<p class="auto-style3">部署</p>
-	<p class="auto-style4">営業一部</p>
+	<p class="auto-style4" th:text="${RegisterForm.getCompanyBlock()}">部署名エラー！</p>
 	<p class="auto-style3">住所</p>
-	<p class="auto-style5">東京都品川区1-1-1</p>
+	<p class="auto-style5" th:text="${RegisterForm.getCompanyAddress()}">住所エラー</p>
 	<p class="auto-style1">メールアドレス</p>
-	<p class="auto-style8">
-		<a href="mailto:tanaka-tarou@tanakashouji.co.jp">
-			tanaka-tarou@tanakashouji.co.jp</a>
-	</p>
+	<p class="auto-style8" th:text="${RegisterForm.getEMail()}">tanaka-tarou@tanakashouji.co.jp	</p>
 	<p class="auto-style1">パスワード</p>
-	<p class="auto-style6">***********</p>
+	<p class="auto-style6" th:text="${mockpassword}">パスワードマスク生成エラー</p>
 	<p>&nbsp;</p>
 	<p>よろしければ登録ボタンを押して下さい</p>
-	<p>
-		<form action="/register_complete" method="post">
-			<input name="register_complete" type="submit" value="登録" />
-		</form>
-	</p>
+	<form action="/register_complete" method="post">
+		<input name="register_complete" type="submit" value="登録" />
+	</form>
 
 </body>
 
