@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.security.MessageDigest;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.entity.ChusuiUserMaster;
+import com.example.entity.CustomerMaster;
 import com.example.form.LoginForm;
 import com.example.orders.GroupOrders;
 import com.example.repository.ChusuiUserMasterRepository;
+import com.example.repository.CustomerMasterRepository;
 
 
 
@@ -28,6 +31,8 @@ public class LoginController {
 
 	@Autowired
 	ChusuiUserMasterRepository userRepos;
+	@Autowired
+	CustomerMasterRepository CustomRepos;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String default_g(Model model,
@@ -78,28 +83,61 @@ public class LoginController {
 	 */
 	private String login_judge(String x_Name, String x_Password, BindingResult x_result){
 
-		ChusuiUserMaster user_pointer = null;
-
+		ChusuiUserMaster chuuser_pointer = null;
+		CustomerMaster custuser_pointer = null;
 		//バリデーションチェック
 		if(x_result.hasErrors()){
 			return VALIDATION_ERROR;
 		}
 
+		//中水ユーザーテーブルから名前取得
 		//データベースから名前取得
 		List<ChusuiUserMaster> userlist = userRepos.findAll();
 
+
+
+		/** 	▼▼▼	中水ユーザーかどうかを判断する	▼▼▼	 	**/
 		for(ChusuiUserMaster u_m : userlist){
 			//名前チェック
 			if(u_m.getUserEmail().equals(x_Name)){
-				//ヒットした名前のユーザーマスターフォームを取得する
-				user_pointer = u_m;
+				//ヒットした名前の中水ユーザーエンティティを指し示すポインターを取得する
+				chuuser_pointer = u_m;
 			}
 		}
 
-		if(user_pointer != null){
+		if(chuuser_pointer != null){
 			//ヒットしたユーザー名のパスワードと同じか判断
-			if(user_pointer.getUserPassword().equals(x_Password)){
-				//ログイン成功ユーザーページ
+			if(chuuser_pointer.getUserPassword().equals(x_Password)){
+				//ログイン成功ユーザーページへ
+				return LOGIN_SUCCESSED;
+			}
+		}
+		/**			▲▲▲	中水ユーザーの判断ここまで		▲▲▲	**/
+
+		String hash = hash_generator(x_Password);
+
+		/** 	▼▼▼	顧客ユーザーかどうかを判断する	▼▼▼	 **/
+
+		//今指示している中水ユーザーエンティティを一度破棄
+		chuuser_pointer = null;
+
+		List<CustomerMaster> custlist = CustomRepos.findAll();
+
+		//顧客ユーザー(登録ユーザー)から名前取得
+		for(CustomerMaster cl : custlist){
+			if(cl.getEmail().equals(x_Name)){
+				//ヒットした名前の顧客ユーザーエンティティを指し示すポインターを取得する。
+				custuser_pointer = cl;
+			}
+		}
+
+
+
+		if(custuser_pointer != null){
+			//ヒットした名前の顧客とパスワードが同じか判断
+			//ハッシュ変換してるので、同じように変換すること！
+			if(custuser_pointer.getCustomerPassword().equals(hash)){
+				//ログイン成功ユーザーページへ
 				return LOGIN_SUCCESSED;
 			}
 		}
@@ -123,4 +161,27 @@ public class LoginController {
 	return "index";
 	}
 	//ログインチェックメソッドここまで▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+	/**
+	 * ハッシュ生成機
+	 * @param raw_password 生パスワード
+	 * @return ハッシュ値
+	 */
+	private String hash_generator(String raw_password){
+		StringBuilder sb = new StringBuilder();
+
+		try{
+		MessageDigest md = MessageDigest.getInstance("SHA-512");
+
+		md.update(raw_password.getBytes());
+
+		for(byte b:md.digest()){
+			String hex = String.format("%02x", b);
+			sb.append(hex);
+		}
+
+		} catch (Exception e) {
+            e.printStackTrace();
+		}
+		return sb.toString();
+	}
 }
