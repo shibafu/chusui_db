@@ -12,5 +12,5 @@ spring:
     view:
       suffix: .jsp
 server:
-  context-path: /app
+  context-path: /
   port: 8081
