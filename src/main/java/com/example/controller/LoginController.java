@@ -59,6 +59,7 @@ public class LoginController {
 			BindingResult result){
 
 		String local_error_message = "";
+		//変更確認
 		//遷移先を判断する
 		String l_judge = login_judge(x_loginForm.getLoginName()
 				,x_loginForm.getLoginPassword()
