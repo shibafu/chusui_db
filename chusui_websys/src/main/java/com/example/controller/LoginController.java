@@ -25,6 +25,8 @@ import com.example.repository.CustomerMasterRepository;
 @Controller
 public class LoginController {
 
+	//変更しました
+
 	public final static String VALIDATION_ERROR = "妥当性エラー";
 	public final static String WRONG_NAME_ERROR = "ユーザー未存在エラー";
 	public final static String LOGIN_SUCCESSED = "ログイン成功";
