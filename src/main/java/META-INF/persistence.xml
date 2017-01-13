@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="logindemo2">
+		<class>com.example.entity.WarehouseMaster</class>
+		<class>com.example.entity.ChusuiUserMaster</class>
+		<class>com.example.entity.CustomerMaster</class>
+		<class>com.example.entity.ExOwnerMaster</class>
+		<class>com.example.entity.MakerMaster</class>
+		<class>com.example.entity.ProductMaster</class>
+		<class>com.example.entity.ProposalDefaultTemplate</class>
+		<class>com.example.entity.StockDefaultTemplate</class>
 	</persistence-unit>
 </persistence>

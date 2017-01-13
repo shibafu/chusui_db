@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the stock_default_template database table.
- * 
+ *
  */
 @Entity
 @Table(name="stock_default_template")
