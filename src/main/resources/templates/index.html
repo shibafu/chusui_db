@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>中水野澤のページへようこそ</title>
+<style type="text/css">
+.auto-style1 {
+	text-align: center;
+}
+
+.auto-style2 {
+	text-align: left;
+	margin-left: 80px;
+}
+
+.auto-style3 {
+	text-align: left;
+	margin-left: 40px;
+}
+
+.auto-style5 {
+	margin-left: 40px;
+}
+
+.auto-style6 {
+	text-align: right;
+	margin-left: 40px;
+}
+
+.auto-style7 {
+	text-align: left;
+	margin-left: 40px;
+}
+
+.fieldError {
+	background-color: #FF657A
+}
+</style>
+</head>
+
+<body th:object="${loginForm}">
+	<p class="auto-style1">中水野澤のページへようこそ</p>
+	<p class="auto-style2">
+		ここは中水青森中央市場 冷凍部 <br /> 野澤のwebページです。
+	</p>
+	<p class="auto-style2">ここから私の担当している商品の問い合わせや注文ができます。</p>
+	<p class="auto-style3" style="height: 24px">
+		使用するにはログインネームを入力してログインをしてください <br /> <br /> ユーザーネーム
+
+	</p>
+	<br />
+	<form action="/user_top" th:object="${LoginForm}" method="post">
+
+
+			<!--▼▼ エラーメッセージ表示 ▼▼-->
+		<div class="auto-style5">
+			<p th:if="${#fields.hasErrors('*{loginName}')}"
+				th:errors="*{loginName}" style="color: red" />
+			<p th:text="${ErrorMessage}"
+				 style="color: red" />
+		</div>
+		<!--▲▲ エラーメッセージ表示 ▲▲-->
+		<p class="auto-style5">
+		<input name="loginName" type="text" th:field="*{loginName}"
+			th:errorclass="fieldError" />
+		</p>
+
+		<p class="auto-style5">パスワード</p>
+
+			<!--▼▼ エラーメッセージ表示 ▼▼-->
+		<div class="auto-style5">
+			<p th:each="error : ${#fields.hasErrors('*{loginPassword}')}"
+				th:errors="*{loginPassword}" style="color: red" />
+		</div>
+		<!--▲▲ エラーメッセージ表示 ▲▲-->
+		<p class="auto-style5">
+		<input name="loginPassword" type="password"
+			th:field="*{loginPassword}" th:errorclass="fieldError" />
+		</p>
+		<p class="auto-style6">
+		<div class="auto-style7">
+			<input name="Button_login" type="submit" value="ログイン" />
+		</div>
+		</p>
+	</form>
+	<p class="auto-style6">新規ユーザーの方はこちらから</p>
+
+	<form action="/register" method="get">
+		<p class="auto-style6">
+			<input name="toRegister" type="submit" value="新規ユーザー登録" />
+		</p>
+	</form>
+</body>
+
+</html>
