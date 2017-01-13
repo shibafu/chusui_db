@@ -6,11 +6,11 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/chusui_db
     username: chusui_db_driver
-    password: testpassword
+    password: password
     driverClassName: org.postgresql.Driver
   mvc:
     view:
       suffix: .jsp
 server:
-  context-path: /app
+  context-path: /
   port: 8081
