@@ -45,13 +45,13 @@ public class LoginController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model){
-
-        Calendar cal = Calendar.getInstance();
-        model.addAttribute("today",cal.getTime().toString());
-	    return "index";
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String login(Model model){
+//
+//        Calendar cal = Calendar.getInstance();
+//        model.addAttribute("today",cal.getTime().toString());
+//	    return "index";
+//	}
 
 	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
 	public String user_login(Model model,
