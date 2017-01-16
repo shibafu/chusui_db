@@ -42,11 +42,16 @@ dependencies {
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.8'
 
 	//データベースアクセス
-	// Hibernate
+	// Spring公式JPAの実装。　hibernateではないと思う。
 	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.5.RELEASE'
 	// https://mvnrepository.com/artifact/org.springframework/spring-jdbc
 	compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.4.RELEASE'
 	//compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.10.Final'
+
+	//Spring-security
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.4.3.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '1.1.7.RELEASE'
+
 
 	// db connection
 	//compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
