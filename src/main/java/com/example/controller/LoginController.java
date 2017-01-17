@@ -44,7 +44,10 @@ public class LoginController {
 			BindingResult result,
 			@RequestParam Optional<String> error){
 
-		if(error.equals(null)){
+		//ただのアクセス(エラーがないなら、最初に遷移させてメソッド終了
+		//初めてのラムダ式
+		String erOrNot = error.orElseGet(() -> "error");
+		if(erOrNot.equals("error")){
 			return new ModelAndView("index");
 		}
 
@@ -110,7 +113,7 @@ public class LoginController {
 //	    return "index";
 //	}
 
-	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
+	@RequestMapping(value = "/user_top", method = RequestMethod.GET)
 	public String user_login(Model model,
 			@Validated(GroupOrders.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
 			BindingResult result){
