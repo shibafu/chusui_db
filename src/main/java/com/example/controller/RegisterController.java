@@ -28,7 +28,7 @@ public class RegisterController {
 	@Autowired
 	CustomerMasterRepository cusRepos;
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			BindingResult x_BindingResult) {
 		return "register";

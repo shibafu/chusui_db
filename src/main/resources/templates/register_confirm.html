@@ -60,7 +60,7 @@
 	<p class="auto-style6" th:text="${mockpassword}">パスワードマスク生成エラー</p>
 	<p>&nbsp;</p>
 	<p>よろしければ登録ボタンを押して下さい</p>
-	<form action="/register_complete" method="post">
+	<form th:action="@{/register_complete}" method="post">
 		<input name="register_complete" type="submit" value="登録" />
 	</form>
 

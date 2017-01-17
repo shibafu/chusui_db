@@ -1,8 +1,10 @@
 package com.example.controller;
 
 import java.security.MessageDigest;
+import java.security.acl.Group;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.entity.ChusuiUserMaster;
 import com.example.entity.CustomerMaster;
@@ -35,14 +39,63 @@ public class LoginController {
 	CustomerMasterRepository CustomRepos;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String default_g(Model model,
-			@ModelAttribute("LoginForm")LoginForm loginForm,
-			BindingResult result){
+	public ModelAndView default_g(Model model,
+			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
+			BindingResult result,
+			@RequestParam Optional<String> error){
 
-		Calendar cal = Calendar.getInstance();
+		String local_error_message = "";
+
+		//遷移先を判断する
+		String l_judge = login_judge(x_loginForm.getLoginName()
+				,x_loginForm.getLoginPassword()
+				,result);
+
+		if(l_judge.equals(WRONG_NAME_ERROR)){
+			local_error_message = "ユーザー名とパスワードが違います";
+		}
+
+		model.addAttribute("ErrorMessage", local_error_message);
+		model.addAttribute("userName", x_loginForm.getLoginName());
+
+        Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-		return "index";
+		return new ModelAndView("login","index",error);
+	}
+
+	/**
+	 * 一度ログインボタンが押されると遷移されるページ
+	 * @param model モデル。アトリビュートを入力する
+	 * @param x_loginForm フォーム。フォームクラスを利用した。フォームの入力情報、getで取得するよ
+	 * @param result フォームをバリデーションした結果。.hasErrorでバリデーションエラーがあるかを調べる。
+	 * @param error パラメーター。エラーだとパラメーター"error"が送信されてくる。
+	 * @return モデルビュークラス。エラー時の遷移先もここに書く。
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ModelAndView login_post(Model model,
+			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
+			BindingResult result,
+			@RequestParam Optional<String> error){
+
+		String local_error_message = "";
+
+		//遷移先を判断する
+		String l_judge = login_judge(x_loginForm.getLoginName()
+				,x_loginForm.getLoginPassword()
+				,result);
+
+		if(l_judge.equals(WRONG_NAME_ERROR)){
+			local_error_message = "ユーザー名とパスワードが違います";
+		}
+
+		model.addAttribute("ErrorMessage", local_error_message);
+		model.addAttribute("userName", x_loginForm.getLoginName());
+
+        Calendar cal = Calendar.getInstance();
+        model.addAttribute("today",cal.getTime().toString());
+
+		return new ModelAndView("login","index",error);
 	}
 
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
