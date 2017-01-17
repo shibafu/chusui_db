@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/register","/reigster_confirm","/register_complete").permitAll() //だれでも見れるページ
 		.anyRequest().authenticated()
 			.and()
-		.formLogin().loginPage("/").failureUrl("/").permitAll()  //ログインページ
+		.formLogin().loginPage("/").failureUrl("/?error").permitAll()  //ログインページ
 			.and()
 		.logout().logoutUrl("/logout").logoutSuccessUrl("/");
 	}

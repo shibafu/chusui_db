@@ -44,6 +44,10 @@ public class LoginController {
 			BindingResult result,
 			@RequestParam Optional<String> error){
 
+		if(error.equals(null)){
+			return new ModelAndView("index");
+		}
+
 		String local_error_message = "";
 
 		//遷移先を判断する
@@ -61,7 +65,7 @@ public class LoginController {
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-		return new ModelAndView("login","index",error);
+		return new ModelAndView("index","index",error);
 	}
 
 	/**
