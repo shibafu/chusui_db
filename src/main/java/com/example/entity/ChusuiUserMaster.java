@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.service.ChuUserDetails;
+
 
 /**
  * The persistent class for the chusui_user_master database table.
@@ -78,6 +82,10 @@ public class ChusuiUserMaster implements Serializable {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public UserDetails toMyUserDetail() {
+		return ChuUserDetails.create(this);
 	}
 
 }

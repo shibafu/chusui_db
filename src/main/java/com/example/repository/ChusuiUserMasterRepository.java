@@ -8,4 +8,11 @@ import com.example.entity.ChusuiUserMaster;
 @Repository
 public interface ChusuiUserMasterRepository extends JpaRepository<ChusuiUserMaster, Integer>{
 
+	/**
+	 * ぷらとぅらが作ったよ
+	 * このメソッドをDAOというらしい。
+	 * @param UserEmail ユーザーEメール。名前と同じ
+	 * @return　ChusuiUserMasterエンティティ。
+	 */
+	ChusuiUserMaster findByUserEmail(String UserEmail);
 }
