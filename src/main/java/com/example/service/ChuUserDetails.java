@@ -11,12 +11,8 @@ import com.example.entity.ChusuiUserMaster;
 
 public class ChuUserDetails implements UserDetails{
 
+	private ChusuiUserMaster chusuiUserMaster;
 
-	private Integer userId;
-	private String userLastName;
-	private String userFirstName;
-	private String userPassword;
-	private String userEmail;
 	private Collection<GrantedAuthority> authorities;
 
 	public ChuUserDetails(
@@ -25,11 +21,11 @@ public class ChuUserDetails implements UserDetails{
 			){
 			super();
 
-			this.userId = userId;
-			this.userLastName = userLastName;
-			this.userFirstName = userFirstName;
-			this.userPassword = userPassword;
-			this.userEmail = userEmail;
+			this.chusuiUserMaster.setUserLastName(userLastName);
+			this.chusuiUserMaster.setUserFirstName(userFirstName);
+			this.chusuiUserMaster.setUserEmail(userEmail);
+			this.chusuiUserMaster.setUserPassword(userPassword);
+			this.chusuiUserMaster.setUserId(userId);
 			this.authorities = authorities;
 		}
 
@@ -81,6 +77,10 @@ public class ChuUserDetails implements UserDetails{
 	public boolean isEnabled() {
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
+	}
+
+	public ChusuiUserMaster getchusuiUserMaster(){
+		return this.chusuiUserMaster;
 	}
 
 }
