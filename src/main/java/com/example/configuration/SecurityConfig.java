@@ -8,6 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import com.example.service.ChuUserDetailService;
 
 /**
  * 認証を管理するコンフィグBean
@@ -21,47 +25,50 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
-	//独自の認証クラス作成
+	//独自の認証UserDetailServiceを注入
 	@Autowired
-//    private AuthenticationProviderImpl authenticationProvider;
-
+	ChuUserDetailService cuService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 			.authorizeRequests()
-				.antMatchers("/register","/reigster_confirm","/register_complete")
-				.permitAll() //だれでも見れるページ
 				.anyRequest()
 				.authenticated()
+				.antMatchers("/register","/reigster_confirm","/register_complete")
+				.permitAll() //だれでも見れるページ
 					.and()
 				//LoginFormと同じものをパラメーターを作成
 			.formLogin()
-				.loginPage("/")
+				.loginPage("/login")
 				.usernameParameter("loginName")
 				.passwordParameter("loginPassword")
-				.failureUrl("/?error")
+				.loginProcessingUrl("/authenticate")
+				.failureUrl("/login?error")
 				.permitAll()  //ログインページ
+				.defaultSuccessUrl("/user_top")
 					.and()
 			.logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 				.permitAll()
-					.and()
-			.formLogin()
-				.successForwardUrl("/user_top");
-
-		System.out.println("ここまで");
+			.and()
+				.csrf()
+				.disable();
+//				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
 
 	}
 
-	@Override
-	protected void configure (AuthenticationManagerBuilder auth)throws Exception{
+	@Autowired
+	public void configureGlobal (AuthenticationManagerBuilder auth)throws Exception{
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
-				.usersByUsernameQuery("SELECT user_email,user_password FROM chusui_user_master WHERE user_email = ?")
-				.authoritiesByUsernameQuery("SELECT email,customer_password FROM customer_master WHERE email = ?");
-//				.passwordEncoder(new BCryptPasswordEncoder());
+				.usersByUsernameQuery("SELECT email as username, customer_password as password, authority as authority, enabled as enabled FROM customer_master WHERE email = ?")
+				.authoritiesByUsernameQuery("SELECT user_email as username, authority as authority FROM chusui_user_master WHERE user_email = ?");
+
+		//				.passwordEncoder(new BCryptPasswordEncoder());
+
+		System.out.println("へっへ");
 	}
 
 //	@Configuration
@@ -85,4 +92,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			auth.userDetailsService(this.userDetailService);
 //		}
 //	}
+
+	@Autowired
+	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
+		auth.userDetailsService(cuService);
+	}
+
+	/**
+	 *
+	 * @return csrdトークンオブジェクト
+	 */
+	private CsrfTokenRepository csrfTokenRepository()
+	{
+	    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+	    repository.setSessionAttributeName("_csrf");
+	    return repository;
+	}
 }

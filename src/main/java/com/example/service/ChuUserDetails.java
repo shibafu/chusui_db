@@ -1,8 +1,6 @@
 package com.example.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,67 +14,52 @@ public class ChuUserDetails implements UserDetails{
 	private Collection<GrantedAuthority> authorities;
 
 	public ChuUserDetails(
-			int userId, String userLastName, String userFirstName
-			,String userPassword, String userEmail, Collection<GrantedAuthority> authorities
+			ChusuiUserMaster chusuiUserMaster, Collection<GrantedAuthority> authorities
 			){
-			super();
-
-			this.chusuiUserMaster.setUserLastName(userLastName);
-			this.chusuiUserMaster.setUserFirstName(userFirstName);
-			this.chusuiUserMaster.setUserEmail(userEmail);
-			this.chusuiUserMaster.setUserPassword(userPassword);
-			this.chusuiUserMaster.setUserId(userId);
+			this.chusuiUserMaster = chusuiUserMaster;
 			this.authorities = authorities;
 		}
 
-	public static UserDetails create(ChusuiUserMaster entity){
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-		return new ChuUserDetails(entity.getUserId(), entity.getUserLastName(), entity.getUserFirstName()
-				,entity.getUserPassword(), entity.getUserPassword(), authorities);
-	}
-
-
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<GrantedAuthority> getAuthorities() {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return chusuiUserMaster.getUserPassword();
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return chusuiUserMaster.getUserEmail();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return chusuiUserMaster.getEnabled();
 	}
 
 	public ChusuiUserMaster getchusuiUserMaster(){

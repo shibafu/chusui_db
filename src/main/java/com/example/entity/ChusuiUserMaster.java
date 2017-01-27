@@ -9,10 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.example.service.ChuUserDetails;
-
 
 /**
  * The persistent class for the chusui_user_master database table.
@@ -40,6 +36,12 @@ public class ChusuiUserMaster implements Serializable {
 
 	@Column(name="user_email")
 	private String userEmail;
+
+	@Column(name="authority")
+	private String authority;
+
+	@Column(name="enabled")
+	private Boolean enabled;
 
 	public ChusuiUserMaster() {
 	}
@@ -84,8 +86,23 @@ public class ChusuiUserMaster implements Serializable {
 		this.userEmail = userEmail;
 	}
 
-	public UserDetails toMyUserDetail() {
-		return ChuUserDetails.create(this);
+	public String getAuthority() {
+		return this.authority;
 	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	public Boolean getEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+//	public UserDetails toMyUserDetail() {
+//		return ChuUserDetails.create(this);
+//	}
 
 }
