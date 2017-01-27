@@ -15,11 +15,10 @@ public class JdbcChusuiDao {
 	JdbcTemplate jdbcTemplate;
 
 	public ChusuiUserMaster findByUseemail(String x_email){
-		String sql = "SELECT user_email FROM chusui_user_master WHERE = ?";
+		String sql = "SELECT user_id, user_lastname, user_firstname, user_password, user_email, authority, enabled FROM chusui_user_master WHERE user_email LIKE '" + x_email + "' ;";
 
 		ChusuiUserMaster c_m = new ChusuiUserMaster();
-		Map<String, Object> result = jdbcTemplate.queryForMap(sql, x_email);
-
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 
 		c_m.setUserId((Integer)result.get("user_id"));
 		c_m.setUserLastName((String)result.get("user_lastname"));

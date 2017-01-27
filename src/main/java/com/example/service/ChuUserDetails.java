@@ -26,6 +26,7 @@ public class ChuUserDetails implements UserDetails{
 		return authorities;
 	}
 
+	//こいつがuser_passwordをpasswordに勝手にやってくれたぜ。
 	@Override
 	public String getPassword() {
 		// TODO 自動生成されたメソッド・スタブ

@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import java.security.MessageDigest;
-import java.security.acl.Group;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -39,33 +38,14 @@ public class LoginController {
 	CustomerMasterRepository CustomRepos;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView default_g(Model model,
-			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
-			BindingResult result,
+	public String default_g(Model model,
 			@RequestParam Optional<String> error){
 
 		//ただのアクセス(エラーがないなら、最初に遷移させてメソッド終了
 		//初めてのラムダ式
 		String erOrNot = error.orElseGet(() -> "error");
-		if(erOrNot.equals("error")){
-			return new ModelAndView("index");
-		}
 
-		String local_error_message = "";
-
-		//遷移先を判断する
-//		String l_judge = login_judge(x_loginForm.getLoginName()
-//				,x_loginForm.getLoginPassword()
-//				,result);
-
-//		if(l_judge.equals(WRONG_NAME_ERROR)){
-			local_error_message = "ユーザー名とパスワードが違います";
-//		}
-
-		model.addAttribute("ErrorMessage", local_error_message);
-		model.addAttribute("userName", x_loginForm.getLoginName());
-
-		return new ModelAndView("index","index",error);
+		return "index";
 	}
 
 	/**
@@ -78,34 +58,10 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login_post(Model model,
-			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
-			BindingResult result,
 			@RequestParam Optional<String> error){
-
-		String local_error_message = "";
-
-		//遷移先を判断する
-//		String l_judge = login_judge(x_loginForm.getLoginName()
-//				,x_loginForm.getLoginPassword()
-//				,result);
-
-//		if(l_judge.equals(WRONG_NAME_ERROR)){
-			local_error_message = "ユーザー名とパスワードが違います";
-//		}
-
-		model.addAttribute("ErrorMessage", local_error_message);
-		model.addAttribute("userName", x_loginForm.getLoginName());
 
 		return new ModelAndView("login","index",error);
 	}
-
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String login(Model model){
-//
-//        Calendar cal = Calendar.getInstance();
-//        model.addAttribute("today",cal.getTime().toString());
-//	    return "index";
-//	}
 
 	@RequestMapping(value = "/user_top", method = RequestMethod.GET)
 	public String user_login(Model model,
@@ -129,7 +85,7 @@ public class LoginController {
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-	    return  "user_top_page";
+	    return  "login";
 	}
 
 	//ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
