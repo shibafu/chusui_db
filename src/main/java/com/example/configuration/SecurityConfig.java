@@ -43,22 +43,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				//LoginFormと同じものをパラメーターを作成
 			.formLogin()
-//				.usernameParameter("loginName")
-//				.passwordParameter("loginPassword")
+				.loginPage("/login")
+				.permitAll()
+				.usernameParameter("loginName")
+				.passwordParameter("loginPassword")
 				.defaultSuccessUrl("/user_top")
-//				.loginPage("/login")
-//				.permitAll()  //ログインページ
 //					.and()
 //			.logout()
 //				.logoutUrl("/logout")
 //				.logoutSuccessUrl("/login")
 //				.permitAll()
-//			.and()
-//				.authorizeRequests()
-//				.antMatchers("/register","/reigster_confirm","/register_complete")
-//				.permitAll() //だれでも見れるページ
-//				.anyRequest()
-//				.authenticated()
+			.and()
+				.authorizeRequests()
+				.anyRequest()
+				.authenticated()
 			.and()
 				.csrf()
 				.disable();

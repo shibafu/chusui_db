@@ -57,7 +57,7 @@ public class LoginController {
 	 * @return モデルビュークラス。エラー時の遷移先もここに書く。
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login_post(Model model,
+	public ModelAndView default_p(Model model,
 			@RequestParam Optional<String> error){
 
 		return new ModelAndView("login","index",error);
@@ -87,6 +87,32 @@ public class LoginController {
 
 	    return  "user_top_page";
 	}
+
+	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
+	public String user_login_p(Model model,
+			@Validated(GroupOrders.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
+			BindingResult result){
+
+		String local_error_message = "";
+		//変更確認
+		//遷移先を判断する
+//		String l_judge = login_judge(x_loginForm.getLoginName()
+//				,x_loginForm.getLoginPassword()
+//				,result);
+
+//		if(l_judge.equals(WRONG_NAME_ERROR)){
+			local_error_message = "ユーザー名とパスワードが違います";
+//		}
+
+		model.addAttribute("ErrorMessage", local_error_message);
+		model.addAttribute("userName", x_loginForm.getLoginName());
+
+        Calendar cal = Calendar.getInstance();
+        model.addAttribute("today",cal.getTime().toString());
+
+	    return  "user_top_page";
+	}
+
 
 	//ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	/*
