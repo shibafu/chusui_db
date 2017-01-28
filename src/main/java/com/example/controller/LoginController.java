@@ -85,7 +85,7 @@ public class LoginController {
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-	    return  "login";
+	    return  "user_top_page";
 	}
 
 	//ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
