@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	ChuUserDetailService cuService;
 
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user").password("password").roles("USER");
+//    }
 	/**
 	 * デバッグモード
 	 */
@@ -48,11 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("loginName")
 				.passwordParameter("loginPassword")
 				.defaultSuccessUrl("/user_top")
-//					.and()
-//			.logout()
-//				.logoutUrl("/logout")
-//				.logoutSuccessUrl("/login")
-//				.permitAll()
+					.and()
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+				.permitAll()
 			.and()
 				.authorizeRequests()
 				.anyRequest()
@@ -64,10 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
-	@Autowired
-	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
-		auth.userDetailsService(cuService);
-	}
+//	@Autowired
+//	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
+//		auth.userDetailsService(cuService);
+//	}
 
 	/**
 	 *
