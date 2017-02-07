@@ -21,6 +21,9 @@
 
 <body>
 	<p>ようこそ、「ユーザー名」さん</p>
+	<form th:action="@{/management_console}" method="get">
+		<input name="adminmanager" type="submit" value="管理画面へ" />
+	</form>
 	<div id="レイヤー1" class="scr" style="position: absolute; width: 258px; height: 215px; z-index: 1; left: 317px; top: 107px">
 		新聞3見出し1<br/>
 		新聞3見出し2<br/>

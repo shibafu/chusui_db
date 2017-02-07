@@ -13,9 +13,9 @@ public class ManagementController {
 	private final static String MANAGER_FAILED = "管理者としてのアクセス認証に失敗しました";
 
 
-	@RequestMapping(value = "maangement_console", method = RequestMethod.POST)
+	@RequestMapping(value = "/management_console", method = RequestMethod.GET)
 	public String management_top(Model model){
-		return "management_console";
+		return "management_console/management_console";
 	}
 	/**
 	 * ログイン情報から、管理者かどうかを判断し、アクセス判断をする。

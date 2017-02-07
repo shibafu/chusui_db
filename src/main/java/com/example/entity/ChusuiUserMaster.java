@@ -23,8 +23,9 @@ public class ChusuiUserMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chusui_user_id_serial")
-    @SequenceGenerator(name = "user_id", sequenceName = "chusui_user_id_serial", allocationSize = 1)
+	@Column(name="user_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chuid_gen")
+    @SequenceGenerator(name = "chuid_gen", sequenceName = "chusui_user_id_serial", allocationSize = 1)
 	private Integer userId;
 
 	@Column(name="user_lastname")

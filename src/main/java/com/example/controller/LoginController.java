@@ -37,6 +37,12 @@ public class LoginController {
 	@Autowired
 	CustomerMasterRepository CustomRepos;
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String domain_redirect(){
+
+		return "redirect:/user_top";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String default_g(Model model,
 			@RequestParam Optional<String> error){
