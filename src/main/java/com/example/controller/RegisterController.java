@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import java.security.MessageDigest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import com.example.entity.CustomerMaster;
 import com.example.form.RegisterForm;
 import com.example.orders.GroupOrders;
 import com.example.repository.CustomerMasterRepository;
+import com.example.utils.StringUtils;
 
 @Controller
 public class RegisterController {
@@ -23,6 +22,10 @@ public class RegisterController {
 	public final static String REGISTER_SUCCESSED = "登録成功";
 
 	private RegisterForm rf_inclass = null;
+
+	//オリジナル文字操作ユーティリティを生成
+	@Autowired
+	StringUtils su;
 
 	// データアクセスリポジトリ
 	@Autowired
@@ -47,7 +50,7 @@ public class RegisterController {
 		// ページ遷移に成功するなら、パスワード疑似文字列生成
 		if (toRegister_page.equals("user_register/register_confirm")) {
 			rf_inclass = x_RegisterForm;
-			MockPassword = passwordset(x_RegisterForm.getCustomerPassword().length());
+			MockPassword = su.passwordset(x_RegisterForm.getCustomerPassword().length());
 			model.addAttribute("mockpassword", MockPassword);
 		}
 
@@ -107,52 +110,11 @@ public class RegisterController {
 		cm.setEmail(rf.getEMail());
 
 		// ハッシュ生成
-		String hashGenerated = hash_generator(rf.getCustomerPassword());
+		String hashGenerated = su.hash_generator(rf.getCustomerPassword());
 		cm.setCustomerPassword(hashGenerated);
 
 		return cm;
 
-	}
-
-	/**
-	 * 文字数を全て"*"に変換して返す
-	 *
-	 * @param x_num
-	 *            文字数
-	 * @return *****....の文字列
-	 */
-	private String passwordset(Integer x_num) {
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < x_num; i++) {
-			sb.append('*');
-		}
-
-		return sb.toString();
-	}
-
-	/**
-	 * ハッシュ生成機
-	 * @param raw_password 生パスワード
-	 * @return ハッシュ値
-	 */
-	private String hash_generator(String raw_password){
-		StringBuilder sb = new StringBuilder();
-
-		try{
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
-
-		md.update(raw_password.getBytes());
-
-		for(byte b:md.digest()){
-			String hex = String.format("%02x", b);
-			sb.append(hex);
-		}
-
-		} catch (Exception e) {
-            e.printStackTrace();
-		}
-		return sb.toString();
 	}
 
 }
