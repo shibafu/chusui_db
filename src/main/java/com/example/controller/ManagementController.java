@@ -8,28 +8,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ManagementController {
 
-	//判断パラメーター
-	private final static String MANAGER_SUCCESS = "管理者としてアクセス認証しました";
-	private final static String MANAGER_FAILED = "管理者としてのアクセス認証に失敗しました";
-
-
+	/**
+	 * 管理画面トップ
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/management_console", method = RequestMethod.GET)
 	public String management_top(Model model){
 		return "management_console/management_console";
 	}
+
+	//□□□□□□□□□□□管理者の管理画面□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 	/**
-	 * ログイン情報から、管理者かどうかを判断し、アクセス判断をする。
-	 * @return 判断パラメーター
+	 * 管理者管理トップ。
+	 * @param model
+	 * @return
 	 */
-//	private String management_login_judge(Model x_model){
-//		x_model.
-//
-//	}
+	@RequestMapping(value = "/management_console/chusui_user_manage", method = RequestMethod.GET)
+	public String management_chusui_user_manage(Model model){
+		return "management_console/chuuser_manage/chuuser_management_top";
+	}
+
 	/**
-	 * 判断パラメーターから遷移ページを作る。
-	 * @return 遷移先ページ(文字列)
+	 * 管理者登録画面
+	 * @param model
+	 * @return
 	 */
-//	private String management_login_page(){
-//
-//	}
+	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.GET)
+	public String chuuser_manage_register(Model model){
+		return "management_console/chuuser_manage/chuuser_management_top";
+	}
+
+
+	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 }

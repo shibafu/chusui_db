@@ -31,7 +31,7 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			BindingResult x_BindingResult) {
-		return "register";
+		return "user_register/register";
 	}
 
 	@RequestMapping(value = "/reigster_confirm", method = RequestMethod.POST)
@@ -45,7 +45,7 @@ public class RegisterController {
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
 
 		// ページ遷移に成功するなら、パスワード疑似文字列生成
-		if (toRegister_page.equals("register_confirm")) {
+		if (toRegister_page.equals("user_register/register_confirm")) {
 			rf_inclass = x_RegisterForm;
 			MockPassword = passwordset(x_RegisterForm.getCustomerPassword().length());
 			model.addAttribute("mockpassword", MockPassword);
@@ -64,7 +64,7 @@ public class RegisterController {
 		cusRepos.save(x_cm);
 
 		rf_inclass = null;
-		return "register_complete";
+		return "user_register/register_complete";
 	}
 
 	// ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
@@ -85,9 +85,9 @@ public class RegisterController {
 	 */
 	private String judge_to_page(String error_mess) {
 		if (error_mess.equals(VALIDATION_ERROR)) {
-			return "register";
+			return "user_register/register";
 		}
-		return "register_confirm";
+		return "user_register/register_confirm";
 	}
 
 	/**
