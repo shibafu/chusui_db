@@ -39,6 +39,16 @@ public class ManagementController {
 		return "management_console/chuuser_manage/chuuser_register";
 	}
 
+	/**
+	 * 管理者登録画面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/management_console/chusui_user_manage/register_confirm", method = RequestMethod.GET)
+	public String register_confirm(Model model){
+		return "management_console/chuuser_manage/chuuser_register_confirm";
+	}
+
 
 	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 }

@@ -27,6 +27,7 @@
 
 <p>管理者登録</p>
 <p>&nbsp;</p>
+</form th:action="@{/management_console/chusui_user_manage/register_confirm}">
 <p class="auto-style2" style="width: 142px; height: 18px">姓</p>
 <p class="auto-style2">
 <input name="Text1" style="width: 141px; height: 17px" type="text" /></p>
@@ -36,17 +37,15 @@
 名</p>
 <p>Eメール</p>
 <p>
-<form method="post">
-	<input name="Text2" style="width: 281px; height: 29px" type="text" /></form>
+	<input name="Text2" style="width: 281px; height: 29px" type="text" />
 </p>
 <p>パスワード</p>
 <p>
-<form method="post">
-	<input name="Text3" style="width: 274px; height: 27px" type="text" /></form>
+	<input name="Text3" style="width: 274px; height: 27px" type="text" />
 </p>
-<form method="post">
-	<input name="chu_user_register" type="submit" value="登録" /></form>
+	<input name="chu_user_register" type="submit" value="登録" />
 
+</form>
 </body>
 
 </html>

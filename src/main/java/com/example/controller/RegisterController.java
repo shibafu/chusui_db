@@ -37,7 +37,7 @@ public class RegisterController {
 		return "user_register/register";
 	}
 
-	@RequestMapping(value = "/reigster_confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/register_confirm", method = RequestMethod.POST)
 	public String rehgister_confim(Model model,
 			@Validated(GroupOrders.class) @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			BindingResult x_BindingResult) {
