@@ -23,26 +23,25 @@
 </style>
 </head>
 
-<body>
+<body th:object="${ChuUserRegisterForm}">
 
 <p>管理者登録</p>
 <p>&nbsp;</p>
-</form th:action="@{/management_console/chusui_user_manage/register_confirm}">
-<p class="auto-style2" style="width: 142px; height: 18px">姓</p>
-<p class="auto-style2">
-<input name="Text1" style="width: 141px; height: 17px" type="text" /></p>
-<p class="auto-style2" style="width: 142px; height: 18px; float: right; position: relative; right: 494px; top: -17px">
-<fieldset name="Group1" style="width: 141px"></fieldset></p>
-<p class="auto-style4" style="position: relative; left: 145px; top: -36px; width: 135px; height: 18px">
-名</p>
-<p>Eメール</p>
-<p>
-	<input name="Text2" style="width: 281px; height: 29px" type="text" />
-</p>
-<p>パスワード</p>
-<p>
-	<input name="Text3" style="width: 274px; height: 27px" type="text" />
-</p>
+<form th:action="@{/management_console/chusui_user_manage/register_confirm}" th:object="${ChuUserRegisterForm}" method="POST">
+	<p class="auto-style2" style="width: 142px; height: 18px">姓</p>
+	<p class="auto-style2">
+		<input name="LastName" style="width: 141px; height: 17px" type="text" /></p>
+		<p class="auto-style2" style="position: relative; left: 145px; top: -23px; width: 135px; height: 18px;">
+		<input name="FirstName" style="width: 141px; height: 17px"></input></p>
+	<p class="auto-style4" style="position: relative; left: 145px; top: -60px; width: 135px; height: 18px">名</p>
+	<p>Eメール</p>
+	<p>
+		<input name="EMail" style="width: 281px;" type="text" />
+	</p>
+		<p>パスワード</p>
+	<p>
+		<input name="ChuUserPassword" style="width: 274px;" type="password" />
+	</p>
 	<input name="chu_user_register" type="submit" value="登録" />
 
 </form>

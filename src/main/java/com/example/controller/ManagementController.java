@@ -2,8 +2,14 @@ package com.example.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.form.ChuUserRegisterForm;
+import com.example.orders.GroupOrders;
 
 @Controller
 public class ManagementController {
@@ -34,7 +40,7 @@ public class ManagementController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.GET)
+	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.POST)
 	public String chuuser_manage_register(Model model){
 		return "management_console/chuuser_manage/chuuser_register";
 	}
@@ -44,11 +50,26 @@ public class ManagementController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/management_console/chusui_user_manage/register_confirm", method = RequestMethod.GET)
-	public String register_confirm(Model model){
+	@RequestMapping(value = "/management_console/chusui_user_manage/register_confirm", method = RequestMethod.POST)
+	public String register_confirm(Model model,
+			@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf,
+			@Validated(GroupOrders.class)BindingResult br){
+
+		model.addAttribute("regForm", curf);
+
+
 		return "management_console/chuuser_manage/chuuser_register_confirm";
 	}
 
+	/**
+	 * 管理者登録画面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/management_console/chusui_user_manage/register_complete", method = RequestMethod.POST)
+	public String register_complete(Model model){
+		return "management_console/chuuser_manage/chuuser_register_confirm";
+	}
 
 	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 }
