@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.form.ChuUserRegisterForm;
 import com.example.orders.GroupOrders;
+import com.example.utils.StringUtils;
 
 @Controller
 public class ManagementController {
@@ -53,11 +54,19 @@ public class ManagementController {
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/register_confirm", method = RequestMethod.POST)
 	public String register_confirm(Model model,
+			@Validated(GroupOrders.class)
 			@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf,
-			@Validated(GroupOrders.class)BindingResult br){
+			BindingResult br){
 
 		model.addAttribute("regForm", curf);
+		StringUtils s = new StringUtils();
+		String mockpass = s.passwordset(curf.getChuUserPassword().length());
 
+		model.addAttribute("MockPass", mockpass);
+
+		if(br.hasErrors()){
+			return "redirect:/management_console/chuuser_manage/chuuser_register?error";
+		}
 
 		return "management_console/chuuser_manage/chuuser_register_confirm";
 	}
