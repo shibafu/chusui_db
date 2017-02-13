@@ -22,7 +22,7 @@ public class ChuUserRegisterForm {
 	@Pattern(regexp="(^[a-zA-Z0-9!$&*.=^`|~#%'+\\/?_{}-]+@([a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,4}$)",groups={GroupOrder2.class},message="※正しいメールアドレスの形式を入力してください")
 	private String EMail;
 
-	//register.htmlのインプットタグCustomerPasswordと同じ名前
+	//register.htmlのインプットタグChuUserPasswordと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※パスワードを入力してください")
 	@Size(min = 8,max= 36 ,groups={GroupOrder2.class}, message = "※パスワードは8文字以上36文字以下で入力してください")
 	@Pattern(regexp="[a-zA-Z0-9]*",groups={GroupOrder2.class},message="※パスワードは英数である必要があります。")
@@ -48,10 +48,10 @@ public class ChuUserRegisterForm {
 	public String getEMail(){
 		return this.EMail;
 	}
-	public void setCustomerPassword(String x_ChuUserPassword){
+	public void setChuUserPassword(String x_ChuUserPassword){
 		this.ChuUserPassword = x_ChuUserPassword;
 	}
-	public String getCustomerPassword(){
+	public String getChuUserPassword(){
 		return this.ChuUserPassword;
 	}
 }

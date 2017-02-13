@@ -41,7 +41,8 @@ public class ManagementController {
 	 * @return
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.POST)
-	public String chuuser_manage_register(Model model){
+	public String chuuser_manage_register(Model model,
+			@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf){
 		return "management_console/chuuser_manage/chuuser_register";
 	}
 
