@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,8 @@ import com.example.utils.StringUtils;
 @Controller
 public class ManagementController {
 
+	@Autowired
+	PasswordEncoder pe;
 	/**
 	 * 管理画面トップ
 	 * @param model
@@ -78,6 +82,11 @@ public class ManagementController {
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/register_complete", method = RequestMethod.POST)
 	public String register_complete(Model model){
+
+
+		//パスワード生成
+		String password_hash = pe.encode("mock");
+
 		return "management_console/chuuser_manage/chuuser_register_confirm";
 	}
 
