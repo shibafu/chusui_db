@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta content="ja" http-equiv="Content-Language" />
@@ -13,8 +14,8 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>
-<form method="post">
-	<input name="chusui_user_manage" type="submit" value="中水社員ユーザー管理画面へ" /></form>
+<form th:action="@{/management_console/chusui_user_manage}" method="get">
+	<input name="chusui_user_manage" type="submit" value="中水社員ユーザー(管理者)管理画面へ" /></form>
 </p>
 <p>
 <form method="post">

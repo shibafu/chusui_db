@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import java.security.MessageDigest;
-import java.security.acl.Group;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -39,36 +38,20 @@ public class LoginController {
 	CustomerMasterRepository CustomRepos;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView default_g(Model model,
-			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
-			BindingResult result,
+	public String domain_redirect(){
+
+		return "redirect:/user_top";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String default_g(Model model,
 			@RequestParam Optional<String> error){
 
 		//ただのアクセス(エラーがないなら、最初に遷移させてメソッド終了
 		//初めてのラムダ式
 		String erOrNot = error.orElseGet(() -> "error");
-		if(erOrNot.equals("error")){
-			return new ModelAndView("index");
-		}
 
-		String local_error_message = "";
-
-		//遷移先を判断する
-		String l_judge = login_judge(x_loginForm.getLoginName()
-				,x_loginForm.getLoginPassword()
-				,result);
-
-		if(l_judge.equals(WRONG_NAME_ERROR)){
-			local_error_message = "ユーザー名とパスワードが違います";
-		}
-
-		model.addAttribute("ErrorMessage", local_error_message);
-		model.addAttribute("userName", x_loginForm.getLoginName());
-
-        Calendar cal = Calendar.getInstance();
-        model.addAttribute("today",cal.getTime().toString());
-
-		return new ModelAndView("index","index",error);
+		return "index";
 	}
 
 	/**
@@ -79,39 +62,12 @@ public class LoginController {
 	 * @param error パラメーター。エラーだとパラメーター"error"が送信されてくる。
 	 * @return モデルビュークラス。エラー時の遷移先もここに書く。
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView login_post(Model model,
-			@Validated(Group.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
-			BindingResult result,
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView default_p(Model model,
 			@RequestParam Optional<String> error){
-
-		String local_error_message = "";
-
-		//遷移先を判断する
-		String l_judge = login_judge(x_loginForm.getLoginName()
-				,x_loginForm.getLoginPassword()
-				,result);
-
-		if(l_judge.equals(WRONG_NAME_ERROR)){
-			local_error_message = "ユーザー名とパスワードが違います";
-		}
-
-		model.addAttribute("ErrorMessage", local_error_message);
-		model.addAttribute("userName", x_loginForm.getLoginName());
-
-        Calendar cal = Calendar.getInstance();
-        model.addAttribute("today",cal.getTime().toString());
 
 		return new ModelAndView("login","index",error);
 	}
-
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String login(Model model){
-//
-//        Calendar cal = Calendar.getInstance();
-//        model.addAttribute("today",cal.getTime().toString());
-//	    return "index";
-//	}
 
 	@RequestMapping(value = "/user_top", method = RequestMethod.GET)
 	public String user_login(Model model,
@@ -121,13 +77,13 @@ public class LoginController {
 		String local_error_message = "";
 		//変更確認
 		//遷移先を判断する
-		String l_judge = login_judge(x_loginForm.getLoginName()
-				,x_loginForm.getLoginPassword()
-				,result);
+//		String l_judge = login_judge(x_loginForm.getLoginName()
+//				,x_loginForm.getLoginPassword()
+//				,result);
 
-		if(l_judge.equals(WRONG_NAME_ERROR)){
+//		if(l_judge.equals(WRONG_NAME_ERROR)){
 			local_error_message = "ユーザー名とパスワードが違います";
-		}
+//		}
 
 		model.addAttribute("ErrorMessage", local_error_message);
 		model.addAttribute("userName", x_loginForm.getLoginName());
@@ -135,8 +91,34 @@ public class LoginController {
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
-	    return  judge_to_page(l_judge);
+	    return  "user_top_page";
 	}
+
+	@RequestMapping(value = "/user_top", method = RequestMethod.POST)
+	public String user_login_p(Model model,
+			@Validated(GroupOrders.class) @ModelAttribute("LoginForm")LoginForm x_loginForm,
+			BindingResult result){
+
+		String local_error_message = "";
+		//変更確認
+		//遷移先を判断する
+//		String l_judge = login_judge(x_loginForm.getLoginName()
+//				,x_loginForm.getLoginPassword()
+//				,result);
+
+//		if(l_judge.equals(WRONG_NAME_ERROR)){
+			local_error_message = "ユーザー名とパスワードが違います";
+//		}
+
+		model.addAttribute("ErrorMessage", local_error_message);
+		model.addAttribute("userName", x_loginForm.getLoginName());
+
+        Calendar cal = Calendar.getInstance();
+        model.addAttribute("today",cal.getTime().toString());
+
+	    return  "user_top_page";
+	}
+
 
 	//ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	/*

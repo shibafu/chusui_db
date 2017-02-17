@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import java.security.MessageDigest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import com.example.entity.CustomerMaster;
 import com.example.form.RegisterForm;
 import com.example.orders.GroupOrders;
 import com.example.repository.CustomerMasterRepository;
+import com.example.utils.StringUtils;
 
 @Controller
 public class RegisterController {
@@ -24,6 +23,10 @@ public class RegisterController {
 
 	private RegisterForm rf_inclass = null;
 
+	//オリジナル文字操作ユーティリティを生成
+	@Autowired
+	StringUtils su;
+
 	// データアクセスリポジトリ
 	@Autowired
 	CustomerMasterRepository cusRepos;
@@ -31,10 +34,10 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Model model, @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			BindingResult x_BindingResult) {
-		return "register";
+		return "user_register/register";
 	}
 
-	@RequestMapping(value = "/reigster_confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/register_confirm", method = RequestMethod.POST)
 	public String rehgister_confim(Model model,
 			@Validated(GroupOrders.class) @ModelAttribute("RegisterForm") RegisterForm x_RegisterForm,
 			BindingResult x_BindingResult) {
@@ -45,9 +48,9 @@ public class RegisterController {
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
 
 		// ページ遷移に成功するなら、パスワード疑似文字列生成
-		if (toRegister_page.equals("register_confirm")) {
+		if (toRegister_page.equals("user_register/register_confirm")) {
 			rf_inclass = x_RegisterForm;
-			MockPassword = passwordset(x_RegisterForm.getCustomerPassword().length());
+			MockPassword = su.passwordset(x_RegisterForm.getCustomerPassword().length());
 			model.addAttribute("mockpassword", MockPassword);
 		}
 
@@ -64,7 +67,7 @@ public class RegisterController {
 		cusRepos.save(x_cm);
 
 		rf_inclass = null;
-		return "register_complete";
+		return "user_register/register_complete";
 	}
 
 	// ログインチェックメソッド▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
@@ -85,9 +88,9 @@ public class RegisterController {
 	 */
 	private String judge_to_page(String error_mess) {
 		if (error_mess.equals(VALIDATION_ERROR)) {
-			return "register";
+			return "user_register/register";
 		}
-		return "register_confirm";
+		return "user_register/register_confirm";
 	}
 
 	/**
@@ -107,52 +110,11 @@ public class RegisterController {
 		cm.setEmail(rf.getEMail());
 
 		// ハッシュ生成
-		String hashGenerated = hash_generator(rf.getCustomerPassword());
+		String hashGenerated = su.hash_generator(rf.getCustomerPassword());
 		cm.setCustomerPassword(hashGenerated);
 
 		return cm;
 
-	}
-
-	/**
-	 * 文字数を全て"*"に変換して返す
-	 *
-	 * @param x_num
-	 *            文字数
-	 * @return *****....の文字列
-	 */
-	private String passwordset(Integer x_num) {
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < x_num; i++) {
-			sb.append('*');
-		}
-
-		return sb.toString();
-	}
-
-	/**
-	 * ハッシュ生成機
-	 * @param raw_password 生パスワード
-	 * @return ハッシュ値
-	 */
-	private String hash_generator(String raw_password){
-		StringBuilder sb = new StringBuilder();
-
-		try{
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
-
-		md.update(raw_password.getBytes());
-
-		for(byte b:md.digest()){
-			String hex = String.format("%02x", b);
-			sb.append(hex);
-		}
-
-		} catch (Exception e) {
-            e.printStackTrace();
-		}
-		return sb.toString();
 	}
 
 }

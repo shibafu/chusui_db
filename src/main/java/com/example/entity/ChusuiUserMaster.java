@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -22,7 +24,8 @@ public class ChusuiUserMaster implements Serializable {
 
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chuid_gen")
+    @SequenceGenerator(name = "chuid_gen", sequenceName = "chusui_user_id_serial", allocationSize = 1)
 	private Integer userId;
 
 	@Column(name="user_lastname")
@@ -36,6 +39,12 @@ public class ChusuiUserMaster implements Serializable {
 
 	@Column(name="user_email")
 	private String userEmail;
+
+	@Column(name="authority")
+	private String authority;
+
+	@Column(name="enabled")
+	private Boolean enabled;
 
 	public ChusuiUserMaster() {
 	}
@@ -79,5 +88,24 @@ public class ChusuiUserMaster implements Serializable {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
+	public String getAuthority() {
+		return this.authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	public Boolean getEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+//	public UserDetails toMyUserDetail() {
+//		return ChuUserDetails.create(this);
+//	}
 
 }

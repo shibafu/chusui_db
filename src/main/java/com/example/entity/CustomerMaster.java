@@ -50,6 +50,12 @@ public class CustomerMaster implements Serializable {
 	@Column(name="company_name")
 	private String companyName;
 
+	@Column(name="authority")
+	private String authority;
+
+	@Column(name="enabled")
+	private Boolean enabled;
+
 	public CustomerMaster() {
 	}
 
@@ -124,4 +130,19 @@ public class CustomerMaster implements Serializable {
 		this.companyName = companyName;
 	}
 
+	public String getAuthority() {
+		return this.authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	public Boolean getEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 }
