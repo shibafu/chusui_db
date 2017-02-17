@@ -15,7 +15,7 @@ import com.example.orders.GroupOrders;
 import com.example.utils.StringUtils;
 
 @Controller
-@SessionAttributes("regform")
+@SessionAttributes(names="regForm")
 public class ManagementController {
 	/**
 	 * 管理画面トップ
