@@ -45,6 +45,7 @@ public class JdbcChusuiDao {
 	 */
 	public boolean ChusuiUserRegister(List<String>x_cuUserRegister){
 		//エンティティ作成
+		//姓　名　パスワード　Eメールの順番
 		ChusuiUserMaster c_m = new ChusuiUserMaster();
 		c_m.setUserFirstName(x_cuUserRegister.get(0));
 		c_m.setUserLastName(x_cuUserRegister.get(1));

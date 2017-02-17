@@ -21,7 +21,7 @@
 </head>
 
 <body>
-<form method="post" th:object="${regForm}">
+<form th:action="@{/management_console/chusui_user_manage/register_complete}" method="post" th:object="${regForm}">
 <p>以下の情報で登録します。よろしいですか？</p>
 <p>姓</p>
 <p class="auto-style1" style="position: relative; left: 120px; top: -34px; width: 93px; height: 20px">
