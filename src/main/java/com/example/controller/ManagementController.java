@@ -1,5 +1,9 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.example.dao.JdbcChusuiDao;
 import com.example.form.ChuUserRegisterForm;
 import com.example.orders.GroupOrders;
 import com.example.utils.StringUtils;
@@ -22,6 +27,11 @@ public class ManagementController {
 	 * @param model
 	 * @return
 	 */
+
+	//DAO一覧
+	@Autowired
+	JdbcChusuiDao jcdRegi;
+
 	@RequestMapping(value = "/management_console", method = RequestMethod.GET)
 	public String management_top(Model model){
 		return "management_console/management_console";
@@ -94,6 +104,17 @@ public class ManagementController {
 		//パスワード生成
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String password_hash = pe.encode(curf.getChuUserPassword());
+
+		//書き込みinfoリスト作成
+		List<String> reqInfo = new ArrayList<String>();
+
+		reqInfo.add(curf.getFirstName());
+		reqInfo.add(curf.getLastName());
+		reqInfo.add(password_hash);
+		reqInfo.add(curf.getEMail());
+
+		jcdRegi.ChusuiUserRegister(reqInfo);
+
 
 		return "management_console/chuuser_manage/chuuser_register_complete";
 	}
