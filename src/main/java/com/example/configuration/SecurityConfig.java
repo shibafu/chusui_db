@@ -77,8 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
-		auth.userDetailsService(cuService);
-//		.passwordEncoder(passwordEncoder());
+		auth.userDetailsService(cuService)
+		.passwordEncoder(passwordEncoder());
+
+//		auth.authenticationProvider(authenticationProvider)
 	}
 
 	//パスワードエンコーダー

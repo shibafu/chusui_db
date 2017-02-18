@@ -20,7 +20,7 @@
 </head>
 
 <body>
-	<p>ようこそ、「ユーザー名」さん</p>
+	<p th:text="ようこそ + ${UserName} + さん">ようこそ、「ユーザー名」さん</p>
 	<form th:action="@{/management_console}" method="get">
 		<input name="adminmanager" type="submit" value="管理画面へ" />
 	</form>
