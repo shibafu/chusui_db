@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.manager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.dao.JdbcChusuiDao;
+import com.example.entity.ChusuiUserMaster;
 import com.example.form.ChuUserRegisterForm;
 import com.example.orders.GroupOrders;
+import com.example.repository.ChusuiUserMasterRepository;
 import com.example.utils.StringUtils;
 
 @Controller
 @SessionAttributes(names="regForm")
-public class ManagementController {
+public class ChuRegisterManagerController {
 	/**
 	 * 管理画面トップ
 	 * @param model
@@ -31,11 +33,8 @@ public class ManagementController {
 	//DAO一覧
 	@Autowired
 	JdbcChusuiDao jcdRegi;
-
-	@RequestMapping(value = "/management_console", method = RequestMethod.GET)
-	public String management_top(Model model){
-		return "management_console/management_console";
-	}
+	@Autowired
+	ChusuiUserMasterRepository cumRepo;
 
 	//□□□□□□□□□□□管理者の管理画面□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 	/**
@@ -53,7 +52,7 @@ public class ManagementController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.POST)
+	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.GET)
 	public String chuuser_manage_register(Model model,
 			@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf){
 
@@ -85,7 +84,8 @@ public class ManagementController {
 		model.addAttribute("MockPass", mockpass);
 
 		if(br.hasErrors()){
-			return "redirect:/management_console/chuuser_manage/chuuser_register?error";
+			model.addAttribute("ErrorMessage", "入力項目にエラーがあります");
+			return "redirect:/management_console/chusui_user_manage/user_register?error";
 		}
 
 		return "management_console/chuuser_manage/chuuser_register_confirm";
@@ -119,11 +119,29 @@ public class ManagementController {
 		return "management_console/chuuser_manage/chuuser_register_complete";
 	}
 
+	/**
+	 * 管理者登録画面
+	 * @param model
+	 * @param curf モデルを受け取る
+	 * @return
+	 */
+	@RequestMapping(value = "/management_console/chusui_user_manage/user_search", method = RequestMethod.POST)
+	public String refference(Model model,
+			@ModelAttribute("regForm")ChuUserRegisterForm curf){
+
+		List<ChusuiUserMaster> lc =cumRepo.findAll();
+
+		model.addAttribute("AllRefference",lc);
+
+
+		return "management_console/chuuser_manage/chuuser_referrence";
+	}
+	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
+
 	//管理者セッション管理
 	@ModelAttribute("regForm")
 	public ChuUserRegisterForm setChuUserRegisterFormses(ChuUserRegisterForm x_r){
 		return x_r;
 	}
 
-	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 }
