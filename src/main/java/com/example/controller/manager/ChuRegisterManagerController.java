@@ -119,6 +119,7 @@ public class ChuRegisterManagerController {
 		return "management_console/chuuser_manage/chuuser_register_complete";
 	}
 
+	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼参照機能ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	/**
 	 * 管理者登録画面
 	 * @param model
@@ -126,8 +127,7 @@ public class ChuRegisterManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/user_search", method = RequestMethod.POST)
-	public String refference(Model model,
-			@ModelAttribute("regForm")ChuUserRegisterForm curf){
+	public String refference(Model model){
 
 		List<ChusuiUserMaster> lc =cumRepo.findAll();
 
@@ -136,6 +136,26 @@ public class ChuRegisterManagerController {
 
 		return "management_console/chuuser_manage/chuuser_referrence";
 	}
+
+	/**
+	 * 管理者登録画面
+	 * @param model
+	 * @param userEmail モデルを受け取る
+	 * @return
+	 */
+	@RequestMapping(value = "/managemet_console/chusui_user_manage/user_id", method = RequestMethod.POST)
+	public String refference_indivUser(Model model,
+			@ModelAttribute("ChusuiUserMaster")ChusuiUserMaster userEmail){
+
+		List<ChusuiUserMaster> lc = cumRepo.findByUserEmail(userEmail.getUserEmail());
+
+		model.addAttribute("UserReffernce",lc);
+
+
+		return "management_console/chuuser_manage/chuuser_referrence";
+	}
+
+	//▲▲▲▲▲▲▲▲▲▲▲参照機能ここまで▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 
 	//管理者セッション管理

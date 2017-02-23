@@ -29,8 +29,8 @@
 <p/>
 <form method="post">
 	<div id="reffer_loop" th:each="refer_entity : ${AllRefference}">
-		<input name="Button1" type="button" value="デフォ田_デフォ次郎_kanritakanrijito@tanakashouji.co.jp" />
 		<input name="Button2" type="button" th:value="${refer_entity.getUserEmail()}" />
+		<input th:field="${refer_entity.getUserEmail()}" type="hidden" />
 	</div>
 </form>
 
