@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.dao.JdbcChusuiDao;
@@ -143,17 +144,17 @@ public class ChuRegisterManagerController {
 	 * @param userEmail モデルを受け取る
 	 * @return
 	 */
-	@RequestMapping(value = "/managemet_console/chusui_user_manage/user_id", method = RequestMethod.POST)
+	@RequestMapping(value = "/managemet_console/chusui_user_manage/user_id", method = RequestMethod.GET)
 	public String refference_indivUser(Model model,
-			@ModelAttribute("ChusuiUserMaster")ChusuiUserMaster userEmail){
+			@RequestParam("username")String userName){
 
-		List<ChusuiUserMaster> lc = cumRepo.findByUserEmail(userEmail.getUserEmail());
+		List<ChusuiUserMaster> lc = cumRepo.findByUserEmail(userName);
 
 		model.addAttribute("UserReffernce",lc);
 
-
-		return "management_console/chuuser_manage/chuuser_referrence";
+		return "management_console/chuuser_manage/chuuser_update";
 	}
+
 
 	//▲▲▲▲▲▲▲▲▲▲▲参照機能ここまで▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□

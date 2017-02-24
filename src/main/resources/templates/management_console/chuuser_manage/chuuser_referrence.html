@@ -27,12 +27,14 @@
 <p class="auto-style2">管理者情報更新　</p>
 <p class="auto-style1">管理者を選択してください</p>
 <p/>
-<form method="post">
-	<div id="reffer_loop" th:each="refer_entity : ${AllRefference}">
-		<input name="Button2" type="button" th:value="${refer_entity.getUserEmail()}" />
-		<input th:field="${refer_entity.getUserEmail()}" type="hidden" />
-	</div>
-</form>
+<!-- 全検索、現在は全部で送信している。 -->
+
+<div id="reffer_loop" th:each="refer_entity : ${AllRefference}">
+	<form th:action="@{'/managemet_console/chusui_user_manage/user_id?username=' + ${refer_entity.getUserEmail()}}" method="get">
+		<input name="username" type="submit" th:value="${refer_entity.getUserEmail()}" />
+		<!-- th:fieldでタイムリーフのインプットタグ生成 -->
+	</form>
+</div>
 
 </body>
 
