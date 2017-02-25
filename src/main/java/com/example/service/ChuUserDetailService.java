@@ -26,8 +26,6 @@ public class ChuUserDetailService implements UserDetailsService {
 	@Autowired
 	JdbcChusuiDao jcDao;
 
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -57,8 +55,10 @@ public class ChuUserDetailService implements UserDetailsService {
 	public Integer updateChusuiUser(ChuUserUpdateForm cuuf){
 		Integer result_count;
 
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 		//リポジトリのメソッド起動
-		result_count = cumRepository.UpdateByEmail(cuuf.getFirstName(),
+		result_count = cumRepository.updateByEmail(cuuf.getFirstName(),
 				cuuf.getLastName(),
 				passwordEncoder.encode(cuuf.getChuUserPassword()),
 				cuuf.getEMail(),

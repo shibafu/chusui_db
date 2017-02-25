@@ -173,8 +173,7 @@ public class ChuRegisterManagerController {
 			@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
 
 		//更新数受け取る
-		Integer result_count;
-		result_count = cud.updateChusuiUser(cuuf);
+		Integer result_count = cud.updateChusuiUser(cuuf);
 
 
 		return "management_console/chuuser_manage/chuuser_update_complete";

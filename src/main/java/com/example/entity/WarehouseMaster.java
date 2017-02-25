@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
@@ -15,6 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="\"Warehouse_master\"")
+@NamedQuery(name="WarehouseMaster.findAll", query="SELECT w FROM WarehouseMaster w")
 public class WarehouseMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 

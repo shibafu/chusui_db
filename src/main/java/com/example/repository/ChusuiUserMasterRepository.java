@@ -23,18 +23,19 @@ public interface ChusuiUserMasterRepository extends JpaRepository<ChusuiUserMast
 	public List<ChusuiUserMaster> findByUserEmail(@Param("uEmail") String userEmail);
 
 	//Eメールで検索するメソッド まだ作ってないよ
-	@Query("UPDATE ChusuiUserMaster c set "
-			+ "c.user_lastname = :uUserLastname "
-			+ "c.user_firstname = :uUserFitstname "
-			+ "c.user_password = :uUserPassword "
-			+ "c.user_email = :uEmail "
-			+ "c.enabled = :uEnabled "
-			+ "c.authority = :uAuthority "
-			+ "where c.userEmail = :befEmail ")
-	@Modifying //Updateに必要
-	public Integer UpdateByEmail(
+	//c.userFirstName = :uUserFitstname  c.userPassword = :uUserPassword c.userEmail = :uEmail c.enabled = :uEnabled c.authority = :uAuthority
+	@Query("update ChusuiUserMaster set "
+			+ " userLastname = :uUserLastname, "
+			+ " userFirstName = :uUserFirstname, "
+			+ " userPassword = :uUserPassword, "
+			+ " userEmail = :uEmail, "
+			+ " enabled = :uEnabled, "
+			+ " authority = :uAuthority "
+			+ " where userEmail = :befEmail ")
+	@Modifying(clearAutomatically = true) //Updateに必要
+	public Integer updateByEmail(
 			@Param("uUserLastname") String userLastname,
-			@Param("uUserFitstname") String userFitstname,
+			@Param("uUserFirstname") String userFitstname,
 			@Param("uUserPassword") String userPassword,
 			@Param("uEmail") String userEmail,
 			@Param("uEnabled") Boolean uEnabled,

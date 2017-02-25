@@ -14,7 +14,7 @@
 
 <body>
 
-<form method="post" th:action="@{/managemet_console/chusui_user_manage/userupadate}" th:object="${UserReffernce.get(0)}">
+<form th:action="@{/managemet_console/chusui_user_manage/userupadate}" th:object="${UserReffernce.get(0)}" method="POST">
 	姓<br />
 	<input name="LastName" type="text" th:value="*{userLastName}"/>
 	名<br />
@@ -28,16 +28,20 @@
 	<input name="Authority" type="text" th:value="*{Authority}"/><br />
 	<br />
 	Enableユーザー<br />
-	<div th:if="${*{Enabled} == true}?' check_var = 'on'' : 'check_var = 'off''">
-	<input name="Radio1" type="checkbox" th:checked="${check_var}"/><br />
+	<div th:if="${UserReffernce.get(0).Enabled != null}">
+		<div th:if="${UserReffernce.get(0).Enabled == true}?">
+			<input name="Radio1" type="checkbox" th:checked="on"/><br />
+		</div>
 	</div>
 	<br />
 	<input name="update" type="submit" value="更新" />
 	</form>
-	<form method ="post" th:action={@} th:object="${UserReffernce.get(0)}">
+
+	<form th:action="@{/managemet_console/chusui_user_manage/userdelete}" th:object="${UserReffernce.get(0)}" method ="post" >
 	<div class="auto-style1">
-	<input name="useid">
-		<input name="delete" type="button" value="削除" /></div>
+	<input name="useid" />
+		<input name="delete" type="button" value="削除" />
+	</div>
 </form>
 
 </body>
