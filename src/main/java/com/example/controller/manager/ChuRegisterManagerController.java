@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.example.dao.JdbcChusuiDao;
 import com.example.entity.ChusuiUserMaster;
 import com.example.form.ChuUserRegisterForm;
+import com.example.form.chuuserManage.ChuUserUpdateForm;
 import com.example.orders.GroupOrders;
 import com.example.repository.ChusuiUserMasterRepository;
+import com.example.service.ChuUserDetailService;
 import com.example.utils.StringUtils;
 
 @Controller
@@ -36,6 +38,11 @@ public class ChuRegisterManagerController {
 	JdbcChusuiDao jcdRegi;
 	@Autowired
 	ChusuiUserMasterRepository cumRepo;
+
+
+	//ユーザーディテールサービス。
+	@Autowired
+	ChuUserDetailService cud;
 
 	//□□□□□□□□□□□管理者の管理画面□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 	/**
@@ -155,8 +162,28 @@ public class ChuRegisterManagerController {
 		return "management_console/chuuser_manage/chuuser_update";
 	}
 
+	/**
+	 * 管理者登録画面
+	 * @param model
+	 * @param userEmail モデルを受け取る
+	 * @return
+	 */
+	@RequestMapping(value = "/managemet_console/chusui_user_manage/userupadate", method = RequestMethod.GET)
+	public String indivUser_update(Model model,
+			@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
+
+		//更新数受け取る
+		Integer result_count;
+		result_count = cud.updateChusuiUser(cuuf);
+
+
+		return "management_console/chuuser_manage/chuuser_update_complete";
+	}
+
 
 	//▲▲▲▲▲▲▲▲▲▲▲参照機能ここまで▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+
 	//□□□□□□□□□□□管理者の管理画面ここまで□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 
 	//管理者セッション管理

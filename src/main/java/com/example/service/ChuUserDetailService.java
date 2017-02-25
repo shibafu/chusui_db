@@ -9,11 +9,13 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.JdbcChusuiDao;
 import com.example.entity.ChusuiUserMaster;
+import com.example.form.chuuserManage.ChuUserUpdateForm;
 import com.example.repository.ChusuiUserMasterRepository;
 
 @Service
@@ -21,10 +23,11 @@ public class ChuUserDetailService implements UserDetailsService {
 
 	@Autowired
 	ChusuiUserMasterRepository cumRepository;
-
 	@Autowired
 	JdbcChusuiDao jcDao;
 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,5 +48,25 @@ public class ChuUserDetailService implements UserDetailsService {
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");
 		}
+	}
+
+	/**
+	 * DBにあるユーザー情報を更新する
+	 * @param cuuf 更新フォーマット
+	 */
+	public Integer updateChusuiUser(ChuUserUpdateForm cuuf){
+		Integer result_count;
+
+		//リポジトリのメソッド起動
+		result_count = cumRepository.UpdateByEmail(cuuf.getFirstName(),
+				cuuf.getLastName(),
+				passwordEncoder.encode(cuuf.getChuUserPassword()),
+				cuuf.getEMail(),
+				cuuf.getEnabled(),
+				cuuf.getAuthority(),
+				cuuf.getBeforeEmail());
+
+		//更新数を記録。
+		return result_count;
 	}
 }
