@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.ChusuiUserMaster;
 
+@Transactional//updateクエリに必要なアノテーション
 @Repository
 public interface ChusuiUserMasterRepository extends JpaRepository<ChusuiUserMaster, Integer>{
 
@@ -24,15 +26,16 @@ public interface ChusuiUserMasterRepository extends JpaRepository<ChusuiUserMast
 
 	//Eメールで検索するメソッド まだ作ってないよ
 	//c.userFirstName = :uUserFitstname  c.userPassword = :uUserPassword c.userEmail = :uEmail c.enabled = :uEnabled c.authority = :uAuthority
-	@Query("update ChusuiUserMaster set "
-			+ " userLastname = :uUserLastname, "
-			+ " userFirstName = :uUserFirstname, "
-			+ " userPassword = :uUserPassword, "
-			+ " userEmail = :uEmail, "
-			+ " enabled = :uEnabled, "
-			+ " authority = :uAuthority "
-			+ " where userEmail = :befEmail ")
-	@Modifying(clearAutomatically = true) //Updateに必要
+	//省力系のコードが動かない。カラム指定はエンティティのフィールド名で。
+	@Modifying //Updateに必要
+	@Query("update ChusuiUserMaster a set "
+			+ " a.userLastName = :uUserLastname, "
+			+ " a.userFirstName = :uUserFirstname, "
+			+ " a.userPassword = :uUserPassword, "
+			+ " a.userEmail = :uEmail, "
+			+ " a.enabled = :uEnabled, "
+			+ " a.authority = :uAuthority "
+			+ " where a.userEmail = :befEmail ")
 	public Integer updateByEmail(
 			@Param("uUserLastname") String userLastname,
 			@Param("uUserFirstname") String userFitstname,

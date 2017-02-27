@@ -29,8 +29,11 @@
 	<br />
 	Enableユーザー<br />
 	<div th:if="${UserReffernce.get(0).Enabled != null}">
-		<div th:if="${UserReffernce.get(0).Enabled == true}?">
-			<input name="Radio1" type="checkbox" th:checked="on"/><br />
+		<div th:if="${UserReffernce.get(0).Enabled == true}">
+			<input name="Enabled" type="radio" th:checked="on" value="true"/><br />
+		</div>
+				<div th:if="${UserReffernce.get(0).Enabled == false}">
+			<input name="Enabled" type="checkbox" th:checked="off" value="false"/><br />
 		</div>
 	</div>
 	<br />

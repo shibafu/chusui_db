@@ -168,14 +168,14 @@ public class ChuRegisterManagerController {
 	 * @param userEmail モデルを受け取る
 	 * @return
 	 */
-	@RequestMapping(value = "/managemet_console/chusui_user_manage/userupadate", method = RequestMethod.GET)
+	@RequestMapping(value = "/managemet_console/chusui_user_manage/userupadate", method = RequestMethod.POST)
 	public String indivUser_update(Model model,
 			@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
 
 		//更新数受け取る
 		Integer result_count = cud.updateChusuiUser(cuuf);
 
-
+		System.out.println(result_count);
 		return "management_console/chuuser_manage/chuuser_update_complete";
 	}
 

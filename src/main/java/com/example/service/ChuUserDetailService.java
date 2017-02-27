@@ -51,6 +51,7 @@ public class ChuUserDetailService implements UserDetailsService {
 	/**
 	 * DBにあるユーザー情報を更新する
 	 * @param cuuf 更新フォーマット
+	 * ついでにBoolean整形
 	 */
 	public Integer updateChusuiUser(ChuUserUpdateForm cuuf){
 		Integer result_count;
