@@ -26,6 +26,9 @@ public class ChuUserDetailService implements UserDetailsService {
 	@Autowired
 	JdbcChusuiDao jcDao;
 
+	/**
+	 * 二回テーブルを見に行かないといけない・・・
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

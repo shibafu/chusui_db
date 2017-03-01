@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(cuService)
 		.passwordEncoder(passwordEncoder());
 
+		System.out.println("ここでとなる");
 //		auth.authenticationProvider(authenticationProvider)
 	}
 

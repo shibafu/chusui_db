@@ -26,7 +26,6 @@ public interface ChusuiUserMasterRepository extends JpaRepository<ChusuiUserMast
 
 	//Eメールで検索するメソッド まだ作ってないよ
 	//c.userFirstName = :uUserFitstname  c.userPassword = :uUserPassword c.userEmail = :uEmail c.enabled = :uEnabled c.authority = :uAuthority
-	//省力系のコードが動かない。カラム指定はエンティティのフィールド名で。
 	@Modifying //Updateに必要
 	@Query("update ChusuiUserMaster a set "
 			+ " a.userLastName = :uUserLastname, "

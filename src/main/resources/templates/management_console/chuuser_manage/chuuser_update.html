@@ -28,14 +28,22 @@
 	<input name="Authority" type="text" th:value="*{Authority}"/><br />
 	<br />
 	Enableユーザー<br />
+		<!-- 許可部 -->
 	<div th:if="${UserReffernce.get(0).Enabled != null}">
 		<div th:if="${UserReffernce.get(0).Enabled == true}">
-			<input name="Enabled" type="radio" th:checked="on" value="true"/><br />
+			<p>許可</p>
+			<input name="Enabled" type="radio" th:checked="checked" value="true"/>
+			<p>不許可</p>
+			<input name="Enabled" type="radio" value="false"/><br />
 		</div>
-				<div th:if="${UserReffernce.get(0).Enabled == false}">
-			<input name="Enabled" type="checkbox" th:checked="off" value="false"/><br />
+		<div th:if="${UserReffernce.get(0).Enabled == false}">
+			<p>許可</p>
+			<input name="Enabled" type="radio" value="true" />
+			<p>不許可</p>
+			<input name="Enabled" type="radio"  th:checked="checked"  value="false"/><br />
 		</div>
 	</div>
+		<!-- 許可部 -->
 	<br />
 	<input name="update" type="submit" value="更新" />
 	</form>
