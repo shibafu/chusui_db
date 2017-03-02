@@ -33,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	ChuUserDetailService cuService;
 
+//	@Autowired
+//	LoginUserDetailsService loService;
+
 	/**
 	 * デバッグモード
 	 */

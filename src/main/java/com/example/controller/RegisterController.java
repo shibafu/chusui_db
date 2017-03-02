@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -109,8 +110,10 @@ public class RegisterController {
 		cm.setCompanyBlock(rf.getCompanyBlock());
 		cm.setEmail(rf.getEMail());
 
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		// ハッシュ生成
-		String hashGenerated = su.hash_generator(rf.getCustomerPassword());
+		String hashGenerated = passwordEncoder.encode(rf.getCustomerPassword());
+		
 		cm.setCustomerPassword(hashGenerated);
 
 		return cm;
