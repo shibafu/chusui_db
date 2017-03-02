@@ -46,14 +46,14 @@ public class LoginUserDetails implements UserDetails{
 		// TODO 自動生成されたメソッド・スタブ
 		String LoginUserPassword;
 
-		LoginUserPassword = Optional.ofNullable(chusuiUserMaster)		//値をオプショナルでラップ
-				.map(chusuiUserMaster -> chusuiUserMaster.getUserPassword())//帰ってきたオプショナルでメソッド実行
-				.orElseGet(null);//値を取り出す。
+		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
+		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
 
-		LoginUserPassword = Optional.ofNullable(customerMaster)		//値をオプショナルでラップ
-				.map(customerMaster -> customerMaster.getCustomerPassword())//帰ってきたオプショナルでメソッド実行
-				.orElseGet(null);//値を取り出す。
-
+		LoginUserPassword =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getUserPassword())
+							.orElseGet(() ->//ラムダ式の入れ子
+							cm_opt.map(customerMaster -> customerMaster.getCustomerPassword())//nullの時もう一度ラムダ式実行
+							.orElseGet(() -> "nopassword")
+							);
 		//返す
 		return LoginUserPassword;
 	}
