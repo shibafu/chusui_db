@@ -20,6 +20,7 @@ import com.example.orders.GroupOrders;
 import com.example.repository.ChusuiUserMasterRepository;
 import com.example.repository.CustomerMasterRepository;
 import com.example.service.ChuUserDetails;
+import com.example.service.LoginUserDetails;
 
 
 
@@ -77,9 +78,9 @@ public class LoginController {
 			Principal principal){
 
 		Authentication auth = (Authentication)principal;
-	    ChuUserDetails cudS = (ChuUserDetails)auth.getPrincipal();
-		
-		model.addAttribute("UserName",cudS.getUsername());
+		LoginUserDetails loginUser = (LoginUserDetails)auth.getPrincipal();
+
+		model.addAttribute("UserName",loginUser.getUsername());
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());
 
@@ -98,7 +99,7 @@ public class LoginController {
 
 		Authentication auth = (Authentication)principal;
 	    ChuUserDetails cudS = (ChuUserDetails)auth.getPrincipal();
-		
+
 		model.addAttribute("UserName",cudS.getUsername());
         Calendar cal = Calendar.getInstance();
         model.addAttribute("today",cal.getTime().toString());

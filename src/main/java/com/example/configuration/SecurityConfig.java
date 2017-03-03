@@ -16,6 +16,7 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import com.example.service.ChuUserDetailService;
+import com.example.service.LoginUserDetailsService;
 
 /**
  * 認証を管理するコンフィグBean
@@ -33,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	ChuUserDetailService cuService;
 
-//	@Autowired
-//	LoginUserDetailsService loService;
+	@Autowired
+	LoginUserDetailsService loService;
 
 	/**
 	 * デバッグモード
@@ -80,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
-		auth.userDetailsService(cuService)
+		auth.userDetailsService(loService)
 		.passwordEncoder(passwordEncoder());
 
 		System.out.println("ここでとなる");
