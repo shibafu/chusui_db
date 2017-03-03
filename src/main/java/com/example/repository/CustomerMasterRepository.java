@@ -12,7 +12,7 @@ import com.example.entity.CustomerMaster;
 @Repository
 public interface CustomerMasterRepository extends JpaRepository<CustomerMaster,Integer>{
 	//検索
-	@Query("SELECT c FROM CustomerrMaster c where c.email = :uEmail")
+	@Query("SELECT c FROM CustomerMaster c where c.email = :uEmail")
 	public List<CustomerMaster> findByUserEmail(@Param("uEmail") String userEmail);
 
 }
