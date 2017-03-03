@@ -109,11 +109,13 @@ public class RegisterController {
 		cm.setAddres(rf.getCompanyAddress());
 		cm.setCompanyBlock(rf.getCompanyBlock());
 		cm.setEmail(rf.getEMail());
+		cm.setAuthority("ROLE_USER");
+		cm.setEnabled(true);
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		// ハッシュ生成
 		String hashGenerated = passwordEncoder.encode(rf.getCustomerPassword());
-		
+
 		cm.setCustomerPassword(hashGenerated);
 
 		return cm;
