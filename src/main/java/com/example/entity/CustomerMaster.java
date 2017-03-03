@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -23,7 +24,8 @@ public class CustomerMaster implements Serializable {
 
 	@Id
 	@Column(name="customer_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cusid_gen")
+    @SequenceGenerator(name = "cusid_gen", sequenceName = "customer_id_seq", allocationSize = 1)
 	private Integer customerId;
 
 	@Column(name="addres")
