@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/management_console/newspaper_manage")
 public class NewsPaperManagementController {
 
-	@RequestMapping(value="/")
+	@RequestMapping(value="")
 	public String newspaperTop(){
 		return "management_console/newspaper_manage/newspaper_register";
-
 	}
 }
