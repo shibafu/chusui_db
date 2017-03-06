@@ -11,11 +11,11 @@
 <body>
 
 <p>日付</p>
-<p>
-<form th:action="@{/management_console/newspaper_manage/register_confirm}" method="post">
+<p></p>
+<form th:action="@{/management_console/newspaper_manage/register_confirm}" method="post" th:object="${NewsArticleForm}">
 	<input name="date" type="text" />
-</p>
-<p>新聞名</p>
+
+<p>新聞社名</p>
 <p>
 	<input name="companyName" type="text" />
 </p>
@@ -23,7 +23,7 @@
 	<textarea cols="20" name="articleHeader" rows="2"></textarea>
 <p>記事</p>
 	<textarea cols="20" name="articleSentence" rows="2"></textarea>
-	<input name="Reset1" type="reset" value="登録" />
+	<input name="Reset1" type="submit" value="登録" />
 </form>
 </body>
 

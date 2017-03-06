@@ -2,23 +2,24 @@ package com.example.form.chuuserManage;
 
 import java.util.Date;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class NewsArticleForm {
 
-	@NotEmpty(message = "※見出しを入力してください")
+	@NotBlank(message = "※見出しを入力してください")
 		private String articleHeader;
 
-	@NotEmpty(message = "※記事を入力してください")
+	@NotBlank(message = "※記事を入力してください")
 		private String articleSentence;
 
-	@NotEmpty(message = "※会社名を入力してください")
+	@NotBlank(message = "※会社名を入力してください")
 		private String companyName;
 
-	@NotEmpty(message = "※日付を入力してください。")
-	@Pattern(regexp="(\\d{4})/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])",message="その日付は存在しません")
+	@NotNull(message = "※日付を入力してください。")
+	@DateTimeFormat(pattern="yyyy/mm/dd")
 		private Date date;
 
 		public String getArticleHeader() {
