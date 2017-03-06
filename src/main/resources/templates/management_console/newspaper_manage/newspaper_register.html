@@ -12,23 +12,19 @@
 
 <p>日付</p>
 <p>
-<form method="post">
-	<input name="Text1" type="text" /></form>
+<form th:action="@{/management_console/newspaper_manage/register_confirm}" method="post">
+	<input name="date" type="text" />
 </p>
 <p>新聞名</p>
 <p>
-<form method="post">
-	<input name="Text2" type="text" /></form>
+	<input name="companyName" type="text" />
 </p>
-<form method="post">
 	見出し<br />
-	<textarea cols="20" name="TextArea1" rows="2"></textarea></form>
+	<textarea cols="20" name="articleHeader" rows="2"></textarea>
 <p>記事</p>
-<form method="post">
-	<textarea cols="20" name="TextArea2" rows="2"></textarea></form>
-<form method="post">
-	<input name="Reset1" type="reset" value="登録" /></form>
-
+	<textarea cols="20" name="articleSentence" rows="2"></textarea>
+	<input name="Reset1" type="reset" value="登録" />
+</form>
 </body>
 
 </html>
