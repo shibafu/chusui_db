@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.entity.NewsArticleMaster;
 import com.example.form.chuuserManage.NewsArticleForm;
@@ -18,6 +19,7 @@ import com.example.repository.NewsArticleMasterRepository;
 
 @Controller
 @RequestMapping(value="/management_console/newspaper_manage")
+@SessionAttributes(names="NewsArticleForm")
 public class NewsPaperManagementController {
 
 	//DAO
@@ -41,18 +43,17 @@ public class NewsPaperManagementController {
 	 * @return
 	 */
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String register(Model model,
-			@ModelAttribute("NewsArticleForm")NewsArticleForm x_newsArticleForm,
-			BindingResult x_bindingResult){
+	public String register(Model model){
 		return "management_console/newspaper_manage/newspaper_register";
 	}
 
 	@RequestMapping(value="/register_confirm", method ={GET,POST})
 	public String register_confirm(Model model,
-			@Validated @ModelAttribute("NewsArticleForm")NewsArticleForm x_newsArticleForm,
+			@Validated NewsArticleForm x_newsArticleForm,
 			BindingResult x_bindingResult){
 
 		x_newsArticleForm.getArticleHeader();
+		model.addAttribute("NewsArticleForm",x_newsArticleForm);
 
 		if(x_bindingResult.hasErrors()){
 			return "redirect:/management_console/newspaper_manage/register?error";
