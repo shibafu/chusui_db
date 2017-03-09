@@ -35,6 +35,7 @@ public class NewsPaperManagementController {
 		return "management_console/newspaper_manage/newspaper_management";
 	}
 
+	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼登録処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	/**
 	 *
 	 * @param model
@@ -70,6 +71,26 @@ public class NewsPaperManagementController {
 		return "management_console/newspaper_manage/register_complete";
 	}
 
+	//▲▲▲▲▲▲▲▲▲▲▲▲登録処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
+
+
+	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼検索処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+	@RequestMapping(value="/search", method ={GET,POST})
+	public String search(Model model){
+		return "management_console/newspaper_manage/newspaper_search";
+	}
+
+	@RequestMapping(value="/reffernce", method ={GET,POST})
+	public String reffernce(Model model){
+		return "management_console/newspaper_manage/newspaper_reffernce";
+	}
+	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
+
+	/**
+	 * 登録用エンティティ作成
+	 * @param x_newsArticleForm
+	 * @return
+	 */
 	private NewsArticleMaster ArticleFormToEntity(NewsArticleForm x_newsArticleForm){
 
 		NewsArticleMaster nam = new NewsArticleMaster();

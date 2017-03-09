@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>管理者登録</title>
+<style type="text/css">
+.newStyle1 {
+	font-weight: normal;
+	position: relative;
+	width: 120px;
+	height: 60px;
+}
+.auto-style1 {
+	margin-top: 0px;
+}
+.auto-style2 {
+	margin-bottom: 0px;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style2">新聞記事情報更新　</p>
+<p class="auto-style1">新聞記事者を選択してください</p>
+<p/>
+<!-- 全検索、現在は全部で送信している。 -->
+
+<div id="reffer_loop" th:each="refer_entity : ${AllRefference}">
+	<form th:action="@{'/managemet_console/chusui_user_manage/user_id?username=' + ${refer_entity.getUserEmail()}}" method="get">
+		<input name="username" type="submit" th:value="${refer_entity.getUserEmail()}" />
+		<!-- th:fieldでタイムリーフのインプットタグ生成 -->
+	</form>
+</div>
+
+</body>
+
+</html>
