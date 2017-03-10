@@ -6,10 +6,6 @@ import java.util.Date;
 import com.example.utils.customValidator.SearchConditionValid;
 
 
-/**
- * The persistent class for the news_article_master database table.
- *
- */
 @SearchConditionValid
 public class NewsSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
