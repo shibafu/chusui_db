@@ -9,20 +9,13 @@
 
 <body>
 
-<form method="post">
-	<input name="Text1" type="text" /><br />
-	～</form>
-<form method="post">
-	<input name="Text2" type="text" /></form>
-<form method="post">
-	新聞社名<br />
-	<input name="Text3" type="text" /></form>
-<form method="post">
-	見出し<br />
-	<textarea cols="20" name="TextArea1" rows="2"></textarea></form>
-<form method="post">
-	新聞記事<br />
-	<textarea cols="20" name="TextArea2" rows="2"></textarea><br />
+<form th:action="@{/management_console/newspaper_manage/reffernce}" method="post" >
+	<input name="Text1" type="text" />日付区間
+	<p>～</p>
+	<input name="Text2" type="text" /><br />
+	<input name="Text3" type="text" />新聞社名<br />
+	<textarea cols="20" name="TextArea1" rows="2"></textarea>見出し<br />
+	<textarea cols="20" name="TextArea2" rows="2"></textarea>新聞記事<br />
 </form>
 
 </body>

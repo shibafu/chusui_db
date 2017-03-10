@@ -1,4 +1,4 @@
-package com.example.form.chuuserManage;
+package com.example.form.newspapermanage;
 
 import java.util.Date;
 

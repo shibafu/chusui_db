@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.entity.NewsArticleMaster;
-import com.example.form.chuuserManage.NewsArticleForm;
+import com.example.form.newspapermanage.NewsArticleForm;
 import com.example.repository.NewsArticleMasterRepository;
 
 @Controller
@@ -81,7 +81,9 @@ public class NewsPaperManagementController {
 	}
 
 	@RequestMapping(value="/reffernce", method ={GET,POST})
-	public String reffernce(Model model){
+	public String reffernce(Model model,
+			@Validated NewsArticleForm x_newsArticleForm
+			){
 		return "management_console/newspaper_manage/newspaper_reffernce";
 	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
