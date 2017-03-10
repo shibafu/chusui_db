@@ -9,13 +9,15 @@
 
 <body>
 
-<form th:action="@{/management_console/newspaper_manage/reffernce}" method="post" >
-	<input name="Text1" type="text" />日付区間
+<form th:action="@{/management_console/newspaper_manage/reffernce}" method="post" th:object="${NewsSearchForm}">
+	<input name="dateFrom" type="text" />日付区間
 	<p>～</p>
-	<input name="Text2" type="text" /><br />
-	<input name="Text3" type="text" />新聞社名<br />
-	<textarea cols="20" name="TextArea1" rows="2"></textarea>見出し<br />
-	<textarea cols="20" name="TextArea2" rows="2"></textarea>新聞記事<br />
+	<input name="dateTo" type="text" /><br />
+	<input name="companyName" type="text" />新聞社名<br />
+	<textarea cols="20" name="articleHeader" rows="2"></textarea>見出し<br />
+	<textarea cols="20" name="articleSentence" rows="2"></textarea>新聞記事<br />
+
+		<input name="Text1" type="submit" value="検索"/>日付区間
 </form>
 
 </body>

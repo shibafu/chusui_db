@@ -3,6 +3,8 @@ package com.example.controller.manager;
 //リクエストメソッドの定数をインポート
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.entity.NewsArticleMaster;
 import com.example.form.newspapermanage.NewsArticleForm;
+import com.example.form.newspapermanage.NewsSearchForm;
 import com.example.repository.NewsArticleMasterRepository;
 
 @Controller
@@ -82,9 +85,15 @@ public class NewsPaperManagementController {
 
 	@RequestMapping(value="/reffernce", method ={GET,POST})
 	public String reffernce(Model model,
-			@Validated NewsArticleForm x_newsArticleForm
+			@Valid NewsSearchForm x_newsSearchForm,
+			BindingResult result
 			){
-		return "management_console/newspaper_manage/newspaper_reffernce";
+
+		x_newsSearchForm.getArticleHeader();
+		if(result.hasGlobalErrors()){
+			return "redirect:/";
+		}
+		return "management_console/newspaper_manage/newspaper_referrence";
 	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
 

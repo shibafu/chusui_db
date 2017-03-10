@@ -3,23 +3,17 @@ package com.example.form.newspapermanage;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import com.example.utils.customValidator.SearchConditionValid;
 
 
 /**
  * The persistent class for the news_article_master database table.
  *
  */
-@Entity
-@Table(name="news_article_master")
-@NamedQuery(name="NewsArticleMaster.findAll", query="SELECT n FROM NewsArticleMaster n")
+@SearchConditionValid
 public class NewsSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
 	private String articleHeader;
 
 	private String articleSentence;
@@ -27,6 +21,7 @@ public class NewsSearchForm implements Serializable {
 	private String companyName;
 
 	private Date dateFrom;
+
 	private Date dateTo;
 
 	public NewsSearchForm() {
