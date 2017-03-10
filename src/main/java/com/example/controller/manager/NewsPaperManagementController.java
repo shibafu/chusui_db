@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.example.dao.JdbcNewsArticleDAO;
 import com.example.entity.NewsArticleMaster;
 import com.example.form.newspapermanage.NewsArticleForm;
 import com.example.form.newspapermanage.NewsSearchForm;
@@ -28,6 +29,9 @@ public class NewsPaperManagementController {
 	//DAO
 	@Autowired
 	NewsArticleMasterRepository namRepository;
+
+	@Autowired
+	JdbcNewsArticleDAO newsDao;
 
 	/**
 	 *

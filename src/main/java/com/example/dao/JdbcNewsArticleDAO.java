@@ -20,7 +20,7 @@ public class JdbcNewsArticleDAO {
 		 * @return
 		 */
 		public List<NewsArticleMaster> findAllCondition(String x_email){
-			String sql = "SELECT user_id, user_lastname, user_firstname, user_password, user_email, authority, enabled FROM chusui_user_master WHERE user_email LIKE '" + x_email + "' ;";
+			String sql = "SELECT *FROM chusui_user_master WHERE user_email LIKE '" + x_email + "' ;";
 
 			//結果取得
 			List<NewsArticleMaster> result = jdbcTemplate.queryForList(sql, NewsArticleMaster.class);
