@@ -3,6 +3,9 @@ package com.example.controller.manager;
 //リクエストメソッドの定数をインポート
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,9 +96,38 @@ public class NewsPaperManagementController {
 			BindingResult result
 			){
 
-		x_newsSearchForm.getArticleHeader();
+		List<NewsArticleMaster> articles = new ArrayList<NewsArticleMaster>();
+
+
 		if(result.hasGlobalErrors()){
-			return "redirect:/";
+			return "redirect:/management_console/newspaper_manage/search?error";
+		}
+
+		if(!x_newsSearchForm.getArticleHeader().isEmpty()
+				||!x_newsSearchForm.getArticleSentence().isEmpty()
+				||!x_newsSearchForm.getCompanyName().isEmpty()
+			&&x_newsSearchForm.getDateFrom() != null
+				||x_newsSearchForm.getDateTo() != null ){
+
+			articles = newsDao.findDateAndCondition(x_newsSearchForm.getCompanyName(),
+					x_newsSearchForm.getArticleHeader(),
+					x_newsSearchForm.getArticleSentence(),
+					x_newsSearchForm.getDateFrom(),
+					x_newsSearchForm.getDateTo());
+
+		}else if(!x_newsSearchForm.getArticleHeader().isEmpty()
+				||!x_newsSearchForm.getArticleSentence().isEmpty()
+				||!x_newsSearchForm.getCompanyName().isEmpty()){
+
+			articles = newsDao.findCondition(x_newsSearchForm.getCompanyName(),
+					x_newsSearchForm.getArticleHeader(),
+					x_newsSearchForm.getArticleSentence());
+
+		}else if(x_newsSearchForm.getDateFrom() != null
+				||x_newsSearchForm.getDateTo() != null){
+
+			articles = newsDao.findDate(x_newsSearchForm.getDateFrom(), x_newsSearchForm.getDateTo());
+
 		}
 		return "management_console/newspaper_manage/newspaper_referrence";
 	}

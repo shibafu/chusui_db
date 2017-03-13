@@ -23,7 +23,7 @@ public class JdbcNewsArticleDAO {
 	 * @param x_articleSentence
 	 * @return
 	 */
-	public List<NewsArticleMaster> findAllCondition(String x_company, String x_articleHeader,
+	public List<NewsArticleMaster> findCondition(String x_company, String x_articleHeader,
 			String x_articleSentence) {
 
 		StringBuilder DynamSql = new StringBuilder();
@@ -94,7 +94,7 @@ public class JdbcNewsArticleDAO {
 			return result;
 		}
 
-	public List<NewsArticleMaster> findDate(String x_company, String x_articleHeader,
+	public List<NewsArticleMaster> findDateAndCondition(String x_company, String x_articleHeader,
 			String x_articleSentence, Date x_From, Date x_To){
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT * FROM news_article_master WHERE");
