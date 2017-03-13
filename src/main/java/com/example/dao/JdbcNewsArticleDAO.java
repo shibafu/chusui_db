@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.example.entity.NewsArticleMaster;
@@ -27,6 +29,8 @@ public class JdbcNewsArticleDAO {
 			String x_articleSentence) {
 
 		StringBuilder DynamSql = new StringBuilder();
+		//受け取りのマップ
+		RowMapper<NewsArticleMaster> mapper = new BeanPropertyRowMapper<NewsArticleMaster>(NewsArticleMaster.class);
 
 		DynamSql.append("SELECT * FROM news_article_master WHERE ");
 
@@ -53,7 +57,7 @@ public class JdbcNewsArticleDAO {
 
 		String sql = DynamSql.toString();
 		// 結果取得
-		List<NewsArticleMaster> result = jdbcTemplate.queryForList(sql, NewsArticleMaster.class);
+		List<NewsArticleMaster> result = jdbcTemplate.query(sql, mapper);
 
 		return result;
 	}
@@ -67,6 +71,8 @@ public class JdbcNewsArticleDAO {
 	public List<NewsArticleMaster> findDate(Date x_From, Date x_To){
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT * FROM news_article_master WHERE ");
+
+			RowMapper<NewsArticleMaster> mapper = new BeanPropertyRowMapper<NewsArticleMaster>(NewsArticleMaster.class);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -89,7 +95,7 @@ public class JdbcNewsArticleDAO {
 
 			String sql = sb.toString();
 			//結果取得
-			List<NewsArticleMaster> result = jdbcTemplate.queryForList(sql, NewsArticleMaster.class);
+			List<NewsArticleMaster> result = jdbcTemplate.query(sql, mapper);
 
 			return result;
 		}
@@ -99,6 +105,7 @@ public class JdbcNewsArticleDAO {
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT * FROM news_article_master WHERE");
 
+		RowMapper<NewsArticleMaster> mapper = new BeanPropertyRowMapper<NewsArticleMaster>(NewsArticleMaster.class);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		if (!x_company.isEmpty()) {
@@ -140,7 +147,7 @@ public class JdbcNewsArticleDAO {
 
 		String sql = sb.toString();
 	//結果取得
-		List<NewsArticleMaster> result = jdbcTemplate.queryForList(sql, NewsArticleMaster.class);
+		List<NewsArticleMaster> result = jdbcTemplate.query(sql, mapper);
 
 		return result;
 	}
