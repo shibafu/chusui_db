@@ -129,6 +129,9 @@ public class NewsPaperManagementController {
 			articles = newsDao.findDate(x_newsSearchForm.getDateFrom(), x_newsSearchForm.getDateTo());
 
 		}
+
+		model.addAttribute("Articles",articles);
+
 		return "management_console/newspaper_manage/newspaper_referrence";
 	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲

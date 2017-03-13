@@ -29,8 +29,8 @@
 <p/>
 <!-- 全検索、現在は全部で送信している。 -->
 
-<div id="reffer_loop" th:each="refer_entity : ${AllRefference}">
-	<form th:action="@{'/managemet_console/chusui_user_manage/user_id?username=' + ${refer_entity.getUserEmail()}}" method="get">
+<div id="reffer_loop" th:each="article : ${Articles}">
+	<form th:action="@{'/managemet_console/newspaper_manage/newspaper_referrence/detaisl?articleid=' + ${article.getArticleId()}}" method="get">
 		<input name="username" type="submit" th:value="${refer_entity.getUserEmail()}" />
 		<!-- th:fieldでタイムリーフのインプットタグ生成 -->
 	</form>
