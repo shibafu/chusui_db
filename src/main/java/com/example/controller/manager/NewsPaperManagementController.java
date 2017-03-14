@@ -96,39 +96,11 @@ public class NewsPaperManagementController {
 			BindingResult result
 			){
 
-		List<NewsArticleMaster> articles = new ArrayList<NewsArticleMaster>();
-
-
 		if(result.hasGlobalErrors()){
 			return "redirect:/management_console/newspaper_manage/search?error";
 		}
 
-		if(!x_newsSearchForm.getArticleHeader().isEmpty()
-				||!x_newsSearchForm.getArticleSentence().isEmpty()
-				||!x_newsSearchForm.getCompanyName().isEmpty()
-			&&x_newsSearchForm.getDateFrom() != null
-				||x_newsSearchForm.getDateTo() != null ){
-
-			articles = newsDao.findDateAndCondition(x_newsSearchForm.getCompanyName(),
-					x_newsSearchForm.getArticleHeader(),
-					x_newsSearchForm.getArticleSentence(),
-					x_newsSearchForm.getDateFrom(),
-					x_newsSearchForm.getDateTo());
-
-		}else if(!x_newsSearchForm.getArticleHeader().isEmpty()
-				||!x_newsSearchForm.getArticleSentence().isEmpty()
-				||!x_newsSearchForm.getCompanyName().isEmpty()){
-
-			articles = newsDao.findCondition(x_newsSearchForm.getCompanyName(),
-					x_newsSearchForm.getArticleHeader(),
-					x_newsSearchForm.getArticleSentence());
-
-		}else if(x_newsSearchForm.getDateFrom() != null
-				||x_newsSearchForm.getDateTo() != null){
-
-			articles = newsDao.findDate(x_newsSearchForm.getDateFrom(), x_newsSearchForm.getDateTo());
-
-		}
+		List<NewsArticleMaster> articles = dynamicQuery(x_newsSearchForm);
 
 		model.addAttribute("Articles",articles);
 
@@ -150,5 +122,44 @@ public class NewsPaperManagementController {
 		nam.setDate(x_newsArticleForm.getDate());
 
 		return nam;
+	}
+
+	/**
+	 * 検索用メソッド
+	 * @param x_newsSearchForm
+	 * @return
+	 */
+	private List<NewsArticleMaster> dynamicQuery(NewsSearchForm x_newsSearchForm){
+
+		List<NewsArticleMaster> articles = new ArrayList<NewsArticleMaster>();
+
+
+		if((!x_newsSearchForm.getArticleHeader().isEmpty()
+				||!x_newsSearchForm.getArticleSentence().isEmpty()
+				||!x_newsSearchForm.getCompanyName().isEmpty())
+			&&(x_newsSearchForm.getDateFrom() != null
+				||x_newsSearchForm.getDateTo() != null )){
+
+			articles = newsDao.findDateAndCondition(x_newsSearchForm.getCompanyName(),
+					x_newsSearchForm.getArticleHeader(),
+					x_newsSearchForm.getArticleSentence(),
+					x_newsSearchForm.getDateFrom(),
+					x_newsSearchForm.getDateTo());
+
+		}else if(!x_newsSearchForm.getArticleHeader().isEmpty()
+				||!x_newsSearchForm.getArticleSentence().isEmpty()
+				||!x_newsSearchForm.getCompanyName().isEmpty()){
+
+			articles = newsDao.findCondition(x_newsSearchForm.getCompanyName(),
+					x_newsSearchForm.getArticleHeader(),
+					x_newsSearchForm.getArticleSentence());
+
+		}else if(x_newsSearchForm.getDateFrom() != null
+				||x_newsSearchForm.getDateTo() != null){
+
+			articles = newsDao.findDate(x_newsSearchForm.getDateFrom(), x_newsSearchForm.getDateTo());
+
+		}
+		return articles;
 	}
 }

@@ -43,7 +43,7 @@ public class JdbcNewsArticleDAO {
 			if (!x_company.isEmpty()) {
 				DynamSql.append(" OR ");
 			}
-			DynamSql.append("article_header LIKE %" + x_articleHeader + "% OR");
+			DynamSql.append("article_header LIKE %" + x_articleHeader + "% ");
 		}
 
 		if (!x_articleSentence.isEmpty()) {
@@ -80,8 +80,8 @@ public class JdbcNewsArticleDAO {
 				String FromDate = sdf.format(x_From);
 				String ToDate = sdf.format(x_To);
 
-				sb.append("date >= '" + FromDate + "' ");
-				sb.append("AND date <= '" + ToDate + "' ");
+				sb.append(" date >= '" + FromDate + "' ");
+				sb.append(" AND date <= '" + ToDate + "' ");
 
 			}else if(x_From != null){
 				String FromDate = sdf.format(x_From);
@@ -103,13 +103,13 @@ public class JdbcNewsArticleDAO {
 	public List<NewsArticleMaster> findDateAndCondition(String x_company, String x_articleHeader,
 			String x_articleSentence, Date x_From, Date x_To){
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM news_article_master WHERE");
+		sb.append("SELECT * FROM news_article_master WHERE ");
 
 		RowMapper<NewsArticleMaster> mapper = new BeanPropertyRowMapper<NewsArticleMaster>(NewsArticleMaster.class);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		if (!x_company.isEmpty()) {
-			sb.append("company_name LIKE %" + x_company + "% ");
+			sb.append(" company_name LIKE %" + x_company + "% ");
 
 		}
 
@@ -117,14 +117,14 @@ public class JdbcNewsArticleDAO {
 			if (!x_company.isEmpty()) {
 				sb.append(" OR ");
 			}
-			sb.append("article_header LIKE %" + x_articleHeader + "% OR");
+			sb.append(" article_header LIKE %" + x_articleHeader + "% ");
 		}
 
 		if (!x_articleSentence.isEmpty()) {
 			if (!x_company.isEmpty() || !x_articleHeader.isEmpty()) {
 				sb.append(" OR ");
 			}
-			sb.append("article_sentence LIKE %" + x_articleSentence + "% ");
+			sb.append(" article_sentence LIKE %" + x_articleSentence + "% ");
 		}
 
 
@@ -132,15 +132,15 @@ public class JdbcNewsArticleDAO {
 			String FromDate = sdf.format(x_From);
 			String ToDate = sdf.format(x_To);
 
-			sb.append("AND date >= '" + FromDate + "' ");
-			sb.append("AND date <= '" + ToDate + "' ");
+			sb.append(" AND date >= '" + FromDate + "' ");
+			sb.append(" AND date <= '" + ToDate + "' ");
 
 		}else if(x_From != null){
 			String FromDate = sdf.format(x_From);
-			sb.append("AND date >= '" + FromDate + "' ");
+			sb.append(" AND date >= '" + FromDate + "' ");
 		}else if(x_To != null){
 			String ToDate = sdf.format(x_To);
-			sb.append("AND date <= '" + ToDate + "' ");
+			sb.append(" AND date <= '" + ToDate + "' ");
 		}else{
 			return null;
 		}

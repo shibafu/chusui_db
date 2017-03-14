@@ -31,7 +31,7 @@
 
 <div id="reffer_loop" th:each="article : ${Articles}">
 	<form th:action="@{'/managemet_console/newspaper_manage/newspaper_referrence/detaisl?articleid=' + ${article.getArticleId()}}" method="get">
-		<input name="username" type="submit" th:value="${refer_entity.getUserEmail()}" />
+		<input name="username" type="submit" th:value="${article.getDate().toString()} + ${article.getArticleHeader()}" />
 		<!-- th:fieldでタイムリーフのインプットタグ生成 -->
 	</form>
 </div>
