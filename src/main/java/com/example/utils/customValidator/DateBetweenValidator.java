@@ -1,5 +1,5 @@
 package com.example.utils.customValidator;
 
-public @interface dateBetweenValidator {
+public class DateBetweenValidator {
 
 }
