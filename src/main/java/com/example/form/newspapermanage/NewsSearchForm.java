@@ -3,10 +3,12 @@ package com.example.form.newspapermanage;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.example.utils.customValidator.DateBetweenValid;
 import com.example.utils.customValidator.SearchConditionValid;
 
 
 @SearchConditionValid
+@DateBetweenValid
 public class NewsSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
