@@ -5,15 +5,37 @@
 <meta content="ja" http-equiv="Content-Language" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <title>～</title>
+<!-- link rel="stylesheet" type="text/css" href="css/color.css" / -->
+<style type="text/css">
+.fieldError {
+	background-color: #FF657A
+}
+</style>
 </head>
 
-<body>
+<body  th:object="${NewsSearchForm}">
 
-<form th:action="@{/management_console/newspaper_manage/reffernce}" method="post" th:object="${NewsSearchForm}">
-	<input name="dateFrom" type="text" />日付区間
+<form th:action="@{/management_console/newspaper_manage/reffernce}" th:object="${NewsSearchForm}" method="post">
+
+    <ul>
+      <li th:each="error : ${#fields.detailedErrors()}"
+         th:text="${error.global}? globalerrMsg : fielderrMsg" />
+    </ul>
+
+<div th:if="${#arrays.length(#fields.detailedErrors())} == 0">
+    ...ここにエラーがないときに出したい項目を書く...
+</div>
+			<p th:if="${#fields.hasErrors('*{dateFrom}')}"
+				th:errors="*{dateFrom}" style="color: red" />
+			<p th:text="${ErrorMessage}"
+				 style="color: red" />
+
+
+
+	<input type="text" th:field="*{dateFrom}" th:errorclass="fieldError"/>日付区間
 	<p>～</p>
-	<input name="dateTo" type="text" /><br />
-	<input name="companyName" type="text" />新聞社名<br />
+	<input type="text" th:field="*{dateTo}" th:errorclass="fieldError"/><br />
+	<input name="companyName" type="text"/>新聞社名<br />
 	<textarea cols="20" name="articleHeader" rows="2"></textarea>見出し<br />
 	<textarea cols="20" name="articleSentence" rows="2"></textarea>新聞記事<br />
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,9 @@ public class NewsPaperManagementController {
 	 * @return
 	 */
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String register(Model model){
+	public String register(Model model,
+			@ModelAttribute NewsArticleForm x_newsArticleForm){
+
 		return "management_console/newspaper_manage/newspaper_register";
 	}
 
@@ -74,7 +77,7 @@ public class NewsPaperManagementController {
 	}
 	@RequestMapping(value="/register_complete", method ={GET,POST})
 	public String register_complete(Model model,
-			@ModelAttribute("NewsArticleForm")NewsArticleForm x_newsArticleForm){
+			@ModelAttribute("NewsArticle")NewsArticleForm x_newsArticleForm){
 
 		namRepository.saveAndFlush(ArticleFormToEntity(x_newsArticleForm));
 
@@ -86,7 +89,11 @@ public class NewsPaperManagementController {
 
 	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼検索処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	@RequestMapping(value="/search", method ={GET,POST})
-	public String search(Model model){
+	public String search(Model model,
+			 NewsSearchForm x_newsSearchForm){
+
+		model.addAttribute("NewsSearchForm",x_newsSearchForm);
+
 		return "management_console/newspaper_manage/newspaper_search";
 	}
 
@@ -96,8 +103,13 @@ public class NewsPaperManagementController {
 			BindingResult result
 			){
 
+		for(ObjectError error : result.getGlobalErrors()){
+			error.getDefaultMessage();
+		}
+
+
 		if(result.hasGlobalErrors()){
-			return "redirect:/management_console/newspaper_manage/search?error";
+			return search(model,x_newsSearchForm);
 		}
 
 		List<NewsArticleMaster> articles = dynamicQuery(x_newsSearchForm);

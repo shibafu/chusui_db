@@ -17,6 +17,11 @@ public class SearchConditionValidator implements ConstraintValidator<SearchCondi
 	@Override
 	public boolean isValid(NewsSearchForm value, ConstraintValidatorContext context) {
 		// TODO 自動生成されたメソッド・スタブ
+
+		if(value.getArticleHeader() == null){
+			return true;
+		}
+
 		if(value.getArticleHeader().isEmpty()
 				&& value.getArticleSentence().isEmpty()
 				&& value.getCompanyName().isEmpty()

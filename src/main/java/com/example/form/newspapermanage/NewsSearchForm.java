@@ -8,7 +8,7 @@ import com.example.utils.customValidator.SearchConditionValid;
 
 
 @SearchConditionValid
-@DateBetweenValid
+@DateBetweenValid(fieldFrom="dateFrom",fieldTo="dateTo")
 public class NewsSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
