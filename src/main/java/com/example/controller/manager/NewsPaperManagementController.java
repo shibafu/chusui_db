@@ -90,9 +90,12 @@ public class NewsPaperManagementController {
 	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼検索処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	@RequestMapping(value="/search", method ={GET,POST})
 	public String search(Model model,
-			 NewsSearchForm x_newsSearchForm){
+			 @ModelAttribute NewsSearchForm x_newsSearchForm,
+			 BindingResult result){
 
+		if(!result.hasErrors()){
 		model.addAttribute("NewsSearchForm",x_newsSearchForm);
+		}
 
 		return "management_console/newspaper_manage/newspaper_search";
 	}
@@ -109,7 +112,7 @@ public class NewsPaperManagementController {
 
 
 		if(result.hasGlobalErrors()){
-			return search(model,x_newsSearchForm);
+			return search(model,x_newsSearchForm,result);
 		}
 
 		List<NewsArticleMaster> articles = dynamicQuery(x_newsSearchForm);
