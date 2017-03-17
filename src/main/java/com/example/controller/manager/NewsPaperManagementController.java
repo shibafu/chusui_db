@@ -90,7 +90,7 @@ public class NewsPaperManagementController {
 	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼検索処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	@RequestMapping(value="/search", method ={GET,POST})
 	public String search(Model model,
-			 @ModelAttribute NewsSearchForm x_newsSearchForm,
+			 @Valid @ModelAttribute NewsSearchForm x_newsSearchForm,
 			 BindingResult result){
 
 		if(!result.hasErrors()){
@@ -102,7 +102,7 @@ public class NewsPaperManagementController {
 
 	@RequestMapping(value="/reffernce", method ={GET,POST})
 	public String reffernce(Model model,
-			@Valid NewsSearchForm x_newsSearchForm,
+			@Valid @ModelAttribute("NewsSearchForm") NewsSearchForm x_newsSearchForm,
 			BindingResult result
 			){
 
