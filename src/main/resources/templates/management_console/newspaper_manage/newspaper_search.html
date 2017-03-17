@@ -25,12 +25,9 @@
 <div th:if="${#arrays.length(#fields.detailedErrors())} == 0">
     ...ここにエラーがないときに出したい項目を書く...
 </div>
-			<p th:if="${#fields.hasErrors('*{dateFrom}')}"
-				th:errors="*{dateFrom}" style="color: red" />
+
 			<p th:text="${ErrorMessage}"
 				 style="color: red" />
-
-
 
 	<input type="text" th:field="*{dateFrom}" th:errorclass="fieldError"/>日付区間
 	<p>～</p>
