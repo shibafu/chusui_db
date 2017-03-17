@@ -90,7 +90,7 @@ public class NewsPaperManagementController {
 	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼検索処理ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
 	@RequestMapping(value="/search", method ={GET,POST})
 	public String search(Model model,
-			 @Valid @ModelAttribute NewsSearchForm x_newsSearchForm,
+			 @ModelAttribute NewsSearchForm x_newsSearchForm,
 			 BindingResult result){
 
 		if(!result.hasErrors()){

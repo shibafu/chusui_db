@@ -35,7 +35,7 @@ public class JdbcNewsArticleDAO {
 		DynamSql.append("SELECT * FROM news_article_master WHERE ");
 
 		if (!x_company.isEmpty()) {
-			DynamSql.append("company_name LIKE %" + x_company + "% ");
+			DynamSql.append("company_name LIKE '%" + x_company + "%' ");
 
 		}
 
@@ -43,17 +43,15 @@ public class JdbcNewsArticleDAO {
 			if (!x_company.isEmpty()) {
 				DynamSql.append(" OR ");
 			}
-			DynamSql.append("article_header LIKE %" + x_articleHeader + "% ");
+			DynamSql.append("article_header LIKE '%" + x_articleHeader + "%' ");
 		}
 
 		if (!x_articleSentence.isEmpty()) {
 			if (!x_company.isEmpty() || !x_articleHeader.isEmpty()) {
 				DynamSql.append(" OR ");
 			}
-			DynamSql.append("article_sentence LIKE %" + x_articleSentence + "% ");
+			DynamSql.append("article_sentence LIKE '%" + x_articleSentence + "%' ");
 		}
-
-		DynamSql.append(";");
 
 		String sql = DynamSql.toString();
 		// 結果取得
@@ -109,7 +107,7 @@ public class JdbcNewsArticleDAO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		if (!x_company.isEmpty()) {
-			sb.append(" company_name LIKE %" + x_company + "% ");
+			sb.append(" company_name LIKE '%" + x_company + "%' ");
 
 		}
 
@@ -117,14 +115,14 @@ public class JdbcNewsArticleDAO {
 			if (!x_company.isEmpty()) {
 				sb.append(" OR ");
 			}
-			sb.append(" article_header LIKE %" + x_articleHeader + "% ");
+			sb.append(" article_header LIKE '%" + x_articleHeader + "%' ");
 		}
 
 		if (!x_articleSentence.isEmpty()) {
 			if (!x_company.isEmpty() || !x_articleHeader.isEmpty()) {
 				sb.append(" OR ");
 			}
-			sb.append(" article_sentence LIKE %" + x_articleSentence + "% ");
+			sb.append(" article_sentence LIKE '%" + x_articleSentence + "%' ");
 		}
 
 

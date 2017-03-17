@@ -18,20 +18,16 @@
 <form th:action="@{/management_console/newspaper_manage/reffernce}" th:object="${NewsSearchForm}" method="post">
 
     <ul>
-      <li th:each="error : ${#fields.detailedErrors()}"
-         th:text="${error.global}? globalerrMsg : fielderrMsg" />
+      <li th:each="error : ${#fields.globalErrors()}"
+         th:text="${error}" style="red"  />
     </ul>
 
-<div th:if="${#arrays.length(#fields.detailedErrors())} == 0">
-    ...ここにエラーがないときに出したい項目を書く...
-</div>
-
-			<p th:text="${ErrorMessage}"
-				 style="color: red" />
-
-	<input type="text" th:field="*{dateFrom}" th:errorclass="fieldError"/>日付区間
+	日付区間
+	<input type="text" name="dateFrom" th:value="*{#dates.format(dateFrom, 'yyyy/MM/dd')}" th:if="*{dateFrom != null}"/>
+	<input type="text" th:field="*{dateFrom}" th:unless="*{dateFrom != null}"/>
 	<p>～</p>
-	<input type="text" th:field="*{dateTo}" th:errorclass="fieldError"/><br />
+	<input type="text" name="dateTo" th:value="*{#dates.format(dateTo, 'yyyy/MM/dd')}" th:if="*{dateTo != null}"/><br />
+	<input type="text" name="dateTo" th:unless="*{dateTo != null}"/><br />
 	<input name="companyName" type="text"/>新聞社名<br />
 	<textarea cols="20" name="articleHeader" rows="2"></textarea>見出し<br />
 	<textarea cols="20" name="articleSentence" rows="2"></textarea>新聞記事<br />
