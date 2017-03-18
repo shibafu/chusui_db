@@ -121,6 +121,11 @@ public class NewsPaperManagementController {
 
 		return "management_console/newspaper_manage/newspaper_referrence";
 	}
+
+	@RequestMapping(value="/reffernce/details", method = RequestMethod.GET)
+	public String newsDetailsUpdate(){
+		return "management_console/newspaper_manage/details";
+	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
 
 	/**
