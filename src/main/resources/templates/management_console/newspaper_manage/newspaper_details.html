@@ -11,7 +11,8 @@
 
 <body>
 
-<form th:action="@{/management_console/newspaper_manage/update_confirm}" method="post" th:object="${NewsArticleForm}">
+<form th:action="@{/management_console/newspaper_manage/update_confirm}" method="post" th:object="${article}">
+<input type="hidden" thfield=*{articleId}>
 <p>日付</p>
 	<input name="date" type="text"  th:value="*{#date.format(date,'yyyy/MM/dd')}"/>
 <p></p>
@@ -20,9 +21,9 @@
 	<input th:field="*{companyName}" type="text" />
 </p>
 	見出し<br />
-	<textarea cols="20" th:field="articleHeader" rows="2" th:value="ああ"></textarea>
+	<textarea cols="20" th:field="*{articleHeader}" rows="2"></textarea>
 <p>記事</p>
-	<textarea cols="20" th:field="articleSentence" rows="2" style="width:300px; height:500px;" th:value="ああ"></textarea>
+	<textarea cols="20" th:field="*{articleSentence}" rows="2" style="width:300px; height:500px;"></textarea>
 	<input name="Reset1" type="submit" value="登録" />
 </form>
 </body>

@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.dao.JdbcNewsArticleDAO;
@@ -106,10 +106,6 @@ public class NewsPaperManagementController {
 			BindingResult result
 			){
 
-		for(ObjectError error : result.getGlobalErrors()){
-			error.getDefaultMessage();
-		}
-
 		if(result.hasGlobalErrors()){
 			return search(model,x_newsSearchForm,result);
 		}
@@ -122,7 +118,22 @@ public class NewsPaperManagementController {
 	}
 
 	@RequestMapping(value="/refference/details", method = RequestMethod.GET)
-	public String newsDetailsUpdate(Model model){
+	public String newsDetailsUpdate(Model model,
+			@RequestParam("articleId")Integer articleid){
+
+		NewsArticleMaster nam = namRepository.findOne(articleid);
+
+		model.addAttribute("article",nam);
+
+		return "management_console/newspaper_manage/newspaper_details";
+	}
+
+	@RequestMapping(value="/refference/update_confirm", method = RequestMethod.GET)
+	public String newsDetailsUpdateConfirm(Model model,
+			@ModelAttribute("article")NewsArticleMaster x_NewsArticlMaster){
+
+
+		namRepository.saveAndFlush(x_NewsArticlMaster);
 
 		return "management_console/newspaper_manage/newspaper_details";
 	}
