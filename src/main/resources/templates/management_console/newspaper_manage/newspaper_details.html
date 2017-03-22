@@ -11,10 +11,10 @@
 
 <body>
 
-<form th:action="@{/management_console/newspaper_manage/update_confirm}" method="post" th:object="${article}">
-<input type="hidden" thfield=*{articleId}>
+<form th:action="@{/management_console/newspaper_manage/refference/update_confirm}" method="post" th:object="${article}">
+<input type="hidden" th:field="*{articleId}" />
 <p>日付</p>
-	<input name="date" type="text"  th:value="*{#date.format(date,'yyyy/MM/dd')}"/>
+	<input name="date" type="text"  th:value="*{#dates.format(date,'yyyy/MM/dd')}"/>
 <p></p>
 <p>新聞社名</p>
 <p>

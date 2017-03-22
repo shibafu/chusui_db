@@ -119,7 +119,7 @@ public class NewsPaperManagementController {
 
 	@RequestMapping(value="/refference/details", method = RequestMethod.GET)
 	public String newsDetailsUpdate(Model model,
-			@RequestParam("articleId")Integer articleid){
+			@RequestParam("articleid")Integer articleid){
 
 		NewsArticleMaster nam = namRepository.findOne(articleid);
 
@@ -128,14 +128,14 @@ public class NewsPaperManagementController {
 		return "management_console/newspaper_manage/newspaper_details";
 	}
 
-	@RequestMapping(value="/refference/update_confirm", method = RequestMethod.GET)
+	@RequestMapping(value="/refference/update_confirm", method ={GET,POST})
 	public String newsDetailsUpdateConfirm(Model model,
 			@ModelAttribute("article")NewsArticleMaster x_NewsArticlMaster){
 
 
 		namRepository.saveAndFlush(x_NewsArticlMaster);
 
-		return "management_console/newspaper_manage/newspaper_details";
+		return "management_console/newspaper_manage/update_complete";
 	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
 
