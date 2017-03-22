@@ -30,8 +30,9 @@
 <!-- 全検索、現在は全部で送信している。 -->
 
 <div id="reffer_loop" th:each="article : ${Articles}">
-	<form th:action="@{'/managemet_console/newspaper_manage/newspaper_referrence/reffernce/details?articleid=' + ${article.getArticleId()}}" method="get">
-		<input name="username" type="submit" th:value="${article.getDate().toString()} + ${article.getArticleHeader()}" />
+	<form th:action="@{'/management_console/newspaper_manage/refference/details?articleid=' + ${article.getArticleId()}}" method="get">
+			<input type="hidden" th:name="articleid" th:value="${article.getArticleId()}" />
+		<input name="username" type="submit" th:value="${#dates.format(article.getDate(),'yyyy/MM/dd') + article.getArticleHeader() + article.getCompanyName()}" />
 		<!-- th:fieldでタイムリーフのインプットタグ生成 -->
 	</form>
 </div>

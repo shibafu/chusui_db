@@ -110,7 +110,6 @@ public class NewsPaperManagementController {
 			error.getDefaultMessage();
 		}
 
-
 		if(result.hasGlobalErrors()){
 			return search(model,x_newsSearchForm,result);
 		}
@@ -122,9 +121,10 @@ public class NewsPaperManagementController {
 		return "management_console/newspaper_manage/newspaper_referrence";
 	}
 
-	@RequestMapping(value="/reffernce/details", method = RequestMethod.GET)
-	public String newsDetailsUpdate(){
-		return "management_console/newspaper_manage/details";
+	@RequestMapping(value="/refference/details", method = RequestMethod.GET)
+	public String newsDetailsUpdate(Model model){
+
+		return "management_console/newspaper_manage/newspaper_details";
 	}
 	//▲▲▲▲▲▲▲▲▲▲▲▲検索処理ここまで▲▲▲▲▲▲▲▲▲▲▲▲
 
