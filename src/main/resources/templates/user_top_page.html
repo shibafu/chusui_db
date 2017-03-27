@@ -27,28 +27,29 @@
 	<!--  div th:object="FrontNews"-->
 		<div id="レイヤー1" class="scr"
 			style="position: absolute; width: 258px; height: 215px; z-index: 1; left: 15px; top: 107px">
-			<span th:text="${FrontNews.get(0).getArticleHeader()}">新聞見出し</span><br /> <br /> 記事の概要<br /> <br /> <br />
+			<p th:if="${#lists.size(FrontNews) >= 1}" th:text="${FrontNews.get(0).getArticleHeader()}">新聞見出し</p><br /> <br /> 記事の概要<br /> <br /> <br />
 		</div>
 		<hr />
 		<div id="レイヤー2" class="scr"
 			style="position: absolute; width: 279px; height: 218px; z-index: 1; left: 317px; top: 104px">
-			新聞見出し2<br /> <br /> 記事の概要<br /> <br />
+			<p th:if="${#lists.size(FrontNews) >= 2}" th:text="${FrontNews.get(1).getArticleHeader()}">新聞見出し2</p><br /> <br /> 記事の概要<br /> <br />
 		</div>
 		<div id="レイヤー3" class="scr"
 			style="position: absolute; width: 274px; height: 235px; z-index: 1; left: 604px; top: 355px">
-			新聞見出し3<br /> <br /> 記事の概要<br />
+						<p th:if="${#lists.size(FrontNews) >= 3}" th:text="${FrontNews.get(2).getArticleHeader()}">新聞見出し2</p><br /> <br /> 記事の概要<br /> <br />
+						> <br /> 記事の概要<br />
 		</div>
 		<div id="レイヤー4" class="scr"
 			style="position: absolute; width: 256px; height: 232px; z-index: 1; left: 15px; top: 359px">
-			新聞4見出し2<br /> <br /> 記事の概要<br /> <br /> <br />
+			<p th:if="${#lists.size(FrontNews) >= 4}" th:text="${FrontNews.get(3).getArticleHeader()}">新聞4見出し2<br /> <br /> 記事の概要<br /> <br /> <br />
 		</div>
 		<div id="レイヤー5" class="scr"
 			style="position: absolute; width: 257px; height: 207px; z-index: 1; left: 317px; top: 114px">
-			新聞5見出し2<br /> <br /> 記事の概要<br /> <br />
+			<p th:if="${#lists.size(FrontNews) >= 5}" th:text="${FrontNews.get(4).getArticleHeader()}">新聞5見出し2</p><br /> <br /> 記事の概要<br /> <br />
 		</div>
 		<div id="レイヤー6" class="scr"
 			style="position: absolute; width: 256px; height: 229px; z-index: 1; left: 607px; top: 361px">
-			<p th:if="${#lists.size(FrontNews) >= 5}" th:text="${FrontNews.get(5).getArticleHeader()}">新聞3見出し2</p><br /> 記事の概要<br /> <br /> <br />
+			<p th:if="${#lists.size(FrontNews) >= 6}" th:text="${FrontNews.get(5).getArticleHeader()}">新聞3見出し2</p><br /> 記事の概要<br /> <br /> <br />
 		</div>
 	<!-- /div-->
 	<p>&nbsp;</p>
