@@ -18,14 +18,14 @@ public class NewsPaperController {
 	NewsArticleMasterRepository namRepo;
 
 
-	@RequestMapping(value="",method= RequestMethod.GET)
+	@RequestMapping(value="/details",method= RequestMethod.GET)
 	public String newsDetails(Model model,
 			@RequestParam("id") String id ){
 
 		NewsArticleMaster nam = namRepo.findOne(Integer.valueOf(id));
 		model.addAttribute("NewsArticle", nam);
 
-		return "newspaper_reffernce/newspaper_details";
+		return "newspaper_refference/newspaper_details";
 	}
 
 }
