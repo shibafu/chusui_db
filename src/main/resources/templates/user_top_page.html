@@ -25,32 +25,75 @@
 		<input name="adminmanager" type="submit" value="管理画面へ" />
 	</form>
 	<!--  div th:object="FrontNews"-->
-		<div id="レイヤー1" class="scr"
-			style="position: absolute; width: 258px; height: 215px; z-index: 1; left: 15px; top: 104px">
-			<p th:if="${#lists.size(FrontNews) >= 1}" th:text="${FrontNews.get(0).getArticleHeader()}">新聞見出し</p><br /> <br /> 記事の概要<br /> <br /> <br />
+	<div id="レイヤー1" class="scr"
+		style="position: absolute; width: 258px; height: 215px; z-index: 1; left: 15px; top: 104px">
+		<div th:if="${#lists.size(FrontNews) >= 1}">
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(0).getArticleId()}}"
+				th:text="${FrontNews.get(0).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(0).getArticleSentence(),10)}">記事の概要</p>
 		</div>
-		<hr />
-		<div id="レイヤー2" class="scr"
-			style="position: absolute; width: 279px; height: 215px; z-index: 1; left: 317px; top: 104px">
-			<p th:if="${#lists.size(FrontNews) >= 2}" th:text="${FrontNews.get(1).getArticleHeader()}">新聞見出し2</p><br /> <br /> 記事の概要<br /> <br />
+
+	</div>
+	<hr />
+	<div id="レイヤー2" class="scr"
+		style="position: absolute; width: 279px; height: 215px; z-index: 1; left: 317px; top: 104px">
+		<div th:if="${#lists.size(FrontNews) >= 2}">
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(1).getArticleId()}}"
+				th:text="${FrontNews.get(1).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(1).getArticleSentence(),10)}">記事の概要</p>
+
 		</div>
-		<div id="レイヤー3" class="scr"
-			style="position: absolute; width: 274px; height: 215px; z-index: 1; left: 604px; top: 104px">
-						<p th:if="${#lists.size(FrontNews) >= 3}" th:text="${FrontNews.get(2).getArticleHeader()}">新聞見出し2</p><br /> <br /> 記事の概要<br /> <br />
-						> <br /> 記事の概要<br />
+	</div>
+	<div id="レイヤー3" class="scr"
+		style="position: absolute; width: 274px; height: 215px; z-index: 1; left: 604px; top: 104px">
+		<div th:if="${#lists.size(FrontNews) >= 3}">
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(2).getArticleId()}}"
+				th:text="${FrontNews.get(2).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(2).getArticleSentence(),10)}">記事の概要</p>
+
 		</div>
-		<div id="レイヤー4" class="scr"
-			style="position: absolute; width: 256px; height: 235px; z-index: 1; left: 15px; top: 355px">
-			<p th:if="${#lists.size(FrontNews) >= 4}" th:text="${FrontNews.get(3).getArticleHeader()}">新聞4見出し2</p><br /> <br /> 記事の概要<br />
+	</div>
+	<div id="レイヤー4" class="scr"
+		style="position: absolute; width: 256px; height: 235px; z-index: 1; left: 15px; top: 355px">
+		<div th:if="${#lists.size(FrontNews) >= 4}">
+
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(3).getArticleId()}}"
+				th:text="${FrontNews.get(3).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(3).getArticleSentence(),10)}">記事の概要</p>
+
 		</div>
-		<div id="レイヤー5" class="scr"
-			style="position: absolute; width: 257px; height: 235px; z-index: 1; left: 317px; top: 355px">
-			<p th:if="${#lists.size(FrontNews) >= 5}" th:text="${FrontNews.get(4).getArticleHeader()}">新聞5見出し2</p><br /> <br /> 記事の概要<br /> <br />
+	</div>
+	<div id="レイヤー5" class="scr"
+		style="position: absolute; width: 257px; height: 235px; z-index: 1; left: 317px; top: 355px">
+		<div th:if="${#lists.size(FrontNews) >= 5}">
+
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(0).getArticleId()}}"
+				th:text="${FrontNews.get(4).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(4).getArticleSentence(),10)}">記事の概要</p>
+
 		</div>
-		<div id="レイヤー6" class="scr"
-			style="position: absolute; width: 256px; height: 235px; z-index: 1; left: 607px; top: 355px">
-			<p th:if="${#lists.size(FrontNews) >= 6}" th:text="${FrontNews.get(5).getArticleHeader()}">新聞3見出し2</p><br /> 記事の概要<br /> <br /> <br />
+	</div>
+	<div id="レイヤー6" class="scr"
+		style="position: absolute; width: 256px; height: 235px; z-index: 1; left: 607px; top: 355px">
+
+		<div th:if="${#lists.size(FrontNews) >= 6}">
+			<a
+				th:href="@{'/infonews/details?id='+${FrontNews.get(5).getArticleId()}}"
+				th:text="${FrontNews.get(5).getArticleHeader()}">新聞見出し</a>
+			<p
+				th:text="${#strings.abbreviate(FrontNews.get(5).getArticleSentence(),10)}">記事の概要</p>
 		</div>
+	</div>
 	<!-- /div-->
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
