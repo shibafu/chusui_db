@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<div th:object="NewsArticle">
+	<div th:object="${NewsArticle}">
 		<form>
 			<p>日付</p>
 			<input name="companyName" type="text" th:value="*{date}" />
@@ -18,10 +18,10 @@
 			<p>新聞社名</p>
 
 			<input name="companyName" type="text" th:value="*{companyName}" /> 見出し<br />
-			<textarea cols="20" name="articleHeader" rows="2" th:value="*{ArticleHeader}"></textarea>
+			<textarea cols="20" name="articleHeader" rows="2" th:text="*{ArticleHeader}"></textarea>
 			<p>記事</p>
 			<textarea cols="20" name="articleSentence" rows="2"
-				style="width: 300px; height: 500px;"  th:value="*{ArticleHeader}"> </textarea>
+				style="width: 300px; height: 500px;"  th:text="*{ArticleHeader}"> </textarea>
 			<input name="Reset1" type="submit" value="登録" />
 		</form>
 	</div>
