@@ -142,6 +142,13 @@
 			<p th:text="${ErrorMessage}"
 				 style="color: red" />
 		</div>
+
+		<div class="auto-style７">
+			<p th:unless="${#strings.isEmpty(SameEmail)}"
+				th:errors="*{EMail}" style="color: red" />
+			<p th:text="${SameEmail}"
+				 style="color: red" />
+		</div>
 			<!--▲▲ エラーメッセージ表示 ▲▲-->
 		<input name="EMail" style="width: 320px" type="text" th:field="*{EMail}" th:errorclass="fieldError" />
 	<p class="auto-style11">パスワード</p>

@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,12 @@ public class RegisterController {
 			BindingResult x_BindingResult) {
 		String toRegister_page;
 		String MockPassword = null;
+
+		List<CustomerMaster> cum = cusRepos.findByUserEmail(x_RegisterForm.getEMail());
+		if(cum.size() > 0){
+			model.addAttribute("SameEmail","そのメールアドレスは既に登録されています。");
+			return "user_register/register";
+		}
 
 		// 遷移先ページチェック
 		toRegister_page = judge_to_page(register_judge(x_BindingResult));
