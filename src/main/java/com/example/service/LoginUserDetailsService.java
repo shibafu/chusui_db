@@ -50,7 +50,8 @@ CustomerMasterRepository customerMasterRepository;
 	}
 
 	/**
-	 *
+	 *ユーザーの権限付与。
+	 *createAuthorityListに権限を加えることで、ROLE_ADMINとROLE_USERの権限を両方持った状態にすることもできる。
 	 * @return
 	 */
 	private Collection<GrantedAuthority> getAuthorityChu(ChusuiUserMaster x_cuMaster){
