@@ -7,6 +7,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.example.orders.GroupOrder1;
 import com.example.orders.GroupOrder2;
+import com.example.orders.GroupOrder3;
+import com.example.utils.customValidator.SameEmailChusuiUser;
+import com.example.utils.customValidator.SameEmailCustomer;
 
 public class ChuUserRegisterForm {
 	//register.htmlのインプットタグFamilyNameと同じ名前
@@ -20,6 +23,8 @@ public class ChuUserRegisterForm {
 	//register.htmlのインプットタグEMailと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※メールアドレスを入力してください")
 	@Pattern(regexp="(^[a-zA-Z0-9!$&*.=^`|~#%'+\\/?_{}-]+@([a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,4}$)",groups={GroupOrder2.class},message="※正しいメールアドレスの形式を入力してください")
+	@SameEmailCustomer(groups={GroupOrder3.class})
+	@SameEmailChusuiUser(groups={GroupOrder3.class})
 	private String EMail;
 
 	//register.htmlのインプットタグChuUserPasswordと同じ名前

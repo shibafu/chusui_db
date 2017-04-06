@@ -32,7 +32,4 @@ public class SearchConditionValidator implements ConstraintValidator<SearchCondi
 		return true;
 	}
 
-
-
-
 }

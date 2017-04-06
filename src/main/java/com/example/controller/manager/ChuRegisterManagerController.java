@@ -62,7 +62,7 @@ public class ChuRegisterManagerController {
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.GET)
 	public String chuuser_manage_register(Model model,
-			@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf){
+			@Validated(GroupOrders.class)@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf){
 
 		model.addAttribute("regForm",curf);
 
@@ -170,7 +170,7 @@ public class ChuRegisterManagerController {
 	 */
 	@RequestMapping(value = "/managemet_console/chusui_user_manage/userupadate", method = RequestMethod.POST)
 	public String indivUser_update(Model model,
-			@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
+			@Validated(GroupOrders.class)@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
 
 		//更新数受け取る
 		Integer result_count = cud.updateChusuiUser(cuuf);

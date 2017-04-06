@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 
 <meta content="ja" http-equiv="Content-Language" />
@@ -21,9 +23,14 @@
 
 <body>
 	<p th:text="ようこそ + ${UserName} + さん">ようこそ、「ユーザー名」さん</p>
-	<form th:action="@{/management_console}" method="get">
-		<input name="adminmanager" type="submit" value="管理画面へ" />
-	</form>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<form th:action="@{/management_console}" method="get">
+			<input name="adminmanager" type="submit" value="管理画面へ" />
+		</form>
+	</div>
+
+
 	<!--  div th:object="FrontNews"-->
 	<div id="レイヤー1" class="scr"
 		style="position: absolute; width: 258px; height: 215px; z-index: 1; left: 15px; top: 104px">

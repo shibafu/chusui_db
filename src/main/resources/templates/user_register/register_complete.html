@@ -6,11 +6,11 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <title>ご登録ありがとうございました</title>
 </head>
-
-<body>
+<body th:object="${RegisterForm}">
 
 <p>ご登録ありがとうございました！</p>
-<p>&nbsp;</p>
+
+	<p class="auto-style8" th:text="${'ユーザーIDは' + RegisterForm.getEMail() + 'になります。'}">tanaka-tarou@tanakashouji.co.jp	</p>
 
 </body>
 

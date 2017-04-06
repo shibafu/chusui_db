@@ -55,7 +55,7 @@ CustomerMasterRepository customerMasterRepository;
 	 */
 	private Collection<GrantedAuthority> getAuthorityChu(ChusuiUserMaster x_cuMaster){
 		if(x_cuMaster.getAuthority().equals("ROLE_ADMIN")){
-			return AuthorityUtils.createAuthorityList("ROLE_USER","ROLE_ADMIN");
+			return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");
 		}
@@ -67,7 +67,7 @@ CustomerMasterRepository customerMasterRepository;
 	 */
 	private Collection<GrantedAuthority> getAuthorityCus(CustomerMaster x_cusMaster){
 		if(x_cusMaster.getAuthority().equals("ROLE_ADMIN")){
-			return AuthorityUtils.createAuthorityList("ROLE_USER","ROLE_ADMIN");
+			return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");
 		}
