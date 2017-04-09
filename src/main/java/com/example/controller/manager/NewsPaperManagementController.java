@@ -63,7 +63,7 @@ public class NewsPaperManagementController {
 
 	@RequestMapping(value="/register_confirm", method ={GET,POST})
 	public String register_confirm(Model model,
-			@Validated NewsArticleForm x_newsArticleForm,
+			@Validated @ModelAttribute NewsArticleForm x_newsArticleForm,
 			BindingResult x_bindingResult){
 
 		x_newsArticleForm.getArticleHeader();
@@ -77,7 +77,7 @@ public class NewsPaperManagementController {
 	}
 	@RequestMapping(value="/register_complete", method ={GET,POST})
 	public String register_complete(Model model,
-			@ModelAttribute("NewsArticle")NewsArticleForm x_newsArticleForm){
+			@ModelAttribute("NewsArticleForm")NewsArticleForm x_newsArticleForm){
 
 		namRepository.saveAndFlush(ArticleFormToEntity(x_newsArticleForm));
 
@@ -130,8 +130,8 @@ public class NewsPaperManagementController {
 
 	@RequestMapping(value="/refference/update_confirm", method ={GET,POST})
 	public String newsDetailsUpdateConfirm(Model model,
-			@ModelAttribute("article")NewsArticleMaster x_NewsArticlMaster){
-
+			@Valid @ModelAttribute("article")NewsArticleMaster x_NewsArticlMaster,
+			BindingResult result){
 
 		namRepository.saveAndFlush(x_NewsArticlMaster);
 
@@ -192,5 +192,11 @@ public class NewsPaperManagementController {
 
 		}
 		return articles;
+	}
+
+	//管理者セッション管理
+	@ModelAttribute("NewsArticleForm")
+	public NewsArticleForm setNewsArticleForm(NewsArticleForm x_newsArticleForm){
+		return x_newsArticleForm;
 	}
 }
