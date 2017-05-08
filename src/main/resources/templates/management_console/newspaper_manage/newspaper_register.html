@@ -18,7 +18,12 @@
 
 				addRow = function() {
 					$('#nameTable').find('tbody')
-						.append('<tr><td><input type="text" name="oppai" value="山下" /></td><td>28</td></tr>');
+						.append('<table>'
+						+'<tr>'
+						+'<td><input type="text" name="oppai" value="山下" /></td>
+						+'<td>28</td>'
+						+'</tr>'
+						+'</table>');
 				}
 
 				$('#addRow').on('click', function() {
