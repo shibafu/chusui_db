@@ -19,7 +19,7 @@ public class NewsArticleForm {
 		private String companyName;
 
 	@NotNull(message = "※日付を入力してください。")
-	@DateTimeFormat(pattern="yyyy/mm/dd")
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 		private Date date;
 
 		public String getArticleHeader() {
