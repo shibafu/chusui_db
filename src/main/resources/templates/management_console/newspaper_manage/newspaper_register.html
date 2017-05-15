@@ -15,10 +15,14 @@
 	$(document).ready(
 			function() {
 				var addRow;
+				
+				texteFlect = function() {
+					
+				};
 
 				addRow = function() {
 					$('#nameTable').find('tbody')
-						.append('<table>'
+						.append('<table nema ="tableData">'
 						+'<tr>'
 						+'<td><input type="text" name="oppai" value="山下" /></td>'
 						+'<td>28</td>'
@@ -57,16 +61,8 @@
 
 		<button type="button" id="addRow">表がある場合はボタンを押して下さい。</button>
 
-		<table border="1" id="nameTable">
-			<thead>
-				<tr>
-					<th>名前</th>
-					<th>年齢</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div id ="nametable">
+		</div>
 
 	</form>
 </body>

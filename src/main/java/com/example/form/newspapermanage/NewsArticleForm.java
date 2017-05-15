@@ -22,6 +22,8 @@ public class NewsArticleForm {
 	@DateTimeFormat(pattern="yyyy/MM/dd")
 		private Date date;
 
+		private String tableData[];
+
 		public String getArticleHeader() {
 			return this.articleHeader;
 		}
@@ -52,5 +54,13 @@ public class NewsArticleForm {
 
 		public void setDate(Date date) {
 			this.date = date;
+		}
+
+		public String[] getTableData() {
+			return tableData;
+		}
+
+		public void setTableData(String tableData[]) {
+			this.tableData = tableData;
 		}
 }
