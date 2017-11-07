@@ -14,7 +14,7 @@
 
 <body>
 
-<form th:action="@{/managemet_console/chusui_user_manage/userupadate}" th:object="${UserReffernce.get(0)}" method="POST">
+<form th:action="@{/managemet_console/chusui_user_manage/userupadate}" th:object="${UserReffernce.get(0)}" method="post">
 	姓<br />
 	<input name="LastName" type="text" th:value="*{userLastName}"/>
 	名<br />

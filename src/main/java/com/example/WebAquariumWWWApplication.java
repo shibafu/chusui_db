@@ -6,15 +6,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class Logindemo2Application extends SpringBootServletInitializer{
+public class WebAquariumWWWApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
-		SpringApplication.run(Logindemo2Application.class, args);
+		SpringApplication.run(WebAquariumWWWApplication.class, args);
 	}
 
 	//tomcatでweb/xmlなしで動かすための設定
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
-		return application.sources(Logindemo2Application.class);
+		return application.sources(WebAquariumWWWApplication.class);
 	}
 }
