@@ -1,23 +1,13 @@
 package com.example.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
  * The persistent class for the news_article_master database table.
- *
+ * 
  */
 @Entity
 @Table(name="news_article_master")
@@ -27,8 +17,6 @@ public class NewsArticleMaster implements Serializable {
 
 	@Id
 	@Column(name="article_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="NewArticleGen")
-	@SequenceGenerator(name="NewArticleGen",sequenceName="news_article_id_gen",allocationSize=1)
 	private Integer articleId;
 
 	@Column(name="article_header")

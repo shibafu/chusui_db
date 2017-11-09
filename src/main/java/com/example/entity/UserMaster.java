@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the user_master database table.
- *
+ * 
  */
 @Entity
 @Table(name="user_master")
@@ -19,6 +19,8 @@ public class UserMaster implements Serializable {
 	private Integer userId;
 
 	private String address;
+
+	private String authority;
 
 	private String email;
 
@@ -51,6 +53,14 @@ public class UserMaster implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getAuthority() {
+		return this.authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	public String getEmail() {

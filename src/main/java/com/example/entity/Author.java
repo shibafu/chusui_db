@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the "Author" database table.
- *
+ * 
  */
 @Entity
 @Table(name="\"Author\"")
@@ -15,36 +15,48 @@ public class Author implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_gen")
-    @SequenceGenerator(name = "author_id_gen", sequenceName = "author_user_id_serial", allocationSize = 1)
-	private Integer userId;
+	@Column(name="author_id")
+	private Integer authorId;
+
+	@Column(name="author_firstname")
+	private String authorFirstname;
+
+	@Column(name="author_lastname")
+	private String authorLastname;
 
 	private String authority;
 
+	private String email;
+
 	private Boolean enabled;
 
-	@Column(name="user_email")
-	private String userEmail;
-
-	@Column(name="user_firstname")
-	private String userFirstname;
-
-	@Column(name="user_lastname")
-	private String userLastname;
-
-	@Column(name="user_password")
-	private String userPassword;
+	private String password;
 
 	public Author() {
 	}
 
-	public Integer getUserId() {
-		return this.userId;
+	public Integer getAuthorId() {
+		return this.authorId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getAuthorFirstname() {
+		return this.authorFirstname;
+	}
+
+	public void setAuthorFirstname(String authorFirstname) {
+		this.authorFirstname = authorFirstname;
+	}
+
+	public String getAuthorLastname() {
+		return this.authorLastname;
+	}
+
+	public void setAuthorLastname(String authorLastname) {
+		this.authorLastname = authorLastname;
 	}
 
 	public String getAuthority() {
@@ -55,6 +67,14 @@ public class Author implements Serializable {
 		this.authority = authority;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Boolean getEnabled() {
 		return this.enabled;
 	}
@@ -63,36 +83,12 @@ public class Author implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public String getUserEmail() {
-		return this.userEmail;
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getUserFirstname() {
-		return this.userFirstname;
-	}
-
-	public void setUserFirstname(String userFirstname) {
-		this.userFirstname = userFirstname;
-	}
-
-	public String getUserLastname() {
-		return this.userLastname;
-	}
-
-	public void setUserLastname(String userLastname) {
-		this.userLastname = userLastname;
-	}
-
-	public String getUserPassword() {
-		return this.userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
