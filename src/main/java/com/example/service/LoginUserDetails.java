@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.entity.Author;
-import com.example.entity.UserMaster;
+import com.example.entity.ChusuiUserMaster;
+import com.example.entity.CustomerMaster;
 
 /**
  * ログインユーザーディテール。
@@ -17,21 +17,9 @@ import com.example.entity.UserMaster;
  */
 public class LoginUserDetails implements UserDetails{
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	//フィールド
-	//二つのテーブルから読み込む
-	private Author author;
-	private UserMaster userMaster;
+	private ChusuiUserMaster chusuiUserMaster;
+	private CustomerMaster customerMaster;
 
-	//ユーザーディテールフィールド
-	private boolean enabled;
-	private String userName;
-	private String userPassword;
-
-	//権限をロード
 	private Collection<GrantedAuthority> authorities;
 
 
@@ -41,36 +29,50 @@ public class LoginUserDetails implements UserDetails{
 		return authorities;
 	}
 
-	/**
-	 * 管理者のフィールドを生成して初期化
-	 * @param x_a
-	 * @param x_authorities
-	 */
-	public LoginUserDetails(Author x_a, Collection<GrantedAuthority> x_authorities){
-		this.author = x_a;
+	public LoginUserDetails(ChusuiUserMaster x_c, Collection<GrantedAuthority> x_authorities){
+		this.chusuiUserMaster = x_c;
 		this.authorities = x_authorities;
-		this.userMaster = null;
+		this.customerMaster = null;
 	}
 
-	/**
-	 * 一般ユーザーのフィールドを生成して初期化
-	 * @param x_u
-	 * @param x_authorities
-	 */
-	public LoginUserDetails(UserMaster x_u, Collection<GrantedAuthority> x_authorities){
-		this.author = null;
+	public LoginUserDetails(CustomerMaster x_c, Collection<GrantedAuthority> x_authorities){
+		this.chusuiUserMaster = null;
 		this.authorities = x_authorities;
-		this.userMaster = x_u;
+		this.customerMaster = x_c;
 	}
 
 	@Override
 	public String getPassword() {
-		return this.userPassword;
+		// TODO 自動生成されたメソッド・スタブ
+		String LoginUserPassword;
+
+		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
+		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+
+		LoginUserPassword =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getUserPassword())
+							.orElseGet(() ->//ラムダ式の入れ子
+							cm_opt.map(customerMaster -> customerMaster.getCustomerPassword())//nullの時もう一度ラムダ式実行
+							.orElseGet(() -> "No Password!")
+							);
+		//返す
+		return LoginUserPassword;
 	}
 
 	@Override
 	public String getUsername() {
-		return this.userName;
+		// TODO 自動生成されたメソッド・スタブ
+		String LoginUserName;
+
+		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
+		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+
+		LoginUserName =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getUserEmail())
+							.orElseGet(() ->//ラムダ式の入れ子
+							cm_opt.map(customerMaster -> customerMaster.getEmail())//nullの時もう一度ラムダ式実行
+							.orElseGet(() -> "No Email!")
+							);
+		//返す
+		return LoginUserName;
 		}
 
 	@Override
@@ -93,7 +95,19 @@ public class LoginUserDetails implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return this.enabled;
+		// TODO 自動生成されたメソッド・スタブ
+		Boolean Enabled;
+
+		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
+		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+
+		Enabled =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getEnabled())
+							.orElseGet(() ->//ラムダ式の入れ子
+							cm_opt.map(customerMaster -> customerMaster.getEnabled())//nullの時もう一度ラムダ式実行
+							.orElseGet(() -> null)
+							);
+		//返す
+		return Enabled;
 	}
 	/**
 	 * どちらのテーブルか判定
@@ -102,24 +116,10 @@ public class LoginUserDetails implements UserDetails{
 	public String whichUser() {
 		String EntityType = null;
 
-		//管理者の場合
-		if(author.getAuthorId()!= null){
+		if(chusuiUserMaster.getUserId() != null){
 			EntityType = "ChusuiUserMaster";
-
-			this.userName = author.getEmail();
-			this.userPassword = author.getPassword();
-			this.enabled = author.getEnabled();
-
-			return EntityType; //メソッド終了
-
-		} else if (userMaster.getUserId() != null){
+		} else if (customerMaster.getCustomerId() != null){
 			EntityType = "CustomerMaster";
-
-			this.userName = userMaster.getEmail();
-			this.userPassword = userMaster.getPassword();
-			this.enabled = true;
-
-			return EntityType; //メソッド終了
 		}
 
 		return EntityType;

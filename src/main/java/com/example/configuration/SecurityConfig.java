@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
+import com.example.service.ChuUserDetailService;
 import com.example.service.LoginUserDetailsService;
 
 /**
@@ -31,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	//独自の認証UserDetailServiceを注入
 	@Autowired
+	ChuUserDetailService cuService;
+
+	@Autowired
 	LoginUserDetailsService loService;
 
 	/**
@@ -45,33 +49,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 				//LoginFormと同じものをパラメーターを作成
-			.formLogin() //ログイン画面設定
+			.formLogin()
 				.loginPage("/login")
 				.permitAll()
 				.usernameParameter("loginName")
 				.passwordParameter("loginPassword")
 				.defaultSuccessUrl("/user_top")
 					.and()
-			.logout() //ログアウト設定
+			.logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login")
 				.permitAll()
-			.and() //アクセス許可設定
+			.and()
 				.authorizeRequests()
-				//ログインはアクセス許可
 				.antMatchers("/register","/register_confirm","/register_complete").permitAll()
-				//管理画面はADMINだけ
 				.antMatchers("/management_console","/management_console/*").hasAuthority("ROLE_ADMIN")
 				.anyRequest()
 				.authenticated()
 			.and()
 				.csrf()
-				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
+				.disable();
+//				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
 
 	}
 
 	/**
 	 * 実際セキュリティを動かすメソッド。
+	 * 今はChusuiUserのみ
 	 * @param auth ユーザー認証情報。
 	 * @throws Exception
 	 */
@@ -79,6 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
 		auth.userDetailsService(loService)
 		.passwordEncoder(passwordEncoder());
+
+		System.out.println("ここでとなる");
+//		auth.authenticationProvider(authenticationProvider)
 	}
 
 	//パスワードエンコーダー
@@ -88,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/**
-	 * csrfセキュリティトークンオブジェクトを生成するメソッド
+	 *
 	 * @return csrdトークンオブジェクト
 	 */
 	private CsrfTokenRepository csrfTokenRepository()

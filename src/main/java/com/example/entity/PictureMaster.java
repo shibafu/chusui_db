@@ -18,8 +18,6 @@ public class PictureMaster implements Serializable {
 	@Column(name="picture_id")
 	private Long pictureId;
 
-	private String name;
-
 	@Column(name="picture_data")
 	private byte[] pictureData;
 
@@ -32,14 +30,6 @@ public class PictureMaster implements Serializable {
 
 	public void setPictureId(Long pictureId) {
 		this.pictureId = pictureId;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public byte[] getPictureData() {
