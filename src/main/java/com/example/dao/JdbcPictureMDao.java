@@ -1,11 +1,11 @@
 package com.example.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import com.example.entity.Author;
 import com.example.entity.PictureMaster;
 import com.example.repository.PictureMasterRepository;
 
@@ -18,21 +18,38 @@ public class JdbcPictureMDao {
 	PictureMasterRepository pcRepository;
 
 
-	public Author findByUsermail(String x_email){
-		String sql = "SELECT user_id, user_lastname, user_firstname, user_password, user_email, authority, enabled FROM chusui_user_master WHERE user_email LIKE '" + x_email + "' ;";
+	public PictureMaster findById(String x_id){
+		String sql = "SELECT * FROM chusui_user_master WHERE picture_id LIKE " + x_id + " ;";
 
 		PictureMaster p_m = new PictureMaster();
 		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 
-		c_m.setUserId((Integer)result.get("user_id"));
-		c_m.setUserLastname((String)result.get("user_lastname"));
-		c_m.setUserFirstname((String)result.get("user_firstname"));
-		c_m.setUserPassword((String)result.get("user_password"));
-		c_m.setUserEmail((String)result.get("user_email"));
-		c_m.setAuthority((String)result.get("authority"));
-		c_m.setEnabled((Boolean)result.get("enabled"));
+		p_m.setPictureId((Long)result.get("picuture_id"));
+		p_m.setPictureData((byte[])result.get("picuture_id"));
+		p_m.setName((String)result.get("picuture_id"));
 
-		return c_m;
+		return p_m;
+	}
+
+	public List<PictureMaster> findByName(String x_name){
+		String sql = "SELECT * FROM chusui_user_master WHERE name LIKE '%" + x_name + "%'"
+				+ "ORDER BY name ;";
+
+		//検索結果を取得
+		List<Map<String, Object>> rs_lis = null;
+		rs_lis = jdbcTemplate.queryForList(sql);
+
+			//検索結果をListで再取得
+			List<PictureMaster> result = new ArrayList<PictureMaster>();
+
+			for(Map<String, Object> pict : rs_lis) {
+				PictureMaster tmp_mdl = new PictureMaster();
+				tmp_mdl.setPictureId((Long)pict.get("picture_id"));
+				tmp_mdl.setPictureData((byte[])pict.get("picture_id"));
+				tmp_mdl.setName((String)pict.get("picture_id"));
+			}
+
+		return result;
 	}
 
 }

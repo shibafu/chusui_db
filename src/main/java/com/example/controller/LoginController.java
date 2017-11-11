@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.entity.NewsArticleMaster;
 import com.example.form.LoginForm;
 import com.example.orders.GroupOrders;
-import com.example.repository.ChusuiUserMasterRepository;
-import com.example.repository.CustomerMasterRepository;
+import com.example.repository.AuthorRepository;
 import com.example.repository.NewsArticleMasterRepository;
+import com.example.repository.UserMasterRepository;
 import com.example.service.LoginUserDetails;
 
 
@@ -41,9 +41,9 @@ public class LoginController {
 	public final static String LOGIN_SUCCESSED = "ログイン成功";
 
 	@Autowired
-	ChusuiUserMasterRepository userRepos;
+	AuthorRepository authorRepos;
 	@Autowired
-	CustomerMasterRepository CustomRepos;
+	UserMasterRepository umRepos;
 	@Autowired
 	NewsArticleMasterRepository namRepos;
 
