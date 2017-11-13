@@ -24,6 +24,8 @@ public class UserMaster implements Serializable {
 
 	private String email;
 
+	private Boolean enabled;
+
 	private String hadlename;
 
 	private String password;
@@ -69,6 +71,14 @@ public class UserMaster implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Boolean getEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getHadlename() {

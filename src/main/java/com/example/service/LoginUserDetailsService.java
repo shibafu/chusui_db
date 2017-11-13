@@ -12,40 +12,40 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.entity.ChusuiUserMaster;
-import com.example.entity.CustomerMaster;
-import com.example.repository.ChusuiUserMasterRepository;
-import com.example.repository.CustomerMasterRepository;
+import com.example.entity.Author;
+import com.example.entity.UserMaster;
+import com.example.repository.AuthorRepository;
+import com.example.repository.UserMasterRepository;
 
 @Service
 public class LoginUserDetailsService implements UserDetailsService{
 
 @Autowired
-ChusuiUserMasterRepository chusuiUserMasterRepository;
+AuthorRepository authorRepository;
 
 @Autowired
-CustomerMasterRepository customerMasterRepository;
+UserMasterRepository userMasterRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO 自動生成されたメソッド・スタブ
 
 		//オプショナルで型取得
-		List<ChusuiUserMaster> ListChu = chusuiUserMasterRepository.findByUserEmail(username);
-		List<CustomerMaster> ListCus = customerMasterRepository.findByUserEmail(username);
+		List<Author> ListAuth = authorRepository.findByEmail(username);
+		List<UserMaster> ListUma = userMasterRepository.findByUserEmail(username);
 
 		//条件分岐！
-		if(ListChu != null && ListChu.size() > 0){
-			return new LoginUserDetails(ListChu.get(0),getAuthorityChu(ListChu.get(0)));
-		} else if(ListCus != null && ListCus.size() > 0l){
-			return new LoginUserDetails(ListCus.get(0),getAuthorityCus(ListCus.get(0)));
+		if(ListAuth != null && ListAuth.size() > 0){
+			return new LoginUserDetails(ListAuth.get(0),getAuthorityAuth(ListAuth.get(0)));
+		} else if(ListUma != null && ListUma.size() > 0l){
+			return new LoginUserDetails(ListUma.get(0),getAuthorityUma(ListUma.get(0)));
 		} else {
 			throw new UsernameNotFoundException("User Not Found");
 		}
 	}
 
-	public CustomerMaster notFoundChusuiUser(Optional<List<CustomerMaster>> x_cus)throws UsernameNotFoundException{
-		return x_cus.map(List_CusUser -> List_CusUser.get(0))
+	public UserMaster notFoundChusuiUser(Optional<List<UserMaster>> x_um)throws UsernameNotFoundException{
+		return x_um.map(List_CusUser -> List_CusUser.get(0))
 		.orElseThrow(() -> new  UsernameNotFoundException("user not be found"));
 	}
 
@@ -54,8 +54,8 @@ CustomerMasterRepository customerMasterRepository;
 	 *createAuthorityListに権限を加えることで、ROLE_ADMINとROLE_USERの権限を両方持った状態にすることもできる。
 	 * @return
 	 */
-	private Collection<GrantedAuthority> getAuthorityChu(ChusuiUserMaster x_cuMaster){
-		if(x_cuMaster.getAuthority().equals("ROLE_ADMIN")){
+	private Collection<GrantedAuthority> getAuthorityAuth(Author x_author){
+		if(x_author.getAuthority().equals("ROLE_ADMIN")){
 			return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");
@@ -66,8 +66,8 @@ CustomerMasterRepository customerMasterRepository;
 	 *
 	 * @return
 	 */
-	private Collection<GrantedAuthority> getAuthorityCus(CustomerMaster x_cusMaster){
-		if(x_cusMaster.getAuthority().equals("ROLE_ADMIN")){
+	private Collection<GrantedAuthority> getAuthorityUma(UserMaster x_userMaster){
+		if(x_userMaster.getAuthority().equals("ROLE_ADMIN")){
 			return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 		} else {
 			return AuthorityUtils.createAuthorityList("ROLE_USER");

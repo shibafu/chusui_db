@@ -2,12 +2,13 @@ package com.example.service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.entity.ChusuiUserMaster;
-import com.example.entity.CustomerMaster;
+import com.example.entity.Author;
+import com.example.entity.UserMaster;
 
 /**
  * ログインユーザーディテール。
@@ -17,8 +18,12 @@ import com.example.entity.CustomerMaster;
  */
 public class LoginUserDetails implements UserDetails{
 
-	private ChusuiUserMaster chusuiUserMaster;
-	private CustomerMaster customerMaster;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private Author author;
+	private UserMaster userMaster;
 
 	private Collection<GrantedAuthority> authorities;
 
@@ -29,16 +34,16 @@ public class LoginUserDetails implements UserDetails{
 		return authorities;
 	}
 
-	public LoginUserDetails(ChusuiUserMaster x_c, Collection<GrantedAuthority> x_authorities){
-		this.chusuiUserMaster = x_c;
+	public LoginUserDetails(Author x_a, Collection<GrantedAuthority> x_authorities){
+		this.author = x_a;
 		this.authorities = x_authorities;
-		this.customerMaster = null;
+		this.userMaster = null;
 	}
 
-	public LoginUserDetails(CustomerMaster x_c, Collection<GrantedAuthority> x_authorities){
-		this.chusuiUserMaster = null;
+	public LoginUserDetails(UserMaster x_c, Collection<GrantedAuthority> x_authorities){
+		this.author = null;
 		this.authorities = x_authorities;
-		this.customerMaster = x_c;
+		this.userMaster = x_c;
 	}
 
 	@Override
@@ -46,12 +51,12 @@ public class LoginUserDetails implements UserDetails{
 		// TODO 自動生成されたメソッド・スタブ
 		String LoginUserPassword;
 
-		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
-		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+		Optional<Author> au_opt = Optional.ofNullable(author);
+		Optional<UserMaster> um_opt = Optional.ofNullable(userMaster);
 
-		LoginUserPassword =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getUserPassword())
+		LoginUserPassword =au_opt.map(author_entity ->  author.getPassword())
 							.orElseGet(() ->//ラムダ式の入れ子
-							cm_opt.map(customerMaster -> customerMaster.getCustomerPassword())//nullの時もう一度ラムダ式実行
+							um_opt.map(userMaster_entity -> userMaster.getPassword())//nullの時もう一度ラムダ式実行
 							.orElseGet(() -> "No Password!")
 							);
 		//返す
@@ -63,13 +68,13 @@ public class LoginUserDetails implements UserDetails{
 		// TODO 自動生成されたメソッド・スタブ
 		String LoginUserName;
 
-		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
-		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+		Optional<Author> au_opt = Optional.ofNullable(author);
+		Optional<UserMaster> um_opt = Optional.ofNullable(userMaster);
 
-		LoginUserName =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getUserEmail())
+		LoginUserName =au_opt.map(author_entity ->  author.getPassword())
 							.orElseGet(() ->//ラムダ式の入れ子
-							cm_opt.map(customerMaster -> customerMaster.getEmail())//nullの時もう一度ラムダ式実行
-							.orElseGet(() -> "No Email!")
+							um_opt.map(userMaster_entity -> userMaster.getPassword())//nullの時もう一度ラムダ式実行
+							.orElseGet(() -> "No Password!")
 							);
 		//返す
 		return LoginUserName;
@@ -98,13 +103,13 @@ public class LoginUserDetails implements UserDetails{
 		// TODO 自動生成されたメソッド・スタブ
 		Boolean Enabled;
 
-		Optional<ChusuiUserMaster> chu_opt = Optional.ofNullable(chusuiUserMaster);
-		Optional<CustomerMaster> cm_opt = Optional.ofNullable(customerMaster);
+		Optional<Author> au_opt = Optional.ofNullable(author);
+		Optional<UserMaster> um_opt = Optional.ofNullable(userMaster);
 
-		Enabled =chu_opt.map(chusuiUserMaster ->  chusuiUserMaster.getEnabled())
-							.orElseGet(() ->//ラムダ式の入れ子
-							cm_opt.map(customerMaster -> customerMaster.getEnabled())//nullの時もう一度ラムダ式実行
-							.orElseGet(() -> null)
+		Enabled =au_opt.map(author_entity ->  author.getEnabled())
+							.orElseGet((Supplier<Boolean>) () ->//ラムダ式の入れ子 Booleaの時はサプライヤーの方を指定しないといけないっぽい
+							um_opt.map(userMaster_entity -> userMaster.getEnabled())//nullの時もう一度ラムダ式実行
+							.orElseThrow(() -> null) //最終的な戻り値は変数と同値でないとだめ
 							);
 		//返す
 		return Enabled;
@@ -116,10 +121,10 @@ public class LoginUserDetails implements UserDetails{
 	public String whichUser() {
 		String EntityType = null;
 
-		if(chusuiUserMaster.getUserId() != null){
-			EntityType = "ChusuiUserMaster";
-		} else if (customerMaster.getCustomerId() != null){
-			EntityType = "CustomerMaster";
+		if(author.getAuthorId() != null){
+			EntityType = "Author";
+		} else if (userMaster.getUserId() != null){
+			EntityType = "UserMaster";
 		}
 
 		return EntityType;

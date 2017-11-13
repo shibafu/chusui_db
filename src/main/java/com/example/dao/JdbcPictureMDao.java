@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +20,48 @@ public class JdbcPictureMDao {
 	PictureMasterRepository pcRepository;
 
 
-	public Author findByUsermail(String x_email){
-		String sql = "SELECT user_id, user_lastname, user_firstname, user_password, user_email, authority, enabled FROM chusui_user_master WHERE user_email LIKE '" + x_email + "' ;";
+	/**
+	 * Idで検索
+	 * @param x_Id
+	 * @return
+	 */
+	public PictureMaster findById(Long x_Id){
+		String sql = "SELECT * FROM PictureMaster WHERE picture_id = " + x_Id+ " ;";
 
 		PictureMaster p_m = new PictureMaster();
 		Map<String, Object> result = jdbcTemplate.queryForMap(sql);
 
-		c_m.setUserId((Integer)result.get("user_id"));
-		c_m.setUserLastname((String)result.get("user_lastname"));
-		c_m.setUserFirstname((String)result.get("user_firstname"));
-		c_m.setUserPassword((String)result.get("user_password"));
-		c_m.setUserEmail((String)result.get("user_email"));
-		c_m.setAuthority((String)result.get("authority"));
-		c_m.setEnabled((Boolean)result.get("enabled"));
+		p_m.setPictureId((Long)result.get("picture_id"));
+		p_m.setPictureData((byte[])result.get("picture_data"));
+		p_m.setName((String)result.get("name"));
 
-		return c_m;
+		return p_m;
+	}
+
+	/**
+	 * 名前で検索(あいまい)
+	 * @param x_Id
+	 * @return
+	 */
+	public List<PictureMaster> findByName(Long x_Name){
+		String sql = "SELECT * FROM PictureMaster WHERE name LIKE '%" + x_Name+ "%' ;";
+
+		List<PictureMaster> pm_lis = new ArrayList<PictureMaster>();
+		List<Map<String, Object>>  result = jdbcTemplate.queryForList(sql);
+
+		for(Map<String, Object> iterator  : result) {
+
+			//取得したデータをピクチャーマスターに
+			PictureMaster pm = new PictureMaster();
+			pm.setPictureId((Long)iterator.get("picture_id"));
+			pm.setPictureData((byte[])iterator.get("picture_data"));
+			pm.setName((String)iterator.get("name"));
+
+			//結果に加える
+			pm_lis.add(pm);
+		}
+
+		return pm_lis;
 	}
 
 }
