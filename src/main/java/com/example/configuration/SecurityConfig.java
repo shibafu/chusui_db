@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
-import com.example.service.ChuUserDetailService;
 import com.example.service.LoginUserDetailsService;
 
 /**
@@ -31,9 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	DataSource dataSource;
 
 	//独自の認証UserDetailServiceを注入
-	@Autowired
-	ChuUserDetailService cuService;
-
 	@Autowired
 	LoginUserDetailsService loService;
 
@@ -65,17 +61,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/register","/register_confirm","/register_complete").permitAll()
 				.antMatchers("/management_console","/management_console/*").hasAuthority("ROLE_ADMIN")
 				.anyRequest()
-				.authenticated()
-			.and()
-				.csrf()
-				.disable();
+				.authenticated();
+//			.and()
+//				.csrf()
 //				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
 
 	}
 
 	/**
 	 * 実際セキュリティを動かすメソッド。
-	 * 今はChusuiUserのみ
+	 * 今は管理者Authorのみ
 	 * @param auth ユーザー認証情報。
 	 * @throws Exception
 	 */
@@ -83,9 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	void configureAuthentivationManager(AuthenticationManagerBuilder auth)throws Exception{
 		auth.userDetailsService(loService)
 		.passwordEncoder(passwordEncoder());
-
-		System.out.println("ここでとなる");
-//		auth.authenticationProvider(authenticationProvider)
 	}
 
 	//パスワードエンコーダー
