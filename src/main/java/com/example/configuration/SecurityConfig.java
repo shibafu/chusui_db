@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +25,7 @@ import com.example.service.LoginUserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -61,10 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/register","/register_confirm","/register_complete").permitAll()
 				.antMatchers("/management_console","/management_console/*").hasAuthority("ROLE_ADMIN")
 				.anyRequest()
-				.authenticated();
-//			.and()
-//				.csrf()
-//				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
+				.authenticated()
+			.and()
+				.csrf()
+				.csrfTokenRepository(csrfTokenRepository());			//csrfトークン挿入
 
 	}
 
@@ -93,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private CsrfTokenRepository csrfTokenRepository()
 	{
 	    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-	    repository.setSessionAttributeName("_csrf");
+	    repository.setHeaderName("X-XSRF-TOKEN");
 	    return repository;
 	}
 }

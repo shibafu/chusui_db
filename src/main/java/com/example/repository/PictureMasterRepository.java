@@ -15,9 +15,9 @@ import com.example.entity.PictureMaster;
 @Repository
 public interface PictureMasterRepository extends JpaRepository<PictureMaster, Integer>{
 
-	@Query("SELECT c FROM PictureMaster a WHERE a.id = :uId")
-	public List<PictureMaster> findbyId(@Param(":uId") Integer id);
-	@Query("SELECT c FROM PictureMaster a WHERE a.name = :uName")
-	public List<PictureMaster> findByName(@Param(":uName") String name);
+	@Query("SELECT a FROM PictureMaster a WHERE a.id = :uId")
+	public List<PictureMaster> findbyId(@Param("uId") Integer id);
+	@Query("SELECT a FROM PictureMaster a WHERE a.name = :uName")
+	public List<PictureMaster> findByName(@Param("uName") String name);
 
 }

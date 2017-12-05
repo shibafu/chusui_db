@@ -1,4 +1,4 @@
-package com.example.form.chuuserManage;
+package com.example.form.authorManage;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -8,10 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.example.orders.GroupOrder1;
 import com.example.orders.GroupOrder2;
 import com.example.orders.GroupOrder3;
-import com.example.utils.customValidator.SameEmailChusuiUser;
-import com.example.utils.customValidator.SameEmailCustomer;
+import com.example.utils.customValidator.SameEmailAuthor;
+import com.example.utils.customValidator.SameEmailUser;
 
-public class ChuUserUpdateForm {
+public class AuthorUpdateForm {
 	//chuuser_manage/chuuser_update.htmlのインプットタグFamilyNameと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※名前を入力してください")
 	private String FirstName;
@@ -23,8 +23,8 @@ public class ChuUserUpdateForm {
 	//chuuser_manage/chuuser_update.htmlのインプットタグEMailと同じ名前
 	@NotEmpty(groups = {GroupOrder1.class},message = "※メールアドレスを入力してください")
 	@Pattern(regexp="(^[a-zA-Z0-9!$&*.=^`|~#%'+\\/?_{}-]+@([a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,4}$)",groups={GroupOrder2.class},message="※正しいメールアドレスの形式を入力してください")
-	@SameEmailCustomer(groups={GroupOrder3.class})
-	@SameEmailChusuiUser(groups={GroupOrder3.class})
+	@SameEmailUser(groups={GroupOrder3.class})
+	@SameEmailAuthor(groups={GroupOrder3.class})
 	private String EMail;
 
 	//chuuser_manage/chuuser_update.htmlのインプットタグChuUserPasswordと同じ名前

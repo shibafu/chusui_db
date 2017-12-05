@@ -101,18 +101,23 @@ public class LoginUserDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO 自動生成されたメソッド・スタブ
-		Boolean Enabled;
+		boolean EnabledResult;
 
 		Optional<Author> au_opt = Optional.ofNullable(author);
 		Optional<UserMaster> um_opt = Optional.ofNullable(userMaster);
 
-		Enabled =au_opt.map(author_entity ->  author.getEnabled())
-							.orElseGet((Supplier<Boolean>) () ->//ラムダ式の入れ子 Booleaの時はサプライヤーの方を指定しないといけないっぽい
-							um_opt.map(userMaster_entity -> userMaster.getEnabled())//nullの時もう一度ラムダ式実行
-							.orElseThrow(() -> null) //最終的な戻り値は変数と同値でないとだめ
-							);
+		boolean EnabledAuthor = au_opt.map(author -> author.getEnabled()).orElseGet(() -> false);
+		boolean EnabledUser = au_opt.map(userMaster-> userMaster.getEnabled()).orElseGet(() -> false);
+
+
+		if(EnabledAuthor == true || EnabledUser == true) {
+			EnabledResult = true;
+		}else {
+			EnabledResult = false;
+		}
+
 		//返す
-		return Enabled;
+		return EnabledResult;
 	}
 	/**
 	 * どちらのテーブルか判定

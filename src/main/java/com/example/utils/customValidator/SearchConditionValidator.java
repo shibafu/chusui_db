@@ -22,6 +22,9 @@ public class SearchConditionValidator implements ConstraintValidator<SearchCondi
 			return true;
 		}
 
+		/**
+		 * 全て存在しないならFalse判定
+		 */
 		if(value.getArticleHeader().isEmpty()
 				&& value.getArticleSentence().isEmpty()
 				&& value.getCompanyName().isEmpty()

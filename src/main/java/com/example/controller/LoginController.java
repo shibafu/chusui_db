@@ -26,8 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.entity.NewsArticleMaster;
 import com.example.form.LoginForm;
 import com.example.orders.GroupOrders;
-import com.example.repository.ChusuiUserMasterRepository;
-import com.example.repository.CustomerMasterRepository;
 import com.example.repository.NewsArticleMasterRepository;
 import com.example.service.LoginUserDetails;
 
@@ -36,20 +34,11 @@ import com.example.service.LoginUserDetails;
 @Controller
 public class LoginController {
 
-	public final static String VALIDATION_ERROR = "妥当性エラー";
-	public final static String WRONG_NAME_ERROR = "ユーザー未存在エラー";
-	public final static String LOGIN_SUCCESSED = "ログイン成功";
-
-	@Autowired
-	ChusuiUserMasterRepository userRepos;
-	@Autowired
-	CustomerMasterRepository CustomRepos;
 	@Autowired
 	NewsArticleMasterRepository namRepos;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String domain_redirect(){
-
 		return "redirect:/user_top";
 	}
 

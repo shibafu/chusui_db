@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.example.entity.CustomerMaster;
+import com.example.entity.UserMaster;
 import com.example.form.RegisterForm;
 import com.example.orders.GroupOrders;
-import com.example.repository.CustomerMasterRepository;
+import com.example.repository.UserMasterRepository;
 import com.example.utils.StringUtils;
 
 
@@ -32,7 +32,7 @@ public class RegisterController {
 
 	// データアクセスリポジトリ
 	@Autowired
-	CustomerMasterRepository cusRepos;
+	UserMasterRepository userRepos;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Model model,
@@ -66,9 +66,9 @@ public class RegisterController {
 			@Validated(GroupOrders.class) BindingResult x_BindingResult) {
 
 		// インサートのやり方が分からないでござる
-		CustomerMaster x_cm = CustomerMaster_set(x_RegisterForm);
+		UserMaster x_cm = UserMaster_set(x_RegisterForm);
 
-		cusRepos.save(x_cm);
+		userRepos.saveAndFlush(x_cm);
 
 		return "user_register/register_complete";
 	}
@@ -102,25 +102,24 @@ public class RegisterController {
 	 * @param レジスターフォーム
 	 *            rf
 	 */
-	private CustomerMaster CustomerMaster_set(RegisterForm rf) {
-		CustomerMaster cm = new CustomerMaster();
+	private UserMaster UserMaster_set(RegisterForm rf) {
+		UserMaster um = new UserMaster();
 
-		cm.setCustomerLastName(rf.getLastName());
-		cm.setCustomerFirstName(rf.getFirstName());
-		cm.setCompanyName(rf.getCompanyName());
-		cm.setAddres(rf.getCompanyAddress());
-		cm.setCompanyBlock(rf.getCompanyBlock());
-		cm.setEmail(rf.getEMail());
-		cm.setAuthority("ROLE_USER");
-		cm.setEnabled(true);
+		um.setUserLastname(rf.getLastName());
+		um.setUserFirstname(rf.getFirstName());
+		um.setAddress(rf.getCompanyAddress());
+		um.setEmail(rf.getEMail());
+		um.setAuthority("ROLE_USER");
+		um.setEnabled(true);
+//		um.setPhone(phone);
+//		um.setHadlename(hadlename);
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		// ハッシュ生成
 		String hashGenerated = passwordEncoder.encode(rf.getCustomerPassword());
 
-		cm.setCustomerPassword(hashGenerated);
+		um.setPassword(hashGenerated);
 
-		return cm;
+		return um;
 
 	}
 

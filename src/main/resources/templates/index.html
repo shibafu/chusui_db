@@ -52,7 +52,7 @@
 
 	</p>
 	<br />
-	<form th:action="@{/login}" method="post" th:object="${LoginForm}">
+	<form id="login" th:action="@{/login}" method="post" th:object="${LoginForm}">
 
 
 			<!--▼▼ エラーメッセージ表示 ▼▼-->
@@ -76,14 +76,14 @@
 			<input name="Button_login" type="submit" value="ログイン" />
 		</div>
 		</p>
-		<!-- input type="hidden" name="_csrf" th:value="${_csrf.token}"/--><!-- csrdトークン -->
+	<input  type="hidden"  th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 	</form>
 	<p class="auto-style6">新規ユーザーの方はこちらから</p>
 
-	<form th:action="@{/register}" method="POST">
+	<form id="register" th:action="@{/register}" method="POST">
 		<p class="auto-style6">
 			<input name="toRegister" type="submit" value="新規ユーザー登録" />
-			<!-- input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/--><!-- csrdトークン -->
+			<input  type="hidden"  th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 		</p>
 	</form>
 </body>

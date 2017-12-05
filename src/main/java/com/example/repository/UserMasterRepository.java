@@ -17,7 +17,7 @@ import com.example.entity.*;
 @Repository
 public interface UserMasterRepository extends JpaRepository<UserMaster,Integer>{
 	//検索
-	@Query("SELECT c FROM User c where c.email = :uEmail")
+	@Query("SELECT u FROM UserMaster u where u.email = :uEmail")
 	public List<UserMaster> findByUserEmail(@Param("uEmail") String userEmail);
 
 }

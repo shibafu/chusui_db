@@ -44,7 +44,7 @@ UserMasterRepository userMasterRepository;
 		}
 	}
 
-	public UserMaster notFoundChusuiUser(Optional<List<UserMaster>> x_um)throws UsernameNotFoundException{
+	public UserMaster notFoundAuthor(Optional<List<UserMaster>> x_um)throws UsernameNotFoundException{
 		return x_um.map(List_CusUser -> List_CusUser.get(0))
 		.orElseThrow(() -> new  UsernameNotFoundException("user not be found"));
 	}

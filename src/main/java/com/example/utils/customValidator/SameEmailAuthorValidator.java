@@ -7,32 +7,32 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.entity.CustomerMaster;
-import com.example.repository.CustomerMasterRepository;
+import com.example.entity.Author;
+import com.example.repository.AuthorRepository;
 
-public class SameEmailCustomerValidator implements  ConstraintValidator<SameEmailCustomer,String> {
+public class SameEmailAuthorValidator implements ConstraintValidator<SameEmailAuthor,String> {
 
-	private SameEmailCustomer sec;
+	private SameEmailAuthor sea;
 
 	@Autowired
-	private CustomerMasterRepository cumRepo;
-
+	private AuthorRepository auRepo;
 
 	@Override
-	public void initialize(SameEmailCustomer annotation) {
+	public void initialize(SameEmailAuthor annotation) {
 		// TODO 自動生成されたメソッド・スタブ
-		sec = annotation;
+		sea = annotation;
 	}
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		// TODO 自動生成されたメソッド・スタブ
-		List<CustomerMaster> list = cumRepo.findByUserEmail(value);
+		List<Author> list = auRepo.findByEmail(value);
 
 		if(list.size() > 0){
 			return false;
 		}
 		return true;
 	}
+
 
 }

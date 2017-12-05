@@ -11,9 +11,9 @@ import javax.validation.Payload;
 
 @Target({ElementType.TYPE,ElementType.FIELD,ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=SameEmailCustomerValidator.class)
+@Constraint(validatedBy=SameEmailUserValidator.class)
 @Documented
-public @interface SameEmailCustomer {
+public @interface SameEmailUser{
 	String message() default "メール認証が弾かれました。既存のメールアドレスと重複していませんか？";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

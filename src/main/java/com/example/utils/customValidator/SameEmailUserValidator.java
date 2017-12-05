@@ -7,32 +7,32 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.entity.ChusuiUserMaster;
-import com.example.repository.ChusuiUserMasterRepository;
+import com.example.entity.UserMaster;
+import com.example.repository.UserMasterRepository;
 
-public class SameEmailChusuiUserValidator implements ConstraintValidator<SameEmailChusuiUser,String> {
+public class SameEmailUserValidator implements  ConstraintValidator<SameEmailUser,String> {
 
-	private SameEmailChusuiUser sec;
+	private SameEmailUser seu;
 
 	@Autowired
-	private ChusuiUserMasterRepository cumRepo;
+	private UserMasterRepository umRepo;
+
 
 	@Override
-	public void initialize(SameEmailChusuiUser annotation) {
+	public void initialize(SameEmailUser annotation) {
 		// TODO 自動生成されたメソッド・スタブ
-		sec = annotation;
+		seu = annotation;
 	}
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		// TODO 自動生成されたメソッド・スタブ
-		List<ChusuiUserMaster> list = cumRepo.findByUserEmail(value);
+		List<UserMaster> list = umRepo.findByUserEmail(value);
 
 		if(list.size() > 0){
 			return false;
 		}
 		return true;
 	}
-
 
 }

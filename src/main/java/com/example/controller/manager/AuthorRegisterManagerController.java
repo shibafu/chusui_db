@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.example.dao.JdbcChusuiDao;
-import com.example.entity.ChusuiUserMaster;
-import com.example.form.ChuUserRegisterForm;
-import com.example.form.chuuserManage.ChuUserUpdateForm;
+import com.example.dao.JdbcAuthorDao;
+import com.example.entity.Author;
+import com.example.form.AuthorRegisterForm;
+import com.example.form.authorManage.AuthorUpdateForm;
 import com.example.orders.GroupOrders;
-import com.example.repository.ChusuiUserMasterRepository;
-import com.example.service.ChuUserDetailService;
+import com.example.repository.AuthorRepository;
+import com.example.service.LoginUserDetailsService;
 import com.example.utils.StringUtils;
 
 @Controller
 @SessionAttributes(names="regForm")
-public class ChuRegisterManagerController {
+public class AuthorRegisterManagerController {
 	/**
 	 * 管理画面トップ
 	 * @param model
@@ -35,14 +35,14 @@ public class ChuRegisterManagerController {
 
 	//DAO一覧
 	@Autowired
-	JdbcChusuiDao jcdRegi;
+	JdbcAuthorDao jcdRegi;
 	@Autowired
-	ChusuiUserMasterRepository cumRepo;
+	AuthorRepository aumRepo;
 
 
 	//ユーザーディテールサービス。
 	@Autowired
-	ChuUserDetailService cud;
+	LoginUserDetailsService cud;
 
 	//□□□□□□□□□□□管理者の管理画面□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 	/**
@@ -50,9 +50,9 @@ public class ChuRegisterManagerController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/management_console/chusui_user_manage", method = RequestMethod.GET)
+	@RequestMapping(value = "/management_console/author_manage", method = RequestMethod.GET)
 	public String management_chusui_user_manage(Model model){
-		return "management_console/chuuser_manage/chuuser_management_top";
+		return "management_console/author_manage/author_management_top";
 	}
 
 	/**
@@ -61,12 +61,12 @@ public class ChuRegisterManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/management_console/chusui_user_manage/user_register", method = RequestMethod.GET)
-	public String chuuser_manage_register(Model model,
-			@Validated(GroupOrders.class)@ModelAttribute("ChuUserRegisterForm")ChuUserRegisterForm curf){
+	public String author_manage_register(Model model,
+			@Validated(GroupOrders.class)@ModelAttribute("AuthoregisterForm")AuthorRegisterForm aurf){
 
-		model.addAttribute("regForm",curf);
+		model.addAttribute("regForm",aurf);
 
-		return "management_console/chuuser_manage/chuuser_register";
+		return "management_console/author_manage/author_register";
 	}
 
 	/**
@@ -77,17 +77,17 @@ public class ChuRegisterManagerController {
 	@RequestMapping(value = "/management_console/chusui_user_manage/register_confirm", method = RequestMethod.POST)
 	public String register_confirm(Model model,
 			@Validated(GroupOrders.class)
-			@ModelAttribute("regForm")ChuUserRegisterForm curf,
+			@ModelAttribute("regForm")AuthorRegisterForm aurf,
 			BindingResult br){
 
 		//モデルを送る
-		model.addAttribute("regForm",curf);
+		model.addAttribute("regForm",aurf);
 		//セッションを生成する
-		setChuUserRegisterFormses(curf);
+		setAuthorRegisterFormses(aurf);
 
 		//疑似パスワード生成
 		StringUtils s = new StringUtils();
-		String mockpass = s.passwordset(curf.getChuUserPassword().length());
+		String mockpass = s.passwordset(aurf.getPassword().length());
 
 		model.addAttribute("MockPass", mockpass);
 
@@ -96,35 +96,35 @@ public class ChuRegisterManagerController {
 			return "redirect:/management_console/chusui_user_manage/user_register?error";
 		}
 
-		return "management_console/chuuser_manage/chuuser_register_confirm";
+		return "management_console/author_manage/author_register_confirm";
 	}
 
 	/**
 	 * 管理者登録画面
 	 * @param model
-	 * @param curf モデルを受け取る
+	 * @param authrf モデルを受け取る
 	 * @return
 	 */
-	@RequestMapping(value = "/management_console/chusui_user_manage/register_complete", method = RequestMethod.POST)
+	@RequestMapping(value = "/management_console/author_manage/register_complete", method = RequestMethod.POST)
 	public String register_complete(Model model,
-			@ModelAttribute("regForm")ChuUserRegisterForm curf){
+			@ModelAttribute("regForm")AuthorRegisterForm authrf){
 
 		//パスワード生成
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		String password_hash = pe.encode(curf.getChuUserPassword());
+		String password_hash = pe.encode(authrf.getPassword());
 
 		//書き込みinfoリスト作成
 		List<String> reqInfo = new ArrayList<String>();
 
-		reqInfo.add(curf.getFirstName());
-		reqInfo.add(curf.getLastName());
+		reqInfo.add(authrf.getFirstName());
+		reqInfo.add(authrf.getLastName());
 		reqInfo.add(password_hash);
-		reqInfo.add(curf.getEMail());
+		reqInfo.add(authrf.getEMail());
 
-		jcdRegi.ChusuiUserRegister(reqInfo);
+		jcdRegi.AuthorRegister(reqInfo);
 
 
-		return "management_console/chuuser_manage/chuuser_register_complete";
+		return "management_console/author_manage/author_register_complete";
 	}
 
 	//▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼参照機能ここから▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
@@ -137,12 +137,12 @@ public class ChuRegisterManagerController {
 	@RequestMapping(value = "/management_console/chusui_user_manage/user_search", method = RequestMethod.POST)
 	public String refference(Model model){
 
-		List<ChusuiUserMaster> lc =cumRepo.findAll();
+		List<Author> lc = aumRepo.findAll();
 
 		model.addAttribute("AllRefference",lc);
 
 
-		return "management_console/chuuser_manage/chuuser_referrence";
+		return "management_console/author_manage/author_referrence";
 	}
 
 	/**
@@ -151,15 +151,15 @@ public class ChuRegisterManagerController {
 	 * @param userEmail モデルを受け取る
 	 * @return
 	 */
-	@RequestMapping(value = "/managemet_console/chusui_user_manage/user_id", method = RequestMethod.GET)
+	@RequestMapping(value = "/managemet_console/author_manage/user_id", method = RequestMethod.GET)
 	public String refference_indivUser(Model model,
 			@RequestParam("username")String userName){
 
-		List<ChusuiUserMaster> lc = cumRepo.findByUserEmail(userName);
+		List<Author> lc = aumRepo.findByEmail(userName);
 
 		model.addAttribute("UserReffernce",lc);
 
-		return "management_console/chuuser_manage/chuuser_update";
+		return "management_console/author_manage/author_update";
 	}
 
 	/**
@@ -170,13 +170,27 @@ public class ChuRegisterManagerController {
 	 */
 	@RequestMapping(value = "/managemet_console/chusui_user_manage/userupadate", method = RequestMethod.POST)
 	public String indivUser_update(Model model,
-			@Validated(GroupOrders.class)@ModelAttribute("ChuUserUpdateForm")ChuUserUpdateForm cuuf){
+			@Validated(GroupOrders.class)@ModelAttribute("authorUpdateForm")AuthorUpdateForm auuf){
 
-		//更新数受け取る
-		Integer result_count = cud.updateChusuiUser(cuuf);
+		Author updateEntity = new Author();
+		updateEntity.setAuthorFirstname(auuf.getFirstName());
+		updateEntity.setAuthorLastname(auuf.getLastName());
+		updateEntity.setAuthority(auuf.getAuthority());
+		updateEntity.setEmail(auuf.getEMail());
+		updateEntity.setEnabled(auuf.getEnabled());
 
-		System.out.println(result_count);
-		return "management_console/chuuser_manage/chuuser_update_complete";
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String password_hash = pe.encode(auuf.getChuUserPassword());
+
+		updateEntity.setPassword(password_hash);
+
+		Author returnEntity = aumRepo.saveAndFlush(updateEntity);
+
+		if(returnEntity == null) {
+			System.out.println("><update miss!!");
+		}
+
+		return "management_console/author_manage/author_update_complete";
 	}
 
 
@@ -187,7 +201,7 @@ public class ChuRegisterManagerController {
 
 	//管理者セッション管理
 	@ModelAttribute("regForm")
-	public ChuUserRegisterForm setChuUserRegisterFormses(ChuUserRegisterForm x_r){
+	public AuthorRegisterForm setAuthorRegisterFormses(AuthorRegisterForm x_r){
 		return x_r;
 	}
 
