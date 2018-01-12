@@ -58,6 +58,7 @@
     <version>${org.springframework-version}</version>
 </dependency>
 
+<!-- 機能面での追加 -->
 
 
 
