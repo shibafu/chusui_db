@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link rel="stylesheet" type="text/css" href="css/color.css" />
+<title>日付</title>
+</head>
+
+<body>
+	<div th:object="${NewsArticle}">
+		<p>日付</p>
+		<input name="companyName" type="text" th:value="*{date}" />
+
+		<p>新聞社名</p>
+
+		<input name="companyName" type="text" th:value="*{companyName}" />
+		見出し<br />
+		<textarea cols="20" name="articleHeader" rows="2"
+			th:text="*{ArticleHeader}"></textarea>
+		<p>記事</p>
+
+		<div sec:authorize="hasRole('ROLE_USER')">
+			<textarea cols="20" name="articleSentence" rows="2"
+				style="width: 300px; height: 500px;"
+				th:text="*{#strings.abbreviate(ArticleSentence,10) + 'ここから先は管理者のみが閲覧できます。続きは該当新聞のページでご覧ください'}"> </textarea>
+		</div>
+
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<textarea cols="20" name="articleSentence" rows="2"
+				style="width: 300px; height: 500px;" th:text="*{ArticleSentence}"> </textarea>
+		</div>
+
+
+	</div>
+</body>
+
+</html>

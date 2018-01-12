@@ -1,0 +1,72 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+jar {
+	baseName = 'logindemo'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	// https://mvnrepository.com/artifact/javax.validation/validation-api
+	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.4.Final'
+	//JSP動かしてぇ・・・
+	compile 'javax.servlet:jstl:1.2'
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    //jSPエンジン
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.8'
+
+	//データベースアクセス
+	// Spring公式JPAの実装。　hibernateではないと思う。
+	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.5.RELEASE'
+	compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.4.RELEASE'
+
+	//Spring-securityの設定
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.4.3.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '1.1.7.RELEASE'
+	compile("org.springframework.security:spring-security-config:3.2.5.RELEASE")
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4
+	// ※※ 注意！！ 現行のThymeleaf spring-boot-starter-thymeleafではversion3.0.2をサポートしていない！ ※※
+	// ※※ 注意！！ Thymeleafのversionを3.0系に指定すれば動くかもしれないが、そんなに試したくはないw ※※
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'
+
+
+	// db connection
+	//compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+ 	compile ("org.springframework:spring-jdbc")
+
+	//Thymeleafの設定
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.2.RELEASE'
+
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	runtime('org.postgresql:postgresql')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+

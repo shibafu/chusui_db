@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>～</title>
+<!-- link rel="stylesheet" type="text/css" href="css/color.css" / -->
+<style type="text/css">
+.fieldError {
+	background-color: #FF657A
+}
+</style>
+</head>
+
+<body  th:object="${NewsSearchForm}">
+
+<form th:action="@{/management_console/newspaper_manage/reffernce}" th:object="${NewsSearchForm}" method="post">
+
+    <ul>
+      <li th:each="error : ${#fields.globalErrors()}"
+         th:text="${error}" style="red"  />
+    </ul>
+
+	日付区間
+	<input type="text" name="dateFrom" th:value="*{#dates.format(dateFrom, 'yyyy/MM/dd')}" th:if="*{dateFrom != null}"/>
+	<input type="text" th:field="*{dateFrom}" th:unless="*{dateFrom != null}"/>
+	<p>～</p>
+	<input type="text" name="dateTo" th:value="*{#dates.format(dateTo, 'yyyy/MM/dd')}" th:if="*{dateTo != null}"/><br />
+	<input type="text" name="dateTo" th:unless="*{dateTo != null}"/><br />
+	<input name="companyName" type="text"/>新聞社名<br />
+	<textarea cols="20" name="articleHeader" rows="2"></textarea>見出し<br />
+	<textarea cols="20" name="articleSentence" rows="2"></textarea>新聞記事<br />
+
+		<input name="Text1" type="submit" value="検索"/>日付区間
+</form>
+
+</body>
+
+</html>
