@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta content="ja" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link rel="stylesheet" type="text/css" href="css/color.css" />
+
+<!-- jQueryを使用する -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
+<title>日付</title>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				var addRow;
+				
+				texteFlect = function() {
+					
+				};
+
+				addRow = function() {
+					$('#nameTable').find('tbody')
+						.append('<table nema ="tableData">'
+						+'<tr>'
+						+'<td><input type="text" name="oppai" value="山下" /></td>'
+						+'<td>28</td>'
+						+'</tr>'
+						+'</table>');
+				}
+
+				$('#addRow').on('click', function() {
+					addRow();
+				})
+
+			});
+</script>
+
+</head>
+
+<body>
+
+	<p>日付</p>
+	<p></p>
+	<form
+		th:action="@{/management_console/newspaper_manage/register_confirm}"
+		method="post" th:object="${NewsArticleForm}">
+		<input name="date" type="text" />
+
+		<p>新聞社名</p>
+		<p>
+			<input name="companyName" type="text" />
+		</p>
+		見出し<br />
+		<textarea cols="20" name="articleHeader" rows="2"></textarea>
+		<p>記事</p>
+		<textarea cols="20" name="articleSentence" rows="2"
+			style="width: 300px; height: 500px;"></textarea>
+		<input name="Reset1" type="submit" value="登録" />
+
+		<button type="button" id="addRow">表がある場合はボタンを押して下さい。</button>
+
+		<div id ="nametable">
+		</div>
+
+	</form>
+</body>
+
+</html>
